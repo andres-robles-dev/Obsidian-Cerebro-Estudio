@@ -4,253 +4,277 @@ tags: [java, fundamentos, variables, literales, scope, declaracion, inicializaci
 
 # 04 - Variables y Literales
 
-## Concepto Central
+---
 
-Una **variable** es un nombre asociado a una posición de memoria que almacena un valor de un tipo concreto. En Java, toda variable debe **declararse** (tipo + nombre) antes de usarse, y puede **inicializarse** en la declaración o después. Un **literal** es la representación textual de un valor fijo en código (ej: `42`, `3.14`, `'A'`, `"Hola"`, `true`).
+## NIVEL JUNIOR
 
-## Para Qué Sirve / Cuándo Usarlo
+### Que es una variable?
 
-- Guardar estado temporal o permanente (campos)
-- Pasar datos a métodos (parámetros)
-- Recibir resultados de expresiones
-- Configurar comportamiento (constantes)
-- Leer argumentos de línea de comandos
-
-## Sintaxis General
-
-### Declaración e Inicialización
+Una variable es una caja donde guardas un valor. Tiene un nombre, un tipo y un valor.
 
 ```java
-// Declaración simple
-tipo nombre;
-// Declaración + inicialización
-tipo nombre = valor;
-// Múltiples mismo tipo
-tipo a = 1, b = 2, c;
-// Inicialización posterior (definida antes de uso)
-tipo x;
-x = calculaValor();
+String nombre = "Ana";
+int edad = 30;
+boolean activo = true;
 ```
 
-### Literales por Tipo
+- **Tipo**: que clase de dato guarda (`String`, `int`, `boolean`)
+- **Nombre**: como la identificas (`nombre`, `edad`, `activo`)
+- **Valor**: lo que tiene guardado (`"Ana"`, `30`, `true`)
 
-| Tipo | Literal Ejemplo | Notas |
-|------|-----------------|-------|
-| `int` | `42`, `-7`, `0b1010` (binario), `0x2A` (hex) | Por defecto `int` |
-| `long` | `42L`, `0L`, `-3000000000L` | **Sufijo `L`/`l` obligatorio si > 2^31-1** |
-| `float` | `3.14f`, `1e-3f`, `.5f` | **Sufijo `f`/`F` obligatorio** |
-| `double` | `3.14`, `1e-3`, `.5` | Por defecto `double` |
-| `boolean` | `true`, `false` | Solo dos valores |
-| `char` | `'A'`, `'\n'`, `'\u0041'`, `'\t'` | Comillas simples, 1 char (16 bits Unicode) |
-| `String` | `"Hola"`, `""`, `"Línea\nOtra"` | Comillas dobles, **objeto** inmutable |
-| `null` | `null` | Referencia vacía (solo tipos referencia) |
-
-> **Underscores en numéricos** (Java 7+): `1_000_000`, `0xFF_EC_DE_5E`, `3.14_15_92f` — solo legibilidad, ignorados por compilador.
-
-## Ejemplo Propio: ConfiguracionJuego
+### Declarar y asignar
 
 ```java
-public class ConfiguracionJuego {
-    // --- CONSTANTES (static final) - Convención UPPER_SNAKE_CASE ---
-    public static final int MAX_JUGADORES = 4;
-    public static final double GRAVEDAD = 9.81;
-    public static final String VERSION = "1.0.0";
-    public static final char TECLA_SALTO_DEFAULT = ' ';
+// Declarar (crear la caja)
+int edad;
 
-    // --- CAMPOS DE INSTANCIA (estado configurable por partida) ---
-    private String nombrePartida;
-    private int numJugadores;
-    private double velocidadJuego;
-    private boolean modoHardcore;
-    private char teclaSalto;
+// Asignar (meter el valor)
+edad = 25;
 
-    // --- CONSTRUCTOR CON VALORES POR DEFECTO ---
-    public ConfiguracionJuego(String nombrePartida) {
-        this.nombrePartida = nombrePartida;      // Requerido
-        this.numJugadores = 1;                   // Default
-        this.velocidadJuego = 1.0;               // Default
-        this.modoHardcore = false;               // Default
-        this.teclaSalto = TECLA_SALTO_DEFAULT;   // Default desde constante
-    }
+// O todo junto
+int edad = 25;
+```
 
-    // --- SETTERS CON VALIDACIÓN (literales en condiciones) ---
-    public void setNumJugadores(int numJugadores) {
-        if (numJugadores < 1 || numJugadores > MAX_JUGADORES) {
-            throw new IllegalArgumentException(
-                "Jugadores debe ser 1-" + MAX_JUGADORES + ", recibido: " + numJugadores
-            );
-        }
-        this.numJugadores = numJugadores;
-    }
+### Que es un literal?
 
-    public void setVelocidadJuego(double velocidad) {
-        if (velocidad <= 0.0 || velocidad > 5.0) {
-            throw new IllegalArgumentException("Velocidad 0.1-5.0, recibido: " + velocidad);
-        }
-        this.velocidadJuego = velocidad;
-    }
+Un literal es el valor que escribes directamente en el codigo:
 
-    public void setModoHardcore(boolean modoHardcore) {
-        this.modoHardcore = modoHardcore;
-    }
+```java
+int numero = 42;           // 42 es un literal entero
+double precio = 19.99;     // 19.99 es un literal decimal
+String saludo = "Hola";    // "Hola" es un literal de texto
+char letra = 'A';          // 'A' es un literal de caracter
+boolean cierto = true;     // true es un literal booleano
+```
 
-    public void setTeclaSalto(char tecla) {
-        // Validar imprimible (rango ASCII básico)
-        if (tecla < ' ' || tecla > '~') {
-            throw new IllegalArgumentException("Tecla no imprimible: " + (int)tecla);
-        }
-        this.teclaSalto = tecla;
-    }
+### Ejemplo basico
 
-    // --- GETTERS ---
-    public String getNombrePartida() { return nombrePartida; }
-    public int getNumJugadores() { return numJugadores; }
-    public double getVelocidadJuego() { return velocidadJuego; }
-    public boolean isModoHardcore() { return modoHardcore; }
-    public char getTeclaSalto() { return teclaSalto; }
-
-    // --- MÉTODO DE VISUALIZACIÓN (concatenación de literales y vars) ---
-    public void mostrarConfig() {
-        System.out.println("=== Configuración: " + nombrePartida + " ===");
-        System.out.println("Versión: " + VERSION);
-        System.out.println("Jugadores: " + numJugadores + " / " + MAX_JUGADORES);
-        System.out.println("Velocidad: " + velocidadJuego + "x");
-        System.out.println("Hardcore: " + (modoHardcore ? "SÍ" : "NO"));
-        System.out.println("Tecla salto: '" + teclaSalto + "' (ASCII: " + (int)teclaSalto + ")");
-        System.out.println("Gravedad: " + GRAVEDAD + " m/s²");
-    }
-
-    // --- MAIN DE PRUEBA ---
+```java
+public class EjemploVariables {
     public static void main(String[] args) {
-        ConfiguracionJuego cfg = new ConfiguracionJuego("Partida Épica");
+        String producto = "Laptop";
+        int cantidad = 3;
+        double precioUnitario = 750.50;
+        boolean disponible = true;
 
-        // Literales en llamadas
-        cfg.setNumJugadores(3);
-        cfg.setVelocidadJuego(1.5);
-        cfg.setModoHardcore(true);
-        cfg.setTeclaSalto('W');
+        double total = cantidad * precioUnitario;
 
-        cfg.mostrarConfig();
-
-        // Demostración literales varios
-        System.out.println("\n--- Literales demo ---");
-        int binario = 0b1010;      // 10 decimal
-        int hexa = 0xFF;           // 255 decimal
-        long grande = 9_223_372_036_854_775_807L; // Long.MAX_VALUE
-        float prec = 1.23456789f;  // 7 dígitos precisión
-        double alta = 1.23456789012345; // 15 dígitos
-        char salto = '\n';         // Escape
-        char unicode = '\u00A9';   // ©
-        String multilinea = "Línea 1\nLínea 2\tTabulado";
-
-        System.out.println("Binario 0b1010 = " + binario);
-        System.out.println("Hex 0xFF = " + hexa);
-        System.out.println("Long con _ : " + grande);
-        System.out.println("Float: " + prec);
-        System.out.println("Double: " + alta);
-        System.out.println("Char \\n = " + (int)salto);
-        System.out.println("Unicode © = " + unicode);
-        System.out.println("String multilinea:\n" + multilinea);
+        System.out.println("Producto: " + producto);
+        System.out.println("Cantidad: " + cantidad);
+        System.out.println("Total: " + total);
+        System.out.println("Disponible: " + disponible);
     }
 }
 ```
 
-## Explicación Detallada Línea a Línea
+---
 
-| Sección | Explicación |
-|---------|-------------|
-| `static final int MAX_JUGADORES = 4;` | Constante de clase. `static` = una copia compartida. `final` = inmutable. Nombre `UPPER_SNAKE_CASE`. |
-| `private String nombrePartida;` | Campo de instancia. `private` encapsula. Valor por defecto `null`. |
-| `this.nombrePartida = nombrePartida;` | `this.` desambigua campo vs parámetro. Ver `[[07 - Constructores y this]]`. |
-| `if (numJugadores < 1 || numJugadores > MAX_JUGADORES)` | Uso de constante en validación. Literal `1` y `MAX_JUGADORES` (int). |
-| `throw new IllegalArgumentException(...)` | Lanza excepción con mensaje construido concatenando literal + variable. |
-| `cfg.setNumJugadores(3);` | Literal `3` (int) pasado como argumento. |
-| `cfg.setModoHardcore(true);` | Literal `true` (boolean). |
-| `cfg.setTeclaSalto('W');` | Literal `char` con comillas simples. |
-| `int binario = 0b1010;` | Literal binario (prefijo `0b`/`0B`, Java 7+). |
-| `int hexa = 0xFF;` | Literal hexadecimal (prefijo `0x`/`0X`). |
-| `long grande = 9_223_372_036_854_775_807L;` | Underscores legibilidad + sufijo `L` obligatorio. |
-| `float prec = 1.23456789f;` | Sufijo `f` obligatorio para `float`. |
-| `char salto = '\n';` | Secuencia escape: nueva línea. Otras: `\t`, `\r`, `\\`, `\'`, `\"`. |
-| `char unicode = '\u00A9';` | Unicode de 4 hex dígitos: ©. |
-| `String multilinea = "Línea 1\nLínea 2\tTabulado";` | `\n` y `\t` dentro de String se interpretan al imprimir. |
+## NIVEL MID
 
-## Scope (Ámbito) de Variables
+### Tipos de literales
 
-| Tipo | Declaración | Vida | Visibilidad |
-|------|-------------|------|-------------|
-| **Campo (instance field)** | En clase, fuera de métodos | Mientras exista el objeto | Según modificador (`private`, etc.) |
-| **Variable local** | Dentro de método/bloque | Desde declaración hasta fin de bloque `{}` | Solo dentro de ese bloque |
-| **Parámetro** | En firma método | Durante ejecución del método | Dentro del método |
-| **Variable de clase (`static`)** | En clase con `static` | Mientras clase cargada (JVM viva) | Según modificador |
+```java
+public class LiteralesEjemplos {
+    public static void main(String[] args) {
+        // Literales enteros
+        int decimal = 42;
+        int hexadecimal = 0xFF;  // 255 en decimal
+        int binario = 0b1010;    // 10 en decimal (Java 7+)
 
-> **Regla**: Variable local **debe** inicializarse antes de leerla. Campos se inicializan solos (0, null, false).
+        // Literales con sufijo
+        long numeroGrande = 3_000_000_000L;     // L = long
+        float precio = 19.99f;                   // f = float
+        double grande = 1.5;                     // double por defecto
+
+        // Literales caracter
+        char letra = 'M';
+        char nuevaLinea = '\n';
+        char unicode = '\u00A9';  // (c) copyright
+
+        // Literales especiales
+        String salto = "Linea 1\nLinea 2\tTabulado";
+        String nulo = null;  // Solo para tipos referencia
+    }
+}
+```
+
+### Ambito (scope) de variables
+
+El ambito es donde la variable "vive" y se puede usar:
+
+```java
+public class AmbitoVariables {
+    int campo = 1;  // Vive mientras exista el objeto
+
+    public void metodo() {
+        int local = 2;  // Vive solo dentro de este metodo
+        if (local > 0) {
+            int bloque = 3;  // Vive solo dentro del if
+            System.out.println(bloque);
+        }
+        // System.out.println(bloque); // ERROR: no existe aqui
+    }
+}
+```
+
+### Constantes con final
+
+```java
+public class Constantes {
+    public static final double IVA = 0.21;
+    public static final int MAXIMO_INTENTOS = 3;
+    public static final String NOMBRE_APP = "MiPrograma";
+}
+```
+
+Las constantes se escriben en MAYUSCULAS con guion bajo.
+
+---
+
+## NIVEL SENIOR
+
+### Inferencia de tipo con var (Java 10+)
+
+`var` le dice a Java: "deduce tu mismo el tipo":
+
+```java
+public class DemoVar {
+    public static void main(String[] args) {
+        var nombre = "Ana";             // Java deduce String
+        var edad = 30;                  // Java deduce int
+        var precio = 19.99;             // Java deduce double
+        var lista = new ArrayList<String>();  // Java deduce ArrayList<String>
+
+        // var solo para variables locales, no para campos ni parametros
+    }
+}
+```
+
+### Efectivamente final
+
+Desde Java 8, si una variable no cambia despues de inicializarse, es "efectivamente final". Puedes usarla en lambdas:
+
+```java
+public class EfectivamenteFinal {
+    public static void main(String[] args) {
+        int factor = 2;  // Nunca cambia, es efectivamente final
+
+        var numeros = List.of(1, 2, 3);
+        var resultado = numeros.stream()
+            .map(n -> n * factor)  // factor es efectivamente final
+            .toList();
+
+        System.out.println(resultado); // [2, 4, 6]
+    }
+}
+```
+
+### Pattern matching con var y switch
+
+```java
+public class DemoPatternMatching {
+    public static void main(String[] args) {
+        Object valor = 42;
+
+        // Java 16+ pattern matching
+        if (valor instanceof String texto) {
+            System.out.println("Texto: " + texto);
+        } else if (valor instanceof Integer numero) {
+            System.out.println("Numero: " + numero);
+        }
+
+        // Java 21+ pattern matching en switch
+        String resultado = switch (valor) {
+            case String s -> "Es texto: " + s;
+            case Integer i when i > 0 -> "Es positivo: " + i;
+            case Integer i -> "Es cero o negativo: " + i;
+            default -> "Tipo desconocido";
+        };
+    }
+}
+```
+
+### Text blocks con variables (Java 15+)
+
+```java
+public class DemoTextBlock {
+    public static void main(String[] args) {
+        String nombre = "Ana";
+        int edad = 30;
+        String ciudad = "Madrid";
+
+        String perfil = """
+            Perfil de usuario:
+            -----------------
+            Nombre: %s
+            Edad:   %d
+            Ciudad: %s
+            """.formatted(nombre, edad, ciudad);
+
+        System.out.println(perfil);
+    }
+}
+```
+
+### Variables locales con try-with-resources
+
+```java
+import java.io.*;
+import java.nio.file.*;
+
+public class DemoRecursos {
+    public static void main(String[] args) throws IOException {
+        var ruta = Path.of("datos.txt");
+        Files.writeString(ruta, "Hola Java 2026");
+
+        try (var lector = Files.newBufferedReader(ruta)) {
+            String linea;
+            while ((linea = lector.readLine()) != null) {
+                System.out.println(linea);
+            }
+        }
+        // lector se cierra automaticamente
+    }
+}
+```
+
+---
 
 ## Errores Comunes
 
-> [!warning] **Error 1: Leer variable local sin inicializar**
-> ```java
-> void metodo() {
->     int x;
->     System.out.println(x); // ❌ Error: variable might not have been initialized
-> }
-> ```
-> ✅ **Correcto**: `int x = 0;` o inicializar en todas las ramas antes de usar.
+> Usar variable local sin inicializarla. Java obliga a inicializar las variables locales antes de leerlas. Los campos de clase se inicializan solos (0, null, false).
 
-> [!warning] **Error 2: `long` sin sufijo `L` para valor grande**
-> ```java
-> long x = 3000000000; // ❌ Error: integer number too large (se ve como int)
-> ```
-> ✅ **Correcto**: `long x = 3000000000L;`
+> Olvidar la L en numeros largos. `long x = 3000000000;` no compila. Usa `3000000000L`.
 
-> [!warning] **Error 3: `float` sin sufijo `f`**
-> ```java
-> float x = 3.14; // ❌ Error: incompatible types (double -> float)
-> ```
-> ✅ **Correcto**: `float x = 3.14f;`
+> Olvidar la f en float. `float x = 3.14;` no compila. Usa `3.14f`.
 
-> [!warning] **Error 4: `char` con comillas dobles o múltiples caracteres**
-> ```java
-> char c = "A";   // ❌ String, no char
-> char c = 'AB';  // ❌ Más de un char
-> ```
-> ✅ **Correcto**: `char c = 'A';`
+> Confundir `=` (asignar) con `==` (comparar). `if (x = 5)` asigna 5 a x, no compara.
 
-> [!warning] **Error 5: Confundir `=` (asignación) con `==` (comparación)**
-> ```java
-> if (x = 5) { } // ❌ Asigna 5 a x, resultado 5 (int) no boolean
-> ```
-> ✅ **Correcto**: `if (x == 5) { }`
+> Shadowing: declarar una variable local con el mismo nombre que un campo. El campo queda oculto dentro del metodo. Usa `this.campo` para acceder al campo.
 
-> [!warning] **Error 6: Variable local oculta campo (shadowing) sin querer**
-> ```java
-> class A { int x = 1; void m() { int x = 2; System.out.println(x); } } // Imprime 2, campo inaccesible
-> ```
-> ✅ **Correcto**: Usa `this.x` para campo, o nombres distintos.
+---
 
-## Buenas Prácticas
+## Buenas Practicas
 
-1. **Inicializa en la declaración** cuando sea posible (`private int contador = 0;`).
-2. **`final` por defecto** en locales y parámetros si no cambian (`final int max = 100;`).
-3. **Nombres descriptivos** — `velocidadMaxima` no `v` ni `vm`.
-4. **Constantes `static final`** para valores fijos compartidos (`Math.PI`, `Config.MAX`).
-5. **Evita literales mágicos** — `if (x > 86400)` → `if (x > SEGUNDOS_POR_DIA)`.
-6. **Scope mínimo** — Declara variables lo más cerca posible de su uso.
-7. **Una variable, un propósito** — No reutilices `temp` para cosas distintas.
-8. **Prefiere primitivos a wrappers** (`int` vs `Integer`) salvo nulabilidad o colecciones.
+1. Inicializa las variables en el mismo lugar donde las declaras.
+2. Usa nombres descriptivos: `velocidadMaxima` no `v`.
+3. Constantes con `static final` y nombre en `MAYUSCULAS`.
+4. No uses literales magicos. `if (x > 86400)` deberia ser `if (x > SEGUNDOS_POR_DIA)`.
+5. Ambito minimo: declara la variable lo mas cerca posible de donde la usas.
+6. Una variable = un proposito. No reutilices la misma variable para distintas cosas.
+7. Prefiere `var` cuando el tipo sea obvio por la derecha de la asignacion.
 
-## Conexión con Otros Temas
+---
 
-- `[[03 - Tipos Primitivos y Referencia]]` — Tipos válidos para variables.
-- `[[06 - Atributos y Campos]]` — Variables como campos de instancia vs locales.
-- `[[07 - Constructores y this]]` — Inicialización de campos en constructor.
-- `[[08 - Instanciacion y new]]` — Campos nacen con `new`.
-- `[[10 - Metodos de Instancia]]` — Parámetros y locales en métodos.
-- `[[14 - Arrays Basicos y args]]` — Array es variable referencia; `args` en main.
+## Conexiones
 
-## Resumen en Una Frase
-
-> **Variable = nombre + tipo + valor; literal = valor escrito en código; scope = dónde vive y muere la variable.**
+- [[03 - Tipos Primitivos y Referencia]] - Tipos validos para variables
+- [[06 - Atributos y Campos]] - Variables como campos vs locales
+- [[07 - Constructores y this]] - Inicializacion en constructor
+- [[10 - Metodos de Instancia]] - Parametros y locales en metodos
+- [[14 - Arrays Basicos y args]] - Arrays y args como variables
+- [[20 - Javadoc y Documentacion]] - Documentar constantes
+- [[23 - Metodos - Parametros, Retorno y Return]] - Return como expresion
 
 ---
 

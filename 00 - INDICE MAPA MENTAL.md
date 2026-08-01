@@ -2,13 +2,13 @@
 tags: [java, fundamentos, indice, mapa-mental]
 ---
 
-# Índice Mapa Mental - Java Fundamentos
+# 00 - Indice Mapa Mental - Java Fundamentos
 
-> **Vault de estudio**: Cada archivo es una nota atómica enlazada. Usa `[[wiki-links]]` para navegar.
+> Cada archivo es una nota atomica con 3 niveles: Junior (basico), Mid (intermedio), Senior (avanzado). Usa [[wiki-links]] para navegar.
 
 ---
 
-## Mapa Mental Visual (Mermaid)
+## Mapa Mental
 
 ```mermaid
 mindmap
@@ -49,7 +49,7 @@ mindmap
       Estado_independiente
     Metodos_de_Instancia
       void_return_parametros
-      this_implícito
+      this_implicito
     System_out_y_Concatenacion
       Println_Print_Format
       Concatenacion_+
@@ -59,11 +59,20 @@ mindmap
     Static_vs_Instancia
       Clase_vs_Objeto
       Compartido_vs_Propio
-      Metodos_estaticos
     Arrays_y_args
       Indice_0_based
       Length_fijo
       Args_main
+    Listas_ArrayList
+      List_Interface
+      ArrayList_Dinamico
+      Add_Remove_Get
+      Generics
+    Bucles_Control_Flujo
+      For_Tradicional
+      For_Each
+      While_DoWhile
+      Break_Continue
     Flujo_Ejecucion_JVM
       Carga_Clase
       Main_Thread
@@ -72,145 +81,158 @@ mindmap
       PascalCase_camelCase_UPPER_SNAKE
       Clases_Metodos_Variables_Constantes
     Separacion_Responsabilidades
-      Modelo_Vista_Controlador_basico
-      Cohesion_Acoplamiento
+      SRP_Cohesion_Acoplamiento
+      Capas_basicas
+    Javadoc_Documentacion
+      Comentarios_/**
+      @param_@return_@throws
+    Getters_Setters
+      Convencion_JavaBeans
+      Copia_defensiva
+      Records
+    Separacion_Responsabilidades_Avanzada
+      SRP_DIP_Tell_Dont_Ask
+      Domain_Repository_Service_App
+      Inyeccion_constructor
+    Metodos_Parametros_Retorno
+      Paso_por_valor
+      void_return
+      Varargs_Sobrecarga_Optional
+      Guard_clauses
+    ArrayList_Metodos_Avanzados
+      removeIf_Iterator
+      subList_toArray
+      stream_toList
+    Paquetes_Organizacion
+      Package_Import
+      module_info
+      Estructura_Maven_Gradle
+    Clases_Wrapper_envolventes
+      Que_es_Wrapper
+      Integer_Long_Double_Wrapper
+      Autoboxing_Unboxing
+      Cache_Integer
+      Inmutabilidad
+      Comparaciones_equals_vs
+      Conversión_Tipos
+      Optional_con_Wrapper
+      Streams_y_Wrapper
+    Getters_booleanos
+      isXxx_convencion
+      boolean_vs_Boolean_wrapper
+      Methods_utiles_boolean
+      Getters_con_logica
+      Boolean_en_Colecciones
+      Combinaciones_estado
+      Predicate_y_Supplier
+      Boolean_en_enums
+      Conversiones_JSON
+      Bitwise_vs_logical
+    Switch_expression
+      Sintaxis_flecha_vs_tradicional
+      Yield_multiple_sentencias
+      Pattern_matching
+      Sealed_classes_exhaustivo
+      Guardas_when
+      Nested_switch
+      Record_destructuring
+      Null_handling
+      Excepciones_en_case
+      Compilacion_JIT
 ```
 
 ---
 
-## Mapa Mental Texto (Fallback sin plugin)
+## Orden de Lectura Sugerido
 
-```
-Java Fundamentos
-├── 01 Clases y Estructura Básica
-│   ├── Definición de clase
-│   ├── Archivo .java = una clase pública
-│   └── public class
-├── 02 Punto de Entrada main
-│   ├── static void main(String[] args)
-│   ├── Firma obligatoria
-│   └── JVM la busca al arrancar
-├── 03 Tipos Primitivos y Referencia
-│   ├── Primitivos: int, double, boolean, char, long, byte, short, float
-│   ├── Referencia: String, Arrays, Objetos
-│   └── Valor vs Referencia
-├── 04 Variables y Literales
-│   ├── Declaración + Inicialización
-│   ├── Literales y sufijos (L, f, ', ")
-│   └── Scope / ámbito
-├── 05 Modificadores de Acceso
-│   ├── public, private, protected, default
-│   ├── Encapsulamiento
-│   └── Getters/Setters
-├── 06 Atributos y Campos
-│   ├── Variables de instancia
-│   ├── Estado del objeto
-│   └── Valores por defecto
-├── 07 Constructores y this
-│   ├── Inicialización obligatoria
-│   ├── this. para desambiguar
-│   └── Sobrecarga de constructores
-├── 08 Instanciación y new
-│   ├── Memoria Heap
-│   ├── Referencia en Stack
-│   └── Llamada al constructor
-├── 09 Múltiples Objetos e Identidad
-│   ├── Cada new = objeto distinto
-│   ├── Identidad (==) vs Igualdad (.equals)
-│   └── Estado independiente
-├── 10 Métodos de Instancia
-│   ├── void / return / parámetros
-│   ├── this implícito
-│   └── Sobrecarga de métodos
-├── 11 System.out y Concatenación
-│   ├── println / print / printf
-│   ├── Concatenación con +
-│   └── Conversión automática a String
-├── 12 Operador Ternario
-│   ├── condición ? siVerdadero : siFalso
-│   ├── Es expresión (devuelve valor)
-│   └── No es sustituto de if completo
-├── 13 Static vs Instancia
-│   ├── static = pertenece a la clase
-│   ├── Instancia = pertenece al objeto
-│   ├── Compartido vs Propio
-│   └── Métodos utilitarios
-├── 14 Arrays Básicos y args
-│   ├── Índice 0-based
-│   ├── Length fijo
-│   ├── String[] args en main
-│   └── Recorrido con for
-├── 15 Flujo de Ejecución JVM
-│   ├── Carga de clase → Main → Stack frames
-│   ├── Heap para objetos
-│   └── Garbage Collector
-├── 16 Convenciones de Nombrado
-│   ├── PascalCase: Clases
-│   ├── camelCase: Variables, Métodos
-│   ├── UPPER_SNAKE_CASE: Constantes
-│   └── Nombres descriptivos
-└── 17 Separación de Responsabilidades
-    ├── Modelo (datos) vs Arranque (main)
-    ├── Cohesión alta, acoplamiento bajo
-    └── Escalabilidad
-```
+### Fase 1: Fundamentos Sintacticos
+1. [[01 - Clases y Estructura Basica]]
+2. [[02 - Punto de Entrada main]]
+3. [[03 - Tipos Primitivos y Referencia]]
+4. [[04 - Variables y Literales]]
 
----
-
-## Orden de Lectura Sugerido (Progresivo)
-
-### Fase 1: Fundamentos Sintácticos
-1. `[[01 - Clases y Estructura Basica]]`
-2. `[[02 - Punto de Entrada main]]`
-3. `[[03 - Tipos Primitivos y Referencia]]`
-4. `[[04 - Variables y Literales]]`
-
-### Fase 2: Programación Orientada a Objetos Básica
-5. `[[05 - Modificadores de Acceso]]`
-6. `[[06 - Atributos y Campos]]`
-7. `[[07 - Constructores y this]]`
-8. `[[08 - Instanciacion y new]]`
-9. `[[09 - Multiples Objetos e Identidad]]`
+### Fase 2: Programacion Orientada a Objetos Basica
+5. [[05 - Modificadores de Acceso]]
+6. [[06 - Atributos y Campos]]
+7. [[07 - Constructores y this]]
+8. [[08 - Instanciacion y new]]
+9. [[09 - Multiples Objetos e Identidad]]
 
 ### Fase 3: Comportamiento y Flujo
-10. `[[10 - Metodos de Instancia]]`
-11. `[[11 - System.out y Concatenacion]]`
-12. `[[12 - Operador Ternario]]`
-13. `[[13 - Static vs Instancia]]`
+10. [[10 - Metodos de Instancia]]
+11. [[11 - System.out y Concatenacion]]
+12. [[12 - Operador Ternario]]
+13. [[13 - Static vs Instancia]]
 
 ### Fase 4: Estructuras de Datos y JVM
-14. `[[14 - Arrays Basicos y args]]`
-15. `[[15 - Flujo de Ejecucion JVM]]`
+14. [[14 - Arrays Basicos y args]]
+15. [[15 - Listas y ArrayList]]
+16. [[16 - Bucles y Control de Flujo]]
+17. [[17 - Flujo de Ejecucion JVM]]
 
-### Fase 5: Buenas Prácticas y Arquitectura
-16. `[[16 - Convenciones de Nombrado]]`
-17. `[[17 - Separacion de Responsabilidades]]`
+### Fase 5: Buenas Practicas y Arquitectura
+18. [[18 - Convenciones de Nombrado]]
+19. [[19 - Separacion de Responsabilidades]]
+20. [[20 - Javadoc y Documentacion]]
+21. [[21 - Getters y Setters]]
+22. [[22 - Separacion de Responsabilidades]]
 
-### Referencia Rápida
-- `[[99 - Glosario Rapido]]` — Definiciones alfabéticas + enlaces
+### Fase 6: Profundizacion Avanzada
+23. [[23 - Metodos - Parametros, Retorno y Return]]
+24. [[24 - ArrayList - Metodos Avanzados]]
+25. [[25 - Paquetes y Organizacion]]
+26. [[26 - Private en Profundidad]]
+27. [[27 - Singleton en Profundidad]]
+28. [[28 - Static en Profundidad]]
+29. [[29 - Scanner en Profundidad]]
+30. [[30 - Principio fundamental de Java (y POO)]]
+31. [[31 - Curso Completo de .method()]]
+32. [[32 - do-while en Profundidad]]
+33. [[33 - enum en Profundidad]]
+34. [[34 - Clases Wrapper (envolventes)]]
+35. [[35 - Getters booleanos]]
+36. [[36 - Switch expression]]
+
+### Referencia Rapida
+- [[99 - Glosario Rapido]] - Definiciones con enlaces
 
 ---
 
-## Navegación Rápida por Tags
+## Como Leer Cada Tema
+
+Cada tema tiene 3 niveles de dificultad:
+
+| Nivel | Para quien es | Que contiene |
+|-------|--------------|-------------|
+| Junior | Nunca has visto el tema | Explicacion simple, 1 ejemplo minimo |
+| Mid | Ya sabes lo basico | Profundizacion, ejemplo realista |
+| Senior | Quieres saber todo | Java moderno, mejores practicas, rendimiento |
+
+Al final de cada tema encontraras:
+- Errores comunes (para evitarlos)
+- Buenas practicas (como hacerlo bien)
+- Conexiones con otros temas ([[wiki-links]])
+
+---
+
+## Tags por Categoria
 
 | Tag | Archivos |
 |-----|----------|
-| `#java #fundamentos #clases` | 01, 06, 07, 08, 09 |
-| `#java #fundamentos #tipos` | 03, 04, 14 |
-| `#java #fundamentos #metodos` | 07, 10, 12, 13 |
-| `#java #fundamentos #jvm` | 02, 08, 15 |
-| `#java #fundamentos #buenas-practicas` | 05, 16, 17 |
+| `#clases` | 01, 06, 07, 08, 09 |
+| `#tipos` | 03, 04, 14 |
+| `#metodos` | 07, 10, 12, 13, 23 |
+| `#jvm` | 02, 08, 17 |
+| `#buenas-practicas` | 05, 18, 19, 21, 22 |
+| `#colecciones` | 15, 24 |
+| `#bucles` | 16 |
+| `#javadoc` | 20 |
+| `#paquetes` | 25 |
+| `#wrapper` | 34 |
+| `#getters` | 35 |
+| `#switch` | 36 |
 
 ---
 
-## Cómo Usar Este Vault
-
-1. **Empieza por el índice** → Sigue el orden de lectura
-2. **Cada nota es atómica** → Un tema, un archivo
-3. **Usa wiki-links** → `[[07 - Constructores y this]]` salta al tema
-4. **Busca por tags** → `tag:#constructores` filtra relacionado
-5. **Glosario al final** → Dudas terminológicas rápidas
-
----
-
-> **Tip**: En Obsidian, `Ctrl+Click` (o `Cmd+Click`) en cualquier `[[enlace]]` abre en panel lateral. `Ctrl+O` busca archivos por nombre.
+## Tags
+`#java #fundamentos #indice #mapa-mental`

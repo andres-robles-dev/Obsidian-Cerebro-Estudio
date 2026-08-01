@@ -2,346 +2,287 @@
 tags: [java, fundamentos, glosario, referencia, terminologia]
 ---
 
-# 99 - Glosario Rápido
+# 99 - Glosario Rapido
 
-> **Referencia alfabética** de términos clave. Cada entrada: definición 1 línea + enlace a nota profunda.
+Referencia alfabetica de terminos clave. Cada entrada tiene definicion y enlace al tema completo.
 
 ---
 
 ## A
 
-**Abstracción** — Ocultar complejidad mostrando solo lo esencial. En Java: `abstract class`, `interface`. → `[[01 - Clases y Estructura Basica]]`
+**Abstraccion** -- Ocultar complejidad mostrando solo lo esencial. En Java: `abstract class`, `interface`. -> [[01 - Clases y Estructura Basica]]
 
-**Acceso (Modificadores)** — `public`, `protected`, `default`, `private`. Controlan visibilidad. → `[[05 - Modificadores de Acceso]]`
+**Acceso (Modificadores)** -- `public`, `protected`, `default`, `private`. Controlan visibilidad. -> [[05 - Modificadores de Acceso]]
 
-**Alias / Aliasing** — Dos o más referencias apuntando al **mismo objeto** en Heap. `a = b; a.x = 1 → b.x == 1`. → `[[09 - Multiples Objetos e Identidad]]`
+**Alias / Aliasing** -- Dos o mas referencias apuntando al mismo objeto en Heap. `a = b; a.x = 1` --> `b.x == 1`. -> [[09 - Multiples Objetos e Identidad]]
 
-**API (Application Programming Interface)** — Contrato público (clases, métodos, constantes) que una librería expone.
+**API** -- Contrato publico (clases, metodos, constantes) que una libreria expone.
 
-**Argumento** — Valor **real** pasado al llamar método: `metodo(42)` → `42` es argumento. Ver *Parámetro*.
+**Argumento** -- Valor real pasado al llamar metodo: `metodo(42)` -> `42` es argumento. Ver Parametro.
 
-**Array** — Objeto contenedor tamaño fijo, índice `0..length-1`. `int[]`, `String[]`. → `[[14 - Arrays Basicos y args]]`
+**Array** -- Objeto contenedor tamano fijo, indice `0..length-1`. `int[]`, `String[]`. -> [[14 - Arrays Basicos y args]]
 
-**Atributo / Campo / Field** — Variable declarada en clase (fuera de métodos). Estado del objeto. → `[[06 - Atributos y Campos]]`
+**ArrayList** -- Implementacion `List` respaldada por array dinamico. -> [[15 - Listas y ArrayList]]
 
-**Autoboxing / Unboxing** — Conversión automática `int ↔ Integer`, `double ↔ Double`, etc. → `[[03 - Tipos Primitivos y Referencia]]`
+**Atributo / Campo / Field** -- Variable declarada en clase (fuera de metodos). Estado del objeto. -> [[06 - Atributos y Campos]]
+
+**Autoboxing / Unboxing** -- Conversion automatica `int` <-> `Integer`, `double` <-> `Double`, etc. -> [[03 - Tipos Primitivos y Referencia]]
 
 ---
 
 ## B
 
-**Bloque de Inicialización Estático** — `static { ... }` Ejecuta **una vez** al cargar clase. → `[[15 - Flujo de Ejecucion JVM]]`
+**Bloque de Inicializacion Estatico** -- `static { ... }` Ejecuta una vez al cargar clase. -> [[17 - Flujo de Ejecucion JVM]]
 
-**Bloque de Inicialización de Instancia** — `{ ... }` Ejecuta **cada `new`**, antes del constructor. → `[[07 - Constructores y this]]`
+**Bloque de Inicializacion de Instancia** -- `{ ... }` Ejecuta cada `new`, antes del constructor. -> [[07 - Constructores y this]]
 
-**Boxing** — Ver *Autoboxing*.
+**Builder Pattern** -- Patron para construir objetos complejos paso a paso. -> [[07 - Constructores y this]]
 
-**Builder Pattern** — Patrón para construir objetos complejos paso a paso: `Usuario.builder().nombre("A").email("a@b").build()`.
-
-**Bytecode** — Código intermedio `.class` ejecutado por JVM. Independiente de plataforma.
+**Bytecode** -- Codigo intermedio `.class` ejecutado por JVM.
 
 ---
 
 ## C
 
-**CamelCase / lowerCamelCase** — `miVariable`, `calcularTotal()`. Estándar variables/métodos. → `[[16 - Convenciones de Nombrado]]`
+**CamelCase / lowerCamelCase** -- `miVariable`, `calcularTotal()`. Estandar variables/metodos. -> [[18 - Convenciones de Nombrado]]
 
-**Casteo / Cast** — Conversión explícita de tipo: `(int) 3.14`, `(String) obj`. Riesgo `ClassCastException`.
+**Casteo / Cast** -- Conversion explicita de tipo: `(int) 3.14`, `(String) obj`. Riesgo `ClassCastException`.
 
-**Clase** — Plantilla (`class`) que define atributos y métodos. Molde para objetos. → `[[01 - Clases y Estructura Basica]]`
+**Clase** -- Plantilla (`class`) que define atributos y metodos. Molde para objetos. -> [[01 - Clases y Estructura Basica]]
 
-**Clase Abstracta** — `abstract class`: no instanciable, puede tener métodos abstractos y concretos. → `[[01 - Clases y Estructura Basica]]`
+**Clase Wrapper** -- `Integer`, `Double`, `Boolean`, etc. Envoltura objeto de primitivo. -> [[03 - Tipos Primitivos y Referencia]]
 
-**Clase Anónima** — `new Interface() { ... }` Implementación *ad-hoc* de interfaz/clase abstracta.
+**Copia Defensiva** -- Clonar objeto/coleccion mutable al entrar/salir para evitar aliasing. -> [[21 - Getters y Setters]]
 
-**Clase Interna / Nested** — Clase dentro de otra. `static` = *nested*; sin `static` = *inner* (tiene `this` externo).
+**Cohesion** -- Grado en que elementos de un modulo/pertenecen juntos. Alta = buena. -> [[19 - Separacion de Responsabilidades]]
 
-**Clase Wrapper** — `Integer`, `Double`, `Boolean`, `Character`, `Long`, `Byte`, `Short`, `Float`. Envoltura objeto de primitivo.
+**Coleccion** -- `List`, `Set`, `Map`, `Queue`. Estructuras de datos dinamicas.
 
-**Cohesión** — Grado en que elementos de un módulo/clase pertenecen juntos. **Alta** = buena. → `[[17 - Separacion de Responsabilidades]]`
+**Constante** -- `static final` + inmutable. Convencion `UPPER_SNAKE_CASE`. -> [[04 - Variables y Literales]], [[18 - Convenciones de Nombrado]]
 
-**Colección** — `List`, `Set`, `Map`, `Queue`... Estructuras de datos dinámicas (`java.util.*`).
+**Constructor** -- Metodo especial sin retorno. Inicializa objeto. -> [[07 - Constructores y this]]
 
-**Composición** — "Tiene un" fuerte (`class Motor { Pieza p; }` ciclo de vida ligado). Vs *Agregación* (vida independiente).
+**Contexto Estatico** -- Dentro de miembros `static`. No hay `this`. Solo accede a `static`. -> [[13 - Static vs Instancia]]
 
-**Concurrencia** — Múltiples hilos ejecutando código compartiendo memoria. `Thread`, `ExecutorService`, `java.util.concurrent`.
-
-**Constante** — `static final` + inmutable. Convención `UPPER_SNAKE_CASE`. → `[[04 - Variables y Literales]]`, `[[16 - Convenciones de Nombrado]]`
-
-**Constructor** — Método especial `NombreClase(...)` sin retorno. Inicializa objeto. → `[[07 - Constructores y this]]`
-
-**Contexto Estático** — Dentro de miembros `static`. No hay `this`. Solo accede a `static`. → `[[13 - Static vs Instancia]]`
-
-**Coupling (Acoplamiento)** — Dependencia entre módulos. **Bajo** = bueno. → `[[17 - Separacion de Responsabilidades]]`
+**Acoplamiento (Coupling)** -- Dependencia entre modulos. Bajo = bueno. -> [[19 - Separacion de Responsabilidades]]
 
 ---
 
 ## D
 
-**DIP (Dependency Inversion Principle)** — Depender de abstracciones (interfaces), no concreciones. → `[[17 - Separacion de Responsabilidades]]`
+**DIP (Dependency Inversion Principle)** -- Depender de abstracciones (interfaces), no concreciones. -> [[22 - Separacion de Responsabilidades]]
 
-**DTO (Data Transfer Object)** — Objeto simple (solo datos, `record`/`class` con getters) para mover datos entre capas. → `[[17 - Separacion de Responsabilidades]]`
-
-**Dynamic Binding / Dispatch** — Llamada a método resuelta en **runtime** según tipo real del objeto (polimorfismo).
+**DTO (Data Transfer Object)** -- Objeto simple (solo datos) para mover entre capas. -> [[22 - Separacion de Responsabilidades]]
 
 ---
 
 ## E
 
-**Encapsulamiento** — Ocultar estado (`private`) y exponer comportamiento controlado (`public` métodos). → `[[05 - Modificadores de Acceso]]`, `[[06 - Atributos y Campos]]`
+**Encapsulamiento** -- Ocultar estado (`private`) y exponer comportamiento controlado (`public` metodos). -> [[05 - Modificadores de Acceso]]
 
-**Enum** — `enum Color { ROA `enum` define conjunto fijo de constantes (`ROJO, VERDE`). Tipo seguro. → `[[03 - Tipos Primitivos y Referencia]]`
+**Enum** -- `enum` define conjunto fijo de constantes. -> [[03 - Tipos Primitivos y Referencia]]
 
-**Equals / HashCode** — Contrato: `a.equals(b) → a.hashCode()==b.hashCode()`. Sobrescribir **ambos** juntos. → `[[09 - Multiples Objetos e Identidad]]`
+**Equals / HashCode** -- Contrato: `a.equals(b)` implica `a.hashCode() == b.hashCode()`. -> [[09 - Multiples Objetos e Identidad]]
 
-**Excepción** — Evento disruptivo (`throw`). `checked` (obliga `try/catch`/`throws`) vs `unchecked` (`RuntimeException`).
+**Excepcion** -- Evento disruptivo (`throw`). Checked (obliga manejo) vs unchecked (`RuntimeException`).
 
-**Expresión** — Código que **produce valor**: `a + b`, `cond ? x : y`, `metodo()`. Vs *Sentencia* (acción, `;`).
+**Expresion** -- Codigo que produce valor: `a + b`, `cond ? x : y`. -> [[12 - Operador Ternario]]
 
 ---
 
 ## F
 
-**Field** — Ver *Atributo*.
+**Field** -- Ver Atributo.
 
-**Final** — `final` variable = inmutable (referencia), `final` método = no overridable, `final` clase = no heredable.
+**Final** -- `final` variable = no reasignable, `final` metodo = no overridable, `final` clase = no heredable. -> [[06 - Atributos y Campos]]
 
-**Frame (Stack Frame)** — Bloque en Stack por llamada a método: locales, operand stack, return address. → `[[15 - Flujo de Ejecucion JVM]]`
-
-**Funcional Interface** — Interface con **un solo método abstracto** (SAM). Base de *lambdas*. `@FunctionalInterface`.
+**Frame (Stack Frame)** -- Bloque en Stack por llamada a metodo. -> [[17 - Flujo de Ejecucion JVM]]
 
 ---
 
 ## G
 
-**Garbage Collector (GC)** — Recolector de basura automático: libera objetos inalcanzables en Heap. Generacional (Young/Old). → `[[15 - Flujo de Ejecucion JVM]]`
+**Garbage Collector (GC)** -- Recolector de basura: libera objetos inalcanzables en Heap. -> [[17 - Flujo de Ejecucion JVM]]
 
-**Generics / Genéricos** — Tipos parametrizados `List<T>`, `Map<K,V>`. Type safety en compile-time, *erasure* en runtime.
+**Generics** -- Tipos parametrizados `List<T>`, `Map<K,V>`. Type safety en compile-time. -> [[15 - Listas y ArrayList]]
 
-**Getters / Setters** — Métodos `getX()`, `setX()` para acceder/modificar campos `private`. Convención JavaBeans.
+**Getters / Setters** -- Metodos `getX()`/`setX()` (o `isX()` para `boolean`). -> [[21 - Getters y Setters]]
 
 ---
 
 ## H
 
-**Heap (Montículo)** — Memoria compartida donde viven **objetos** (`new`) y arrays. Gestionado por GC. → `[[08 - Instanciacion y new]]`, `[[15 - Flujo de Ejecucion JVM]]`
+**Heap** -- Memoria compartida donde viven objetos (`new`) y arrays. -> [[08 - Instanciacion y new]], [[17 - Flujo de Ejecucion JVM]]
 
-**Herencia** — `extends`. Subclase reutiliza/extiende superclase. `Object` raíz universal. → `[[01 - Clases y Estructura Basica]]`
-
-**Hidden Class / Clase Oculta** — Clases generadas en runtime (lambdas, proxies, reflection).
+**Herencia** -- `extends`. Subclase reutiliza/extiende superclase. -> [[01 - Clases y Estructura Basica]]
 
 ---
 
 ## I
 
-**Identidad** — Dirección memoria única de objeto. `==` compara identidad. → `[[09 - Multiples Objetos e Identidad]]`
+**Identidad** -- Direccion de memoria unica de objeto. `==` compara identidad. -> [[09 - Multiples Objetos e Identidad]]
 
-**Igualdad** — Equivalencia lógica de contenido. `.equals()` bien implementado. → `[[09 - Multiples Objetos e Identidad]]`
+**Igualdad** -- Equivalencia logica de contenido. `.equals()`. -> [[09 - Multiples Objetos e Identidad]]
 
-**Inmutabilidad** — Objeto cuyo estado **no cambia** tras construcción (`final` campos, sin setters, copias defensivas). `String`, `LocalDate`, `record`.
+**Inmutabilidad** -- Objeto cuyo estado no cambia tras construccion. `record`, `String`, `LocalDate`. -> [[21 - Getters y Setters]]
 
-**Inicializador** — Ver *Bloque de Inicialización*.
+**Instancia** -- Objeto concreto creado con `new`. Tiene identidad, estado, comportamiento. -> [[08 - Instanciacion y new]]
 
-**Instancia** — Objeto concreto creado con `new Clase()`. Tiene identidad, estado, comportamiento. → `[[08 - Instanciacion y new]]`
+**Interface** -- `interface` Contrato con metodos abstractos, `default`, `static`, `private`. -> [[01 - Clases y Estructura Basica]]
 
-**Instanciar** — Ejecutar `new Clase()` → reserva Heap + constructor.
-
-**Interface** — `interface` Contrato: métodos abstractos (implícitos `public abstract`), `default`, `static`, `private`. Múltiple implementación. → `[[01 - Clases y Estructura Basica]]`
-
-**Inyección de Dependencias (DI)** — Contenedor provee dependencias (constructor/setter) en lugar de `new` manual. Spring `@Autowired`, CDI `@Inject`.
-
-**Instancia Variable** — Ver *Atributo*.
-
-**Invariante** — Condición que **siempre** cumple un objeto válido (ej: `saldo >= 0`). Constructor/métodos la garantizan.
+**Inyeccion de Dependencias (DI)** -- Recibir dependencias por constructor en vez de crear dentro. -> [[22 - Separacion de Responsabilidades]]
 
 ---
 
 ## J
 
-**JAR** — Java ARchive: `.class` + recursos + `MANIFEST.MF`. Ejecutable: `java -jar app.jar`.
+**Javadoc** -- Comentarios `/** ... */` con etiquetas `@param`, `@return`, `@throws`. -> [[20 - Javadoc y Documentacion]]
 
-**JDK** — Java Development Kit: `javac`, `java`, `jshell`, `jcmd`, librerías.
-
-**JIT (Just-In-Time)** — Compilador JVM que traduce bytecode caliente a código nativo en runtime.
-
-**JVM (Java Virtual Machine)** — Máquina virtual: carga clases, ejecuta bytecode, gestiona memoria (Stack/Heap/Metaspace), GC. → `[[15 - Flujo de Ejecucion JVM]]`
+**JVM (Java Virtual Machine)** -- Maquina virtual: carga clases, ejecuta bytecode, gestiona memoria. -> [[17 - Flujo de Ejecucion JVM]]
 
 ---
 
 ## L
 
-**Lambda** — Función anónima: `(a,b) -> a+b`. Implementa *Functional Interface*. Closure sobre variables `final`/`effectively final`.
+**Lambda** -- Funcion anonima: `(a, b) -> a + b`. Implementa Functional Interface. -> [[16 - Bucles y Control de Flujo]]
 
-**Ley de Demeter** — "Habla solo con amigos inmediatos". `a.getB().getC().hacer()` ❌ → `a.hacerConC()` ✅.
-
-**Literal** — Valor escrito en código: `42`, `3.14f`, `'A'`, `"Hola"`, `true`, `null`. → `[[04 - Variables y Literales]]`
-
-**Local Variable** — Variable declarada **dentro de método/bloque**. Sin valor por defecto. Scope = bloque `{}`.
+**Literal** -- Valor escrito en codigo: `42`, `3.14f`, `'A'`, `"Hola"`, `true`. -> [[04 - Variables y Literales]]
 
 ---
 
 ## M
 
-**Main** — `public static void main(String[] args)` Punto de entrada JVM. → `[[02 - Punto de Entrada main]]`
+**Main** -- `public static void main(String[] args)`. Punto de entrada JVM. -> [[02 - Punto de Entrada main]]
 
-**Método** — Bloque nombrado con parámetros, retorno, cuerpo. `void` = sin retorno. → `[[10 - Metodos de Instancia]]`
+**Metodo** -- Bloque nombrado con parametros, retorno, cuerpo. -> [[10 - Metodos de Instancia]], [[23 - Metodos - Parametros, Retorno y Return]]
 
-**Método Estático** — `static`. Pertenece a clase. Sin `this`. Invocado `Clase.metodo()`. → `[[13 - Static vs Instancia]]`
+**Metodo Estatico** -- `static`. Pertenece a clase. Sin `this`. -> [[13 - Static vs Instancia]]
 
-**Método de Instancia** — Sin `static`. Requiere objeto. `obj.metodo()`. Accede a `this`. → `[[10 - Metodos de Instancia]]`
+**Metodo de Instancia** -- Sin `static`. Requiere objeto. Accede a `this`. -> [[10 - Metodos de Instancia]]
 
-**Método Sobrescrito (Override)** — Subclase redefine método instancia de padre. `@Override` annotation. Polimorfismo.
-
-**Método Sobrecargado (Overload)** — Mismo nombre, **firma distinta** (parámetros). Resuelto en compile-time.
-
-**Módulo (Java 9+)** — `module-info.java` Define exports/requires. Encapsulamiento fuerte.
-
-**Mutabilidad** — Capacidad de cambiar estado tras creación. Opuesto a *Inmutabilidad*.
+**Modulo (Java 9+)** -- `module-info.java` Define exports/requires. -> [[25 - Paquetes y Organizacion]]
 
 ---
 
 ## N
 
-**Null** — Referencia "apunta a nada". `NullPointerException` al dereferenciar. Evitar con `Optional`, null-checks, `@NotNull`.
-
-**NPE (NullPointerException)** — Excepción #1 en Java. Acceso a miembro en `null`.
+**Null** -- Referencia que apunta a nada. `NullPointerException` al usarla. -> [[09 - Multiples Objetos e Identidad]]
 
 ---
 
 ## O
 
-**Objeto** — Instancia de clase. Estado (campos) + Comportamiento (métodos) + Identidad.
+**Objeto** -- Instancia de clase. Estado + Comportamiento + Identidad. -> [[08 - Instanciacion y new]]
 
-**Objeto Valor (Value Object)** — Inmutable, igualdad por contenido, sin identidad propia. `Dinero`, `LocalDate`, `record`.
+**Operador Ternario** -- `condicion ? valorSi : valorNo`. Expresion condicional. -> [[12 - Operador Ternario]]
 
-**Overloading** — Ver *Método Sobrecargado*.
-
-**Overriding** — Ver *Método Sobrescrito*.
+**Optional** -- Contenedor que puede o no tener valor. Evita null. -> [[23 - Metodos - Parametros, Retorno y Return]]
 
 ---
 
 ## P
 
-**Paquete** — `package com.ejemplo;` Agrupa clases relacionadas. Controla visibilidad `default`. → `[[16 - Convenciones de Nombrado]]`
+**Paquete** -- `package com.empresa.modulo`. Namespace jerarquico. -> [[25 - Paquetes y Organizacion]]
 
-**Parámetro** — Variable en **firma** del método: `void m(int x)` → `x` es parámetro. Ver *Argumento*.
+**Parametro** -- Variable en la firma del metodo. Java = paso por valor. -> [[23 - Metodos - Parametros, Retorno y Return]]
 
-**PascalCase / UpperCamelCase** — `MiClase`, `CalcularTotal()`. Estándar clases/interfaces/enums/records. → `[[16 - Convenciones de Nombrado]]`
+**PascalCase / UpperCamelCase** -- `MiClase`, `FacturaCliente`. Estandar clases. -> [[18 - Convenciones de Nombrado]]
 
-**Polimorfismo** — Mismo mensaje (`obj.metodo()`), comportamiento distinto según tipo real. *Dynamic dispatch*.
+**Polimorfismo** -- Mismo mensaje (`obj.metodo()`), comportamiento distinto segun tipo real.
 
-**Pool (String Pool / Integer Cache)** — Zona especial Heap donde literales / valores pequeños se reusan. `"a" == "a"` true; `new String("a") == "a"` false.
-
-**Primitivo** — `byte, short, int, long, float, double, boolean, char`. Valor directo, no objeto. → `[[03 - Tipos Primitivos y Referencia]]`
-
-**Programación Orientada a Objetos (POO/OOP)** — Paradigma: encapsulamiento, herencia, polimorfismo, abstracción.
-
-**Proyecto** — Estructura: `src/main/java`, `src/test/java`, `pom.xml`/`build.gradle`.
+**Primitivo** -- `byte, short, int, long, float, double, boolean, char`. Valor directo. -> [[03 - Tipos Primitivos y Referencia]]
 
 ---
 
 ## R
 
-**Record (Java 14+)** — `record Punto(int x, int y) {}` Clase inmutable concisa: campos `final`, constructor canónico, `equals/hashCode/toString`, getters `x()`, `y()`.
+**Record (Java 14+)** -- `record Punto(int x, int y) {}` Clase inmutable concisa. -> [[01 - Clases y Estructura Basica]]
 
-**Referencia** — Variable que guarda **dirección** de objeto en Heap. `String s = "hola";` → `s` es referencia.
+**Referencia** -- Variable que guarda direccion de objeto en Heap. -> [[03 - Tipos Primitivos y Referencia]]
 
-**Reflection** — Inspección/manipulación runtime de clases (`Class<?>`, `Method`, `Field`). Costoso, rompe encapsulamiento.
-
-**Return** — `return valor;` Sale de método devolviendo valor. `void` → `return;` opcional al final.
+**Return** -- `return valor;` Sale de metodo devolviendo valor. `void` -> solo `return;`. -> [[23 - Metodos - Parametros, Retorno y Return]]
 
 ---
 
 ## S
 
-**Scope (Ámbito)** — Región donde variable es visible. Clase, método, bloque `{}`, `for(;;)`.
+**Scope (Ambito)** -- Region donde una variable es visible. -> [[04 - Variables y Literales]]
 
-**Sentencia (Statement)** — Instrucción que **realiza acción** (no produce valor): `if`, `for`, `x=1;`, `return;`.
+**Separacion de Responsabilidades (SRP)** -- Una clase, una responsabilidad. -> [[19 - Separacion de Responsabilidades]], [[22 - Separacion de Responsabilidades]]
 
-**Serialización** — Convertir objeto → bytes (guardar/red). `Serializable`, `Externalizable`, JSON (Jackson/Gson).
+**Stack** -- Memoria por hilo: frames de metodos, locales. -> [[17 - Flujo de Ejecucion JVM]]
 
-**Setter** — Ver *Getters/Setters*.
+**Static** -- Miembro de clase, no instancia. Uno solo compartido. -> [[13 - Static vs Instancia]]
 
-**Shadowing (Sombreo)** — Variable local/parámetro con mismo nombre que campo: `int x` oculta `this.x`. Usa `this.x`.
+**Stream API** -- `list.stream().filter().map().toList()`. Procesamiento funcional de colecciones. -> [[24 - ArrayList - Metodos Avanzados]]
 
-**Single Responsibility Principle (SRP)** — Una clase, una razón para cambiar. → `[[17 - Separacion de Responsabilidades]]`
+**String** -- Clase inmutable para texto. Literal `"..."` -> String Pool. -> [[03 - Tipos Primitivos y Referencia]]
 
-**Stack (Pila)** — Memoria por hilo: frames de métodos, locales, operand stack. Rápida, LIFO. → `[[15 - Flujo de Ejecucion JVM]]`
-
-**StackOverflowError** — Stack agotado (recursión infinita, frames profundos). → `[[15 - Flujo de Ejecucion JVM]]`
-
-**Static** — Miembro de **clase**, no instancia. Uno solo compartido. `static campo`, `static metodo`, `static block`. → `[[13 - Static vs Instancia]]`
-
-**String** — Clase inmutable, secuencia caracteres UTF-16. Literal `"..."` → String Pool. `+` concatena. → `[[03 - Tipos Primitivos y Referencia]]`, `[[11 - System.out y Concatenacion]]`
-
-**Superclase / Clase Padre** — Clase extendida (`extends Padre`). `Object` si none.
-
-**This** — Referencia al **objeto actual** (`this.campo`, `this()`, `this.metodo()`). No existe en `static`. → `[[07 - Constructores y this]]`
+**Switch Expression (Java 14+)** -- `switch (x) { case 1 -> "uno"; default -> "otro"; }`. -> [[16 - Bucles y Control de Flujo]]
 
 ---
 
 ## T
 
-**Tell, Don't Ask** — Manda al objeto (`obj.hazlo()`), no le preguntas datos para decidir fuera (`if (obj.getX()) obj.setY()`). → `[[17 - Separacion de Responsabilidades]]`
+**Tell, Don't Ask** -- Dile al objeto que haga algo, no le preguntes datos para decidir fuera. -> [[22 - Separacion de Responsabilidades]]
 
-**Tipo de Dato** — Clasificación de valores: primitivo o referencia. Define operaciones válidas y memoria. → `[[03 - Tipos Primitivos y Referencia]]`
+**Text Blocks (Java 15+)** -- `"""..."""` para Strings multilinea. -> [[11 - System.out y Concatenacion]]
 
-**Type Erasure (Borrado de Tipos)** — Genéricos existen solo en compile-time. `List<String>` → `List` en runtime.
-
-**Type Parameter** — `T`, `E`, `K`, `V` en `class Box<T>`. Placeholder de tipo. → `[[16 - Convenciones de Nombrado]]`
+**Tipo de Dato** -- Primitivo o referencia. Define operaciones y memoria. -> [[03 - Tipos Primitivos y Referencia]]
 
 ---
 
 ## U
 
-**UML** — Unified Modeling Language. Diagramas clases, secuencia, casos de uso.
-
-**Unboxing** — Ver *Autoboxing*.
-
-**UPPER_SNAKE_CASE** — `MAX_SIZE`, `URL_BASE`. Constantes `static final`. → `[[16 - Convenciones de Nombrado]]`
+**UPPER_SNAKE_CASE** -- `MAX_SIZE`, `IVA`. Constantes `static final`. -> [[18 - Convenciones de Nombrado]]
 
 ---
 
 ## V
 
-**Value Object** — Ver *Objeto Valor*.
+**Var (Java 10+)** -- `var x = "hola";` Inferencia de tipo en variables locales. -> [[04 - Variables y Literales]]
 
-**Var (Java 10+)** — `var x = "hola";` Inferencia tipo local. No en campos, parámetros, retorno.
+**Variable** -- Nombre + Tipo + Valor. Local, campo o parametro. -> [[04 - Variables y Literales]]
 
-**Variable** — Nombre + Tipo + Valor (en memoria). Local, campo, parámetro. → `[[04 - Variables y Literales]]`
+**Varargs** -- `void m(String... args)` recibe 0..N argumentos como array. -> [[23 - Metodos - Parametros, Retorno y Return]]
 
-**Varargs** — `void m(String... args)` Recibe 0..N argumentos como array. Solo último parámetro.
-
-**Visibilidad** — Ver *Modificadores de Acceso*.
-
-**VO (Value Object)** — Ver *Objeto Valor*.
+**Void** -- Tipo de retorno "sin valor". Metodo solo produce efecto lateral. -> [[10 - Metodos de Instancia]]
 
 ---
 
 ## W
 
-**Wrapper** — Ver *Clase Wrapper*.
+**Wrapper** -- Ver Clase Wrapper.
 
 ---
 
-## Referencias Cruzadas Rápidas
+## Referencias Cruzadas
 
 | Concepto | Nota Principal |
-|----------|----------------|
-| Clases, Objetos, `new` | `[[01 - Clases y Estructura Basica]]`, `[[08 - Instanciacion y new]]` |
-| `main`, args, arranque | `[[02 - Punto de Entrada main]]` |
-| `int`, `String`, `boolean`, literales | `[[03 - Tipos Primitivos y Referencia]]`, `[[04 - Variables y Literales]]` |
-| `private`, `public`, encapsulamiento | `[[05 - Modificadores de Acceso]]`, `[[06 - Atributos y Campos]]` |
-| Constructores, `this`, sobrecarga | `[[07 - Constructores y this]]` |
-| Identidad vs Igualdad, `equals`, `hashCode` | `[[09 - Multiples Objetos e Identidad]]` |
-| Métodos, `void`, `return`, sobrecarga | `[[10 - Metodos de Instancia]]` |
-| `println`, `printf`, `+`, `StringBuilder` | `[[11 - System.out y Concatenacion]]` |
-| `? :` ternario | `[[12 - Operador Ternario]]` |
-| `static` vs instancia, memoria | `[[13 - Static vs Instancia]]`, `[[15 - Flujo de Ejecucion JVM]]` |
-| Arrays, `args`, `for-each` | `[[14 - Arrays Basicos y args]]` |
-| Nombrado: Pascal, camel, UPPER_SNAKE | `[[16 - Convenciones de Nombrado]]` |
-| Capas, DIP, SRP, Domain/Infra | `[[17 - Separacion de Responsabilidades]]` |
+|----------|---------------|
+| Clases, objetos, `new` | [[01 - Clases y Estructura Basica]], [[08 - Instanciacion y new]] |
+| `main`, args, arranque | [[02 - Punto de Entrada main]] |
+| Tipos, primitivos, wrappers | [[03 - Tipos Primitivos y Referencia]] |
+| Variables, literales, constantes | [[04 - Variables y Literales]] |
+| Modificadores de acceso | [[05 - Modificadores de Acceso]] |
+| Atributos, campos, estado | [[06 - Atributos y Campos]] |
+| Constructores, `this`, sobrecarga | [[07 - Constructores y this]] |
+| Identidad, igualdad, `equals` | [[09 - Multiples Objetos e Identidad]] |
+| Metodos, `void`, `return` | [[10 - Metodos de Instancia]], [[23 - Metodos - Parametros, Retorno y Return]] |
+| `System.out`, concatenacion | [[11 - System.out y Concatenacion]] |
+| Operador ternario | [[12 - Operador Ternario]] |
+| `static` vs instancia | [[13 - Static vs Instancia]] |
+| Arrays, `args` | [[14 - Arrays Basicos y args]] |
+| Listas, ArrayList | [[15 - Listas y ArrayList]], [[24 - ArrayList - Metodos Avanzados]] |
+| Bucles, for, while | [[16 - Bucles y Control de Flujo]] |
+| JVM, memoria, Stack, Heap | [[17 - Flujo de Ejecucion JVM]] |
+| Convenciones de nombrado | [[18 - Convenciones de Nombrado]] |
+| Separacion de responsabilidades | [[19 - Separacion de Responsabilidades]], [[22 - Separacion de Responsabilidades]] |
+| Javadoc, documentacion | [[20 - Javadoc y Documentacion]] |
+| Getters y Setters | [[21 - Getters y Setters]] |
+| Paquetes, organizacion | [[25 - Paquetes y Organizacion]] |
 
 ---
 
-> **Uso**: `Ctrl+Click` en enlaces `[[...]]` para saltar a nota completa. Busca con `Ctrl+F` término aquí.
+## Tags
+`#java #fundamentos #glosario #referencia #terminologia`

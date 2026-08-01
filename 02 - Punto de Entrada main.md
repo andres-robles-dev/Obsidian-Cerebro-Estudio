@@ -4,174 +4,233 @@ tags: [java, fundamentos, main, punto-entrada, jvm]
 
 # 02 - Punto de Entrada main
 
-## Concepto Central
+---
 
-El método `main` es el **punto de arranque** de toda aplicación Java standalone. La JVM (Máquina Virtual de Java) lo busca específicamente con esta firma exacta: `public static void main(String[] args)`. Sin él, la aplicación no sabe por dónde empezar a ejecutarse.
+## NIVEL JUNIOR
 
-## Para Qué Sirve / Cuándo Usarlo
+### Que es el main?
 
-- Iniciar la ejecución del programa
-- Recibir argumentos de línea de comandos (`args`)
-- Crear los primeros objetos y lanzar la lógica principal
-- Configurar entorno inicial (logging, conexión BD, hilos, etc.)
-- Todo programa Java autónomo necesita **exactamente uno** (o varios con clases distintas, pero la JVM elige uno al lanzar)
+El metodo `main` es por donde Java empieza a ejecutar tu programa. Es como la puerta de entrada de una casa: todo empieza ahi.
 
-## Sintaxis General
+### Como se escribe
+
+Siempre exactamente igual:
 
 ```java
-public class NombreClase {
+public static void main(String[] args) {
+
+}
+```
+
+### Tu primer programa
+
+```java
+public class MiPrimerPrograma {
     public static void main(String[] args) {
-        // Código de arranque
-        // 1. Configuración inicial
-        // 2. Creación de objetos principales
-        // 3. Llamada a métodos que inician la lógica
+        System.out.println("Hola mundo desde Java!");
     }
 }
 ```
 
-### Desglose de la Firma
+### Como ejecutarlo
 
-| Parte | Significado |
-|-------|-------------|
-| `public` | Accesible desde fuera (la JVM la llama desde el exterior) |
-| `static` | Pertenece a la **clase**, no a una instancia. No hace falta `new NombreClase()` |
-| `void` | No devuelve valor. La JVM no espera retorno. |
-| `main` | Nombre **obligatorio** y exacto (minúsculas). La JVM busca este nombre. |
-| `String[] args` | Array de `String` con argumentos pasados al lanzar: `java MiClase arg1 arg2` |
+1. Guarda el archivo como `MiPrimerPrograma.java`
+2. Abre la terminal
+3. Escribe: `javac MiPrimerPrograma.java` (compila)
+4. Escribe: `java MiPrimerPrograma` (ejecuta)
+5. Veras: `Hola mundo desde Java!`
 
-## Ejemplo Propio: AppPrincipal
+### Solo esto debes recordar por ahora
+
+- `public` - para que Java pueda acceder desde fuera
+- `static` - para que se ejecute sin necesidad de crear un objeto
+- `void` - no devuelve nada al terminar
+- `main` - el nombre exacto que Java busca
+- `String[] args` - espacio para recibir texto al iniciar
+
+---
+
+## NIVEL MID
+
+### Recibir argumentos
+
+Cuando ejecutas tu programa, puedes pasarle datos:
 
 ```java
-public class AppPrincipal {
+public class SaludoPersonalizado {
     public static void main(String[] args) {
-        System.out.println("=== Iniciando Aplicación ===");
+        String nombre = args[0];
+        int edad = Integer.parseInt(args[1]);
 
-        // 1. Mostrar argumentos recibidos (si los hay)
-        if (args.length > 0) {
-            System.out.println("Argumentos recibidos: " + args.length);
-            for (int i = 0; i < args.length; i++) {
-                System.out.println("  args[" + i + "] = " + args[i]);
+        System.out.println("Hola " + nombre + ", tienes " + edad + " anios");
+    }
+}
+```
+
+Ejecutar con: `java SaludoPersonalizado Carlos 25`
+
+Resultado: `Hola Carlos, tienes 25 anios`
+
+### Verificar que llegaron argumentos
+
+```java
+public class Saludador {
+    public static void main(String[] args) {
+        if (args.length == 0) {
+            System.out.println("Debes escribir tu nombre");
+            return;
+        }
+
+        System.out.println("Hola " + args[0]);
+    }
+}
+```
+
+### Organizar el main
+
+El `main` no debe tener mucha logica. Solo debe:
+
+1. Crear los objetos principales
+2. Llamar al metodo que inicia el programa
+3. Opcionalmente capturar errores generales
+
+```java
+public class Aplicacion {
+    public static void main(String[] args) {
+        // 1. Configurar
+        Configuracion config = new Configuracion();
+
+        // 2. Crear el programa
+        Sistema sistema = new Sistema(config);
+
+        // 3. Iniciar
+        sistema.iniciar();
+    }
+}
+```
+
+---
+
+## NIVEL SENIOR
+
+### Java moderno: main simplificado (Java 21+)
+
+Desde Java 21 puedes escribir `main` sin tanto boilerplate:
+
+```java
+public class Hola {
+    void main() {
+        System.out.println("Hola Java moderno!");
+    }
+}
+```
+
+Sin necesidad de `public static void`. Esto es gracias a las *launch protocols* mejorados.
+
+### Args como entrada de configuracion
+
+```java
+public class Servidor {
+    public static void main(String[] args) {
+        // Usando record para configuracion
+        var config = procesarArgumentos(args);
+        iniciarServidor(config);
+    }
+
+    record ConfigServidor(String host, int puerto, boolean modoDebug) {}
+
+    static ConfigServidor procesarArgumentos(String[] args) {
+        String host = "localhost";
+        int puerto = 8080;
+        boolean debug = false;
+
+        for (int i = 0; i < args.length; i++) {
+            switch (args[i]) {
+                case "--host" -> host = args[++i];
+                case "--puerto" -> puerto = Integer.parseInt(args[++i]);
+                case "--debug" -> debug = true;
             }
-        } else {
-            System.out.println("Sin argumentos de línea de comandos.");
         }
 
-        // 2. Crear objeto principal del dominio
-        Calculadora calc = new Calculadora();
-
-        // 3. Usar el objeto
-        int suma = calc.sumar(10, 5);
-        System.out.println("10 + 5 = " + suma);
-
-        // 4. Llamar a método que inicia flujo completo (opcional)
-        // iniciarSistema();
-
-        System.out.println("=== Aplicación Finalizada ===");
-    }
-}
-
-// Clase auxiliar en mismo archivo (package-private)
-class Calculadora {
-    public int sumar(int a, int b) {
-        return a + b;
+        return new ConfigServidor(host, puerto, debug);
     }
 
-    public int restar(int a, int b) {
-        return a - b;
-    }
-
-    public int multiplicar(int a, int b) {
-        return a * b;
-    }
-
-    public double dividir(double a, double b) {
-        if (b == 0) {
-            throw new IllegalArgumentException("No se puede dividir por cero");
-        }
-        return a / b;
+    static void iniciarServidor(ConfigServidor config) {
+        System.out.printf("Iniciando servidor en %s:%d (debug: %b)%n",
+            config.host(), config.puerto(), config.modoDebug());
     }
 }
 ```
 
-## Explicación Detallada Línea a Línea
+### Codigos de salida
 
-| Línea | Explicación |
-|-------|-------------|
-| `public class AppPrincipal` | Clase contenedora. `public` para que JVM la encuentre. |
-| `public static void main(String[] args)` | Firma exacta obligatoria. `static` = se llama sin instanciar. |
-| `System.out.println(...)` | Salida a consola. Ver `[[11 - System.out y Concatenacion]]`. |
-| `args.length` | Propiedad del array: número de elementos. Ver `[[14 - Arrays Basicos y args]]`. |
-| `for (int i = 0; i < args.length; i++)` | Recorrido clásico por índice. `i` empieza en 0. |
-| `Calculadora calc = new Calculadora();` | Instanciación. Ver `[[08 - Instanciacion y new]]`. |
-| `int suma = calc.sumar(10, 5);` | Llamada a método de instancia. Ver `[[10 - Metodos de Instancia]]`. |
-| `throw new IllegalArgumentException(...)` | Lanzamiento de excepción. Control de errores. |
+```java
+public class Procesador {
+    public static void main(String[] args) {
+        try {
+            procesar(args);
+            System.exit(0); // Todo bien
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
+            System.exit(1); // Algo fallo
+        }
+    }
+}
+```
+
+### System.in para entrada interactiva
+
+```java
+import java.util.Scanner;
+
+public class Interactivo {
+    public static void main(String[] args) {
+        try (var entrada = new Scanner(System.in)) {
+            System.out.print("Escribe tu nombre: ");
+            String nombre = entrada.nextLine();
+            System.out.println("Hola " + nombre);
+        }
+    }
+}
+```
+
+---
 
 ## Errores Comunes
 
-> [!warning] **Error 1: Falta `static`**
-> ```java
-> public void main(String[] args) { } // ❌ No es static
-> ```
-> ✅ **Correcto**: `public static void main(String[] args)`
+> Olvidar `static`. Sin `static` Java no puede llamar al main porque no hay objeto todavia.
 
-> [!warning] **Error 2: Nombre incorrecto (mayúsculas)**
-> ```java
-> public static void Main(String[] args) { } // ❌ Main ≠ main
-> public static void MAIN(String[] args) { } // ❌
-> ```
-> ✅ **Correcto**: `main` todo minúsculas.
+> Escribir `Main` con mayuscula. Java busca exactamente `main` en minusculas.
 
-> [!warning] **Error 3: Parámetro incorrecto**
-> ```java
-> public static void main(String args) { }        // ❌ No es array
-> public static void main(String... args) { }     // ✅ Varargs válido (equivale a array)
-> public static void main(String[] args) { }      // ✅ Forma canónica
-> ```
+> Poner `void` donde no toca. El main lleva `void`, los constructores no llevan `void`.
 
-> [!warning] **Error 4: Clase no `public`**
-> ```java
-> class MiApp { // ❌ Sin public, JVM no la ve como punto de entrada
->     public static void main(String[] args) { }
-> }
-> ```
-> ✅ **Correcto**: `public class MiApp { ... }`
+> Usar `int main` o `String main`. La firma exacta es `public static void main(String[])`.
 
-> [!warning] **Error 5: `main` dentro de método o constructor**
-> ```java
-> public class App {
->     public App() {
->         public static void main(String[] args) { } // ❌ Ilegal: método dentro de método
->     }
-> }
-> ```
-> ✅ **Correcto**: `main` a nivel de clase, no anidado.
+> Poner el main dentro de otro metodo. El main debe estar al nivel de la clase, no anidado.
 
-> [!warning] **Error 6: `return` con valor**
-> ```java
-> public static int main(String[] args) { return 0; } // ❌ void no devuelve nada
-> ```
-> ✅ **Correcto**: `void` sin `return` o `return;` solo para salir antes.
+> Confundir `args.length` (numero de argumentos) con `args[0]` (primer argumento).
 
-## Buenas Prácticas
+---
 
-1. **`main` ligero** — Solo arranque: crear objetos, delegar a métodos/servicios.
-2. **Una clase `main` por módulo ejecutable** — `AppWeb`, `AppBatch`, `AppCli`.
-3. **Validar `args` temprano** — Si esperas argumentos, comprueba `args.length` al inicio.
-4. **Manejo de excepciones global** — `try-catch` en `main` para log final y salida limpia.
-5. **Logging en lugar de `println`** — En producción usa SLF4J/Logback, no `System.out`.
-6. **Código de salida** — `System.exit(codigo)` para scripts/batch (0=ok, !=0=error).
+## Buenas Practicas
 
-## Conexión con Otros Temas
+1. Main ligero. Que solo arranque y delegue a otros metodos.
+2. Validar `args` al principio si esperas argumentos.
+3. Una clase main por aplicacion. No despersiges los puntos de entrada.
+4. Usar `System.exit(codigo)` para scripts donde 0 = bien, != 0 = error.
+5. En produccion usa logging (SLF4J) no `System.out`.
+6. Capturar excepciones en main para dar un mensaje amigable antes de cerrar.
 
-- `[[01 - Clases y Estructura Basica]]` — `main` vive dentro de una clase.
-- `[[08 - Instanciacion y new]]` — `main` suele ser donde se hace el primer `new`.
-- `[[13 - Static vs Instancia]]` — `main` es `static`, no puede acceder a `this` ni a campos de instancia directamente.
-- `[[14 - Arrays Basicos y args]]` — `args` es un array `String[]`.
-- `[[15 - Flujo de Ejecucion JVM]]` — La JVM carga la clase, verifica `main`, crea hilo principal, ejecuta.
+---
 
-## Resumen en Una Frase
+## Conexiones
 
-> **`public static void main(String[] args)` es la firma exacta que la JVM busca para arrancar tu programa; debe ser `static` para llamarse sin instanciar la clase.**
+- [[01 - Clases y Estructura Basica]] - El main vive dentro de una clase
+- [[08 - Instanciacion y new]] - En el main suele ir el primer `new`
+- [[13 - Static vs Instancia]] - main es static, no tiene `this`
+- [[14 - Arrays Basicos y args]] - `args` es un array de String
+- [[17 - Flujo de Ejecucion JVM]] - La JVM busca el main al arrancar
+- [[23 - Metodos - Parametros, Retorno y Return]] - main es un metodo
 
 ---
 

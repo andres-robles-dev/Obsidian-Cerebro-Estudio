@@ -1,231 +1,259 @@
 ---
-tags: [java, fundamentos, modificadores, acceso, encapsulamiento, visibilidad]
+tags: [java, fundamentos, modificadores, acceso, encapsulamiento]
 ---
 
 # 05 - Modificadores de Acceso
 
-## Concepto Central
+---
 
-Los **modificadores de acceso** controlan **qué código puede ver y usar** una clase, campo, método o constructor. Java define cuatro niveles de visibilidad (de más a menos restrictivo): `private`, *default (package-private)*, `protected`, `public`. Son la base del **encapsulamiento**: ocultar detalles internos y exponer solo una interfaz controlada.
+## NIVEL JUNIOR
 
-## Para Qué Sirve / Cuándo Usarlo
+### Que son los modificadores de acceso?
 
-- Proteger invariantes de la clase (ej: `saldo >= 0`)
-- Definir API pública clara y estable
-- Permitir cambios internos sin romper código cliente
-- Controlar herencia (`protected`)
-- Organizar módulos por paquetes (`default`)
+Controlan quien puede ver y usar tus clases, metodos y atributos. Piensa en ellos como niveles de privacidad.
 
-## Sintaxis General
+### Los cuatro niveles
 
-```java
-// Clases (solo public o default)
-public class Publica { }           // Visible en todo el universo
-class PackagePrivate { }           // Solo mismo paquete
+| Modificador                   | Quien puede acceder           |
+| ----------------------------- | ----------------------------- |
+| `public`                      | Todos (todo el mundo)         |
+| `private`                     | Solo esta clase               |
+| *sin escribir nada* (default) | Solo clases del mismo paquete |
+| `protected`                   | Mismo paquete + subclases     |
 
-// Miembros (campos, métodos, constructores)
-public    // Acceso desde cualquier clase
-protected // Mismo paquete + subclases (incluso en otros paquetes)
-default   // (sin modificador) Solo mismo paquete
-private   // Solo dentro de la MISMA clase
-```
+### El mas importante ahora: private
 
-### Tabla de Visibilidad
-
-| Modificador | Misma Clase | Mismo Paquete | Subclase (otro paquete) | Cualquier Clase |
-|-------------|:-----------:|:-------------:|:-----------------------:|:---------------:|
-| `private`   | ✅          | ❌            | ❌                      | ❌              |
-| `default`   | ✅          | ✅            | ❌                      | ❌              |
-| `protected` | ✅          | ✅            | ✅                      | ❌              |
-| `public`    | ✅          | ✅            | ✅                      | ✅              |
-
-> **Regla de oro**: Empieza con `private`. Expande solo si es necesario.
-
-## Ejemplo Propio: CuentaBancaria
+Los atributos de una clase deben ser `private` para que nadie los modifique directamente:
 
 ```java
-package banco;
-
-// Clase pública: API del dominio
 public class CuentaBancaria {
-    // --- PRIVADO: Estado interno, invariantes protegidos ---
-    private String titular;
-    private String iban;
-    private double saldo;           // Invariante: saldo >= 0
-    private int contadorOperaciones; // Detalle implementación
+    private double saldo;
 
-    // --- CONSTRUCTOR PÚBLICO: Punto de creación controlado ---
-    public CuentaBancaria(String titular, String iban, double saldoInicial) {
-        if (saldoInicial < 0) {
-            throw new IllegalArgumentException("Saldo inicial no puede ser negativo");
-        }
-        this.titular = titular;
-        this.iban = iban;
-        this.saldo = saldoInicial;
-        this.contadorOperaciones = 0;
-    }
-
-    // --- PÚBLICO: API oficial (Contrato) ---
-    public String getTitular() { return titular; }
-    public String getIban() { return iban; }
-    public double getSaldo() { return saldo; }
-
-    public void ingresar(double cantidad) {
-        validarPositivo(cantidad, "ingreso");
-        saldo += cantidad;
-        registrarOperacion("INGRESO", cantidad);
-    }
-
-    public void retirar(double cantidad) {
-        validarPositivo(cantidad, "retiro");
-        if (cantidad > saldo) {
-            throw new IllegalStateException("Fondos insuficientes: " + saldo);
-        }
-        saldo -= cantidad;
-        registrarOperacion("RETIRO", cantidad);
-    }
-
-    public void transferir(CuentaBancaria destino, double cantidad) {
-        if (destino == null) throw new IllegalArgumentException("Destino nulo");
-        this.retirar(cantidad);        // Valida saldo y registra
-        destino.ingresar(cantidad);    // Usa API pública del destino
-    }
-
-    // --- PROTECTED: Para subclases (ej: CuentaAhorro, CuentaCorriente) ---
-    protected void registrarOperacion(String tipo, double cantidad) {
-        contadorOperaciones++;
-        // Hook para logging, auditoría en subclases
-        System.out.println("[AUDIT] " + tipo + " " + cantidad + " en " + iban);
-    }
-
-    // Acceso controlado a contador (subclases pueden leer)
-    protected int getContadorOperaciones() {
-        return contadorOperaciones;
-    }
-
-    // --- PRIVADO: Lógica interna, detalle de implementación ---
-    private void validarPositivo(double cantidad, String operacion) {
-        if (cantidad <= 0) {
-            throw new IllegalArgumentException(operacion + " debe ser > 0");
+    public void depositar(double cantidad) {
+        if (cantidad > 0) {
+            saldo = saldo + cantidad;
         }
     }
 
-    // --- DEFAULT (package-private): Utilidades para clases hermanas del paquete ---
-    /* package-private */ boolean esCuentaNueva() {
-        return contadorOperaciones == 0;
-    }
-}
-
-// Clase package-private: solo visible dentro de paquete 'banco'
-class UtilidadesBanco {
-    static void imprimirResumen(CuentaBancaria c) {
-        // Accede a default esCuentaNueva()
-        System.out.println("Cuenta: " + c.getIban() + " | Nueva: " + c.esCuentaNueva());
-    }
-}
-
-// Subclase en MISMO paquete
-class CuentaAhorro extends CuentaBancaria {
-    private double interesAnual;
-
-    public CuentaAhorro(String titular, String iban, double saldoInicial, double interes) {
-        super(titular, iban, saldoInicial);
-        this.interesAnual = interes;
-    }
-
-    public void aplicarInteres() {
-        double interes = getSaldo() * interesAnual / 100;
-        ingresar(interes); // Usa API pública
-        // Accede a protected de padre
-        System.out.println("Operaciones totales: " + getContadorOperaciones());
+    public double obtenerSaldo() {
+        return saldo;
     }
 }
 ```
 
-## Explicación Detallada Línea a Línea
+Desde fuera no puedes hacer `cuenta.saldo = 500;` porque `saldo` es `private`. Solo puedes usar los metodos publicos.
 
-| Línea | Explicación |
-|-------|-------------|
-| `private String titular;` | Solo `CuentaBancaria` accede. Ni subclases ni otras clases. |
-| `public CuentaBancaria(...)` | Constructor público = cualquiera puede crear cuentas. Valida invariante (`saldo >= 0`). |
-| `public double getSaldo()` | Getter público: lectura controlada. No setter → saldo solo cambia via `ingresar/retirar`. |
-| `public void transferir(CuentaBancaria destino, ...)` | Orquesta operación compleja usando API pública de ambos objetos. |
-| `protected void registrarOperacion(...)` | **Hook** para subclases. `CuentaAhorro` puede sobrescribir y añadir lógica. |
-| `protected int getContadorOperaciones()` | Subclases leen contador; exterior no. |
-| `private void validarPositivo(...)` | Detalle interno. Cambiar firma no rompe API. |
-| `/* package-private */ boolean esCuentaNueva()` | Sin modificador = `default`. `UtilidadesBanco` (mismo paquete) accede. |
-| `class UtilidadesBanco` | Sin `public` → package-private. Solo clases en `banco` la ven. |
-| `class CuentaAhorro extends CuentaBancaria` | Hereda `protected` y `public`. No ve `private` del padre. |
+### Ejemplo basico
+
+```java
+public class Persona {
+    public String nombre;     // Lo ve todo el mundo
+    private int edad;         // Solo lo ve esta clase
+
+    public void cumplirAnios() {
+        edad = edad + 1;
+    }
+
+    public int obtenerEdad() {
+        return edad;
+    }
+}
+```
+
+En el main:
+```java
+Persona p = new Persona();
+p.nombre = "Ana";          // OK, es public
+p.edad = 30;               // ERROR: edad es private
+System.out.println(p.obtenerEdad());  // OK, el metodo es public
+```
+
+---
+
+## NIVEL MID
+
+### Public: acceso total
+
+```java
+public class Calculadora {
+    public int sumar(int a, int b) {
+        return a + b;
+    }
+}
+```
+
+`public` significa que cualquiera desde cualquier parte del proyecto puede usar esta clase o metodo.
+
+### Private: solo yo
+
+```java
+public class Usuario {
+    private String contrasenia;
+
+    private String encriptar(String texto) {
+        // Logica de encriptacion
+        return "***" + texto + "***";
+    }
+
+    public void cambiarContrasenia(String nueva) {
+        this.contrasenia = encriptar(nueva);
+    }
+}
+```
+
+`encriptar` es `private` porque es un detalle interno. Nadie fuera de la clase necesita saber como encriptas.
+
+### Default (sin modificador): mismo paquete
+
+```java
+// Archivo: modelo/Producto.java
+package modelo;
+
+class Producto {
+    String nombre;  // default: solo visible en el paquete modelo
+}
+```
+
+Si no pones `public` ni `private`, solo las clases en el mismo paquete (`modelo`) pueden verlo.
+
+### Protected: herencia
+
+```java
+public class Animal {
+    protected String especie;
+
+    protected void hacerSonido() {
+        System.out.println("Sonido de " + especie);
+    }
+}
+
+public class Perro extends Animal {
+    public void ladrar() {
+        especie = "Canino";  // OK, Perro hereda de Animal
+        hacerSonido();
+        System.out.println("Guau!");
+    }
+}
+```
+
+---
+
+## NIVEL SENIOR
+
+### Encapsulamiento real con records
+
+Los `record` son inherentemente encapsulados: sus campos son `private final` y solo se accede por los metodos del componente:
+
+```java
+public record Usuario(String nombre, String email, int edad) {
+    // Los campos son private final por defecto
+    // Solo accedes con usuario.nombre(), usuario.email(), usuario.edad()
+}
+
+public class DemoRecord {
+    public static void main(String[] args) {
+        var usuario = new Usuario("Ana", "ana@email.com", 30);
+        System.out.println(usuario.nombre());  // Acceso por metodo, no por campo
+        // usuario.nombre = "otro"; // ERROR: no se puede modificar
+    }
+}
+```
+
+### Modularidad con module-info (Java 9+)
+
+En proyectos grandes puedes controlar que paquetes se exportan:
+
+```java
+// module-info.java
+module com.miapp.modelo {
+    exports com.miapp.modelo;           // Solo esto es visible fuera
+    exports com.miapp.servicios;
+    // Lo no exportado queda oculto
+}
+```
+
+### Interfaces con miembros privados (Java 9+)
+
+Las interfaces pueden tener metodos privados para compartir codigo:
+
+```java
+public interface Repositorio {
+    Usuario buscarPorId(long id);
+
+    default Usuario buscarOCrear(long id, String nombre) {
+        var encontrado = buscarPorId(id);
+        return encontrado != null ? encontrado : crear(id, nombre);
+    }
+
+    private Usuario crear(long id, String nombre) {
+        // Logica compartida solo dentro de la interfaz
+        return new Usuario(nombre, id);
+    }
+}
+```
+
+### Clases selladas y acceso (Java 17+)
+
+Controlas exactamente que clases pueden heredar:
+
+```java
+public sealed class Resultado permite Exito, Error {
+    // ...
+}
+
+public final class Exito extends Resultado {
+    private final Object dato;
+
+    public Exito(Object dato) {
+        this.dato = dato;
+    }
+}
+
+public final class Error extends Resultado {
+    private final String mensaje;
+
+    public Error(String mensaje) {
+        this.mensaje = mensaje;
+    }
+}
+```
+
+---
 
 ## Errores Comunes
 
-> [!warning] **Error 1: Todo `public` (anemia de encapsulamiento)**
-> ```java
-> public class Cuenta {
->     public double saldo; // ❌ Cualquiera hace: cuenta.saldo = -1000;
-> }
-> ```
-> ✅ **Correcto**: `private saldo` + `public getSaldo()` + `public ingresar()/retirar()` con validación.
+> Poner todo `public`. Los atributos deben ser `private`. Solo los metodos que forman parte de la API publica deben ser `public`.
 
-> [!warning] **Error 2: `protected` por defecto**
-> ```java
-> protected void helperInterno() { } // ❌ Expone a subclases innecesariamente
-> ```
-> ✅ **Correcto**: `private` salvo que **diseñes** para herencia (Template Method, hooks).
+> Pensar que `private` en un metodo lo oculta a todos. Las clases anidadas (inner classes) pueden acceder a los `private` de la clase contenedora.
 
-> [!warning] **Error 3: Getter que devuelve referencia mutable interna**
-> ```java
-> private List<String> movimientos = new ArrayList<>();
-> public List<String> getMovimientos() { return movimientos; } // ❌ Fuga de encapsulamiento
-> // Cliente: cuenta.getMovimientos().clear(); // Rompe invariantes
-> ```
-> ✅ **Correcto**: `return Collections.unmodifiableList(movimientos);` o copia defensiva `new ArrayList<>(movimientos)`.
+> Usar `protected` sin necesidad de herencia. Si no vas a heredar, usa `private` o `public`.
 
-> [!warning] **Error 4: `default` accidental en API pública**
-> ```java
-> // Archivo: com/app/servicio/Servicio.java
-> class Servicio { // ❌ Sin public → package-private
->     public void hacerAlgo() { }
-> }
-> // Otro paquete: import com.app.servicio.Servicio; // ❌ No visible
-> ```
-> ✅ **Correcto**: `public class Servicio` si es API del módulo.
+> Olvidar que `default` (sin modificador) no es lo mismo que `public`. Default = solo mismo paquete.
 
-> [!warning] **Error 5: Subclase en otro paquete no ve `default`**
-> ```java
-> // Paquete A
-> class Padre { void metodo() {} } // default
-> // Paquete B
-> class Hijo extends Padre {
->     void test() { metodo(); } // ❌ Error: no visible
-> }
-> ```
-> ✅ **Correcto**: `protected void metodo()` en padre.
+---
 
-## Buenas Prácticas
+## Buenas Practicas
 
-1. **`private` por defecto** — Campos siempre `private`. Métodos internos `private`.
-2. **API mínima pública** — Solo lo que el cliente **necesita**. Menos superficie = menos acoplamiento.
-3. **Getters/Setters no automáticos** — Solo expón lo necesario. Setter valida; getter puede devolver copia/inmutable.
-4. **`protected` solo para herencia diseñada** — Documenta *por qué* es protected (hook, template method).
-5. **`default` para utilidades de paquete** — Clases helper, testing interno, factorías de paquete.
-6. **Constructores: visibilidad acorde** — `private` para Singleton/Factory, `protected` para factorías en subclases, `public` normal.
-7. **Clases `final` si no diseñas para herencia** — `public final class Cuenta` evita subclasificación accidental.
+1. Atributos siempre `private`. Acceso mediante [[21 - Getters y Setters]].
+2. Metodos `public` solo si forman parte de la API. Metodos de ayuda interna van `private`.
+3. Clases `public` solo si se usan fuera del paquete. Si solo se usan internamente, no pongas modificador.
+4. Prefiere `record` para datos simples: ya son inmutables y encapsulados.
+5. No expongas colecciones mutables. Devuelve copias o listas inmutables con `List.copyOf()`.
 
-## Conexión con Otros Temas
+---
 
-- `[[01 - Clases y Estructura Basica]]` — Modificadores en declaración de clase.
-- `[[06 - Atributos y Campos]]` — Campos `private` + getters/setters.
-- `[[07 - Constructores y this]]` — Visibilidad de constructores.
-- `[[10 - Metodos de Instancia]]` — Visibilidad de métodos.
-- `[[13 - Static vs Instancia]]` — Miembros `static` también tienen visibilidad.
-- `[[17 - Separacion de Responsabilidades]]` — Encapsulamiento = cohesión alta, acoplamiento bajo.
+## Conexiones
 
-## Resumen en Una Frase
-
-> **Empieza todo `private`; expone `public` solo la API esencial; usa `protected` para hooks de herencia; `default` para colaboradores de paquete.**
+- [[01 - Clases y Estructura Basica]] - Toda clase tiene un modificador
+- [[06 - Atributos y Campos]] - Campos private con getters
+- [[07 - Constructores y this]] - Constructores publicos para crear objetos
+- [[10 - Metodos de Instancia]] - Metodos publicos vs privados
+- [[19 - Separacion de Responsabilidades]] - Que va en public vs private
+- [[21 - Getters y Setters]] - Acceso controlado a atributos private
+- [[22 - Separacion de Responsabilidades]] - SRP y encapsulamiento
+- [[25 - Paquetes y Organizacion]] - Visibilidad por paquetes
 
 ---
 
 ## Tags
-`#java #fundamentos #modificadores #acceso #encapsulamiento #private #protected #public #package-private`
+`#java #fundamentos #modificadores #acceso #encapsulamiento #public #private #protected`

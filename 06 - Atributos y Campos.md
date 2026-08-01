@@ -1,254 +1,263 @@
 ---
-tags: [java, fundamentos, atributos, campos, variables-instancia, estado, valores-defecto]
+tags: [java, fundamentos, atributos, campos, estado, variables-instancia]
 ---
 
 # 06 - Atributos y Campos
 
-## Concepto Central
+---
 
-Un **atributo** (también llamado **campo** o *field* o *variable de instancia*) es una variable declarada **dentro de una clase pero fuera de cualquier método**. Define el **estado** que cada objeto (instancia) de esa clase tendrá de forma independiente. Cada `new Clase()` crea una **copia propia** de todos los campos no `static`.
+## NIVEL JUNIOR
 
-## Para Qué Sirve / Cuándo Usarlo
+### Que son los atributos?
 
-- Modelar datos propios de cada entidad: `Persona.nombre`, `Cuenta.saldo`, `Coche.kilometraje`
-- Mantener estado entre llamadas a métodos del mismo objeto
-- Representar invariantes que la clase debe proteger (con `private` + validación)
-- Diferenciar instancias: `libro1.titulo != libro2.titulo`
-
-## Sintaxis General
+Los atributos (o campos) son los datos que guarda un objeto. Son las variables que definen el estado de un objeto.
 
 ```java
-class NombreClase {
-    // Campo de instancia (sin static)
-    [modificadores] tipo nombreCampo;
-    [modificadores] tipo nombreCampo = valorInicial;
-
-    // Campo de clase (static) - ver [[13 - Static vs Instancia]]
-    static tipo nombreCampoClase;
+public class Alumno {
+    String nombre;      // Atributo
+    int edad;           // Atributo
+    double notaMedia;   // Atributo
 }
 ```
 
-### Modificadores Comunes en Campos
+Cada vez que creas un `Alumno`, ese objeto tiene su propio `nombre`, `edad` y `notaMedia`.
 
-| Modificador | Efecto |
-|-------------|--------|
-| `private` | Solo visible en la propia clase (estándar) |
-| `public` | Visible en todas partes (evitar en campos mutables) |
-| `protected` | Visible en paquete + subclases |
-| `default` (ninguno) | Visible en paquete |
-| `final` | Inmutable tras inicialización (constante de instancia) |
-| `transient` | No serializado (ver serialización) |
-| `volatile` | Visibilidad entre hilos (concurrencia) |
+### Valores por defecto
 
-## Valores por Defecto (Inicialización Automática)
+Si no les das valor, Java les asigna uno automaticamente:
 
-Java **garantiza** que todo campo se inicializa si no lo haces tú:
-
-| Tipo | Valor por Defecto |
-|------|-------------------|
-| `byte`, `short`, `int`, `long` | `0` / `0L` |
-| `float`, `double` | `0.0f` / `0.0` |
+| Tipo | Valor por defecto |
+|------|------------------|
+| `int`, `long`, `byte`, `short` | `0` |
+| `double`, `float` | `0.0` |
 | `boolean` | `false` |
-| `char` | `'\u0000'` (NUL) |
-| **Referencia** (String, Objetos, Arrays) | `null` |
+| `String` y otros objetos | `null` |
 
-> **Nota**: Variables **locales** (en métodos) **NO** tienen valor por defecto → error si se leen sin inicializar.
-
-## Ejemplo Propio: Empleado
+### Ejemplo basico
 
 ```java
-public class Empleado {
-    // --- CAMPOS DE INSTANCIA (estado único por empleado) ---
-    private String nombre;           // null por defecto
-    private String nif;              // null
-    private int edad;                // 0
-    private double salarioBase;      // 0.0
-    private boolean activo;          // false
-    private char categoria;          // '\u0000'
-    private String[] habilidades;    // null (array es referencia)
+public class Alumno {
+    String nombre;
+    int edad;
+    double notaMedia;
 
-    // Campo final: se inicializa UNA vez (constructor o declaración)
-    private final String idEmpleado; // Debe asignarse en constructor
-
-    // Contador compartido (static) - ver [[13 - Static vs Instancia]]
-    private static int contadorIds = 0;
-
-    // --- CONSTRUCTOR: Inicialización obligatoria de final y válidos ---
-    public Empleado(String nombre, String nif, int edad, double salarioBase, char categoria) {
-        // Validaciones (invariantes)
-        if (nombre == null || nombre.isBlank()) throw new IllegalArgumentException("Nombre vacío");
-        if (nif == null || nif.length() != 9) throw new IllegalArgumentException("NIF inválido");
-        if (edad < 16 || edad > 70) throw new IllegalArgumentException("Edad 16-70");
-        if (salarioBase < 0) throw new IllegalArgumentException("Salario >= 0");
-
-        this.nombre = nombre;
-        this.nif = nif;
-        this.edad = edad;
-        this.salarioBase = salarioBase;
-        this.categoria = categoria;
-        this.activo = true;                    // Default explícito
-        this.habilidades = new String[0];      // Array vacío (no null)
-        this.idEmpleado = "EMP-" + (++contadorIds); // Inicializa final
-    }
-
-    // --- GETTERS (lectura controlada) ---
-    public String getNombre() { return nombre; }
-    public String getNif() { return nif; }
-    public int getEdad() { return edad; }
-    public double getSalarioBase() { return salarioBase; }
-    public boolean isActivo() { return activo; }
-    public char getCategoria() { return categoria; }
-    public String getIdEmpleado() { return idEmpleado; }
-    public String[] getHabilidades() { return habilidades.clone(); } // Copia defensiva
-
-    // --- SETTERS CON VALIDACIÓN (escritura controlada) ---
-    public void setSalarioBase(double salarioBase) {
-        if (salarioBase < 0) throw new IllegalArgumentException("Salario >= 0");
-        this.salarioBase = salarioBase;
-    }
-
-    public void setActivo(boolean activo) {
-        this.activo = activo;
-    }
-
-    public void addHabilidad(String habilidad) {
-        if (habilidad == null || habilidad.isBlank()) return;
-        String[] nuevo = new String[habilidades.length + 1];
-        System.arraycopy(habilidades, 0, nuevo, 0, habilidades.length);
-        nuevo[habilidades.length] = habilidad;
-        this.habilidades = nuevo;
-    }
-
-    // --- MÉTODOS DE NEGOCIO (usan campos) ---
-    public double calcularSalarioAnual() {
-        return salarioBase * 14; // 14 pagas
-    }
-
-    public void cumpleanos() {
-        edad++;
-        if (edad > 65) categoria = 'J'; // Jubilación próxima
-    }
-
-    public void mostrarFicha() {
-        System.out.println("=== Ficha Empleado ===");
-        System.out.println("ID: " + idEmpleado);
+    public void mostrarDatos() {
         System.out.println("Nombre: " + nombre);
-        System.out.println("NIF: " + nif);
         System.out.println("Edad: " + edad);
-        System.out.println("Categoría: " + categoria);
-        System.out.println("Salario base: " + salarioBase);
-        System.out.println("Activo: " + activo);
-        System.out.println("Habilidades: " + String.join(", ", habilidades));
+        System.out.println("Nota media: " + notaMedia);
     }
+}
 
-    // --- MAIN DE PRUEBA ---
+public class Principal {
     public static void main(String[] args) {
-        Empleado e1 = new Empleado("Ana López", "12345678Z", 30, 25000, 'A');
-        Empleado e2 = new Empleado("Carlos Ruiz", "87654321X", 45, 32000, 'B');
-
-        e1.addHabilidad("Java");
-        e1.addHabilidad("SQL");
-        e2.addHabilidad("Python");
-
-        e1.mostrarFicha();
-        System.out.println("Salario anual: " + e1.calcularSalarioAnual());
-
-        System.out.println("\n---\n");
-        e2.mostrarFicha();
-
-        // Demostración valores por defecto en nuevo objeto (sin setter)
-        Empleado e3 = new Empleado("Test", "11111111A", 20, 1000, 'C');
-        System.out.println("\nNuevo empleado - activo por defecto: " + e3.isActivo()); // true
-        System.out.println("Habilidades vacías (no null): " + e3.getHabilidades().length); // 0
+        Alumno a = new Alumno();
+        a.nombre = "Lucia";
+        a.edad = 20;
+        a.notaMedia = 8.5;
+        a.mostrarDatos();
     }
 }
 ```
 
-## Explicación Detallada Línea a Línea
+---
 
-| Línea | Explicación |
-|-------|-------------|
-| `private String nombre;` | Campo instancia. `private` encapsula. Valor defecto `null`. |
-| `private final String idEmpleado;` | `final` = asignación **una sola vez**. Obligatorio en constructor. |
-| `private static int contadorIds = 0;` | **Campo de clase** (static). Compartido por todas las instancias. Ver `[[13 - Static vs Instancia]]`. |
-| `this.nombre = nombre;` | `this.` distingue campo `this.nombre` del parámetro `nombre`. Ver `[[07 - Constructores y this]]`. |
-| `this.habilidades = new String[0];` | Inicializa array vacío (evita `null` y `NullPointerException` posterior). |
-| `this.idEmpleado = "EMP-" + (++contadorIds);` | Inicializa `final`. `++contadorIds` incrementa static y usa nuevo valor. |
-| `public String[] getHabilidades() { return habilidades.clone(); }` | **Copia defensiva**: devuelve clon para que cliente no modifique array interno. |
-| `public void addHabilidad(String habilidad)` | Método de mutación controlada. Crea array nuevo + copia + añade (inmutable por diseño). |
-| `if (edad > 65) categoria = 'J';` | Mutación de campo `char` en método de negocio. |
-| `Empleado e1 = new Empleado(...);` | Cada `new` crea objeto con **sus propios campos** (e1.nombre ≠ e2.nombre). |
+## NIVEL MID
+
+### Inicializacion en la declaracion
+
+Puedes dar valor inicial a los atributos directamente:
+
+```java
+public class Producto {
+    String nombre;
+    double precio = 0.0;           // Valor inicial
+    int stock = 0;                 // Valor inicial
+    boolean disponible = false;    // Valor inicial
+    String codigo = "SIN-CODIGO";  // Valor inicial
+}
+```
+
+### Campos final: que no cambian
+
+Un campo `final` solo se asigna una vez:
+
+```java
+public class Persona {
+    final String dni;       // Se asigna en el constructor y ya no cambia
+    final int anioNacimiento;
+    String nombre;
+
+    public Persona(String dni, int anioNacimiento, String nombre) {
+        this.dni = dni;
+        this.anioNacimiento = anioNacimiento;
+        this.nombre = nombre;
+    }
+}
+```
+
+### Campos static: compartidos
+
+```java
+public class Contador {
+    static int total = 0;   // Compartido por todas las instancias
+    int numero;              // Propio de cada instancia
+
+    public Contador() {
+        total++;
+        numero = total;
+    }
+}
+```
+
+### Inicializacion en bloque
+
+```java
+public class Ejemplo {
+    int x;
+    String nombre;
+    double precio;
+
+    {
+        // Bloque de inicializacion: se ejecuta antes del constructor
+        x = 10;
+        nombre = "Sin nombre";
+    }
+
+    public Ejemplo() {
+        precio = 0.0;
+    }
+}
+```
+
+---
+
+## NIVEL SENIOR
+
+### Records: atributos simplificados
+
+```java
+public record Producto(String nombre, double precio, int stock) {
+    // Los atributos son automaticamente private final
+    // Los metodos de acceso son automaticos: producto.nombre(), producto.precio()
+}
+
+public record Pedido(int id, String cliente, List<Producto> productos, LocalDateTime fecha) {
+    public Pedido {
+        // Constructor compacto: validacion sin asignar manualmente
+        if (id <= 0) {
+            throw new IllegalArgumentException("Id invalido");
+        }
+        if (productos.isEmpty()) {
+            throw new IllegalArgumentException("Pedido sin productos");
+        }
+    }
+}
+```
+
+### Atributos con Optional
+
+```java
+import java.util.Optional;
+
+public class Usuario {
+    private final long id;
+    private final String nombre;
+    private final String email;
+    private final Optional<String> telefono;  // Puede no tener telefono
+
+    public Usuario(long id, String nombre, String email, String telefono) {
+        this.id = id;
+        this.nombre = nombre;
+        this.email = email;
+        this.telefono = Optional.ofNullable(telefono);
+    }
+
+    public Optional<String> getTelefono() {
+        return telefono;
+    }
+}
+```
+
+### Inmutabilidad con copia defensiva
+
+```java
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class Grupo {
+    private final String nombre;
+    private final List<String> miembros;
+
+    public Grupo(String nombre, List<String> miembros) {
+        this.nombre = nombre;
+        // Copia defensiva: no confias en que la lista externa no cambie
+        this.miembros = List.copyOf(miembros);
+    }
+
+    public List<String> getMiembros() {
+        return miembros;  // Ya es inmutable por List.copyOf
+    }
+}
+```
+
+### Campos con patrones modernos
+
+```java
+public class Configuracion {
+    private static final Configuracion INSTANCIA = new Configuracion();
+
+    private String entorno = System.getenv("ENTORNO");
+    private int puerto = Integer.getInteger("app.puerto", 8080);
+    private List<String> origenesPermitidos = List.of("http://localhost");
+
+    public static Configuracion obtener() {
+        return INSTANCIA;
+    }
+
+    // getters...
+}
+```
+
+---
 
 ## Errores Comunes
 
-> [!warning] **Error 1: Campo `public` mutable (anemia)**
-> ```java
-> public class Cuenta { public double saldo; } // ❌
-> // Cliente: cuenta.saldo = -1000; // Rompe invariante
-> ```
-> ✅ **Correcto**: `private double saldo;` + `public void ingresar(double c) { if(c>0) saldo+=c; }`
+> Olvidar inicializar variables locales. Los atributos de clase se inicializan solos, pero las variables dentro de metodos NO.
 
-> [!warning] **Error 2: Devolver referencia interna mutable (fuga)**
-> ```java
-> private List<String> tags = new ArrayList<>();
-> public List<String> getTags() { return tags; } // ❌
-> // Cliente: obj.getTags().clear(); // Vacía lista interna!
-> ```
-> ✅ **Correcto**: `return Collections.unmodifiableList(tags);` o `return new ArrayList<>(tags);`
+> Poner atributos `public`. Rompe el encapsulamiento. Cualquiera puede modificarlos sin control.
 
-> [!warning] **Error 3: `final` en referencia ≠ objeto inmutable**
-> ```java
-> private final List<String> lista = new ArrayList<>(); // ✅ Referencia final
-> lista.add("X"); // ✅ Permitido: muta el OBJETO, no la referencia
-> lista = new ArrayList<>(); // ❌ Error: reasigna referencia
-> ```
-> ✅ **Entiende**: `final` en campo referencia = la variable no cambia de objeto, pero el objeto **sí** puede mutar.
+> Usar `float` para dinero. Los decimales exactos se pierden. Usa `BigDecimal` para dinero.
 
-> [!warning] **Error 4: Olvidar inicializar `final` en constructor**
-> ```java
-> class A { final int x; A() { } } // ❌ variable x might not have been initialized
-> ```
-> ✅ **Correcto**: `A(int v) { this.x = v; }` o `final int x = 10;` en declaración.
+> Asignar un array o lista sin copia defensiva. Quien te pasa la lista puede modificarla desde fuera.
 
-> [!warning] **Error 5: Shadowing accidental en setter**
-> ```java
-> void setNombre(String nombre) { nombre = nombre; } // ❌ Parámetro se asigna a sí mismo
-> ```
-> ✅ **Correcto**: `this.nombre = nombre;`
+> Confundir campos `static` con campos de instancia. `static` es compartido por todos los objetos.
 
-> [!warning] **Error 6: Array campo sin inicializar → NPE**
-> ```java
-> private String[] items;
-> void add(String s) { items[0] = s; } // ❌ NullPointerException
-> ```
-> ✅ **Correcto**: `private String[] items = new String[0];` o inicializa en constructor.
+---
 
-## Buenas Prácticas
+## Buenas Practicas
 
-1. **`private` siempre** — Salvo DTOs/Records puros de datos sin lógica.
-2. **`final` siempre que puedas** — Inmutabilidad = menos bugs. Campos `final` + constructor = objeto inmutable.
-3. **Inicializa arrays/colecciones** — Evita `null` y NPE. `new String[0]`, `new ArrayList<>()`.
-4. **Getters: copia defensiva o inmutable** — Nunca devuelvas array/colección interna directa.
-5. **Setters: valida invariantes** — `saldo >= 0`, `edad > 0`, `email` contiene `@`.
-6. **Nombres sustantivos** — `nombre`, `saldo`, `fechaNacimiento`. No `getNombre()` para campo (eso es método).
-7. **Evita campos `static` mutables** — Estado global compartido = pesadilla concurrencia/testing. Ver `[[13 - Static vs Instancia]]`.
-8. **Agrupa relacionados** — Si tienes `direccionCalle`, `direccionCiudad`, `direccionCp` → clase `Direccion`.
+1. Atributos `private` y acceso mediante [[21 - Getters y Setters]].
+2. `final` para campos que no cambian despues de la creacion.
+3. Inicializa en la declaracion si el valor por defecto tiene sentido.
+4. Usa `record` para datos simples e inmutables.
+5. Copia defensiva en atributos que reciben listas o arrays mutables.
+6. `static final` para constantes: `public static final int MAX = 100;`.
+7. No expongas colecciones directamente. Usa `List.copyOf()` o `Collections.unmodifiableList()`.
 
-## Conexión con Otros Temas
+---
 
-- `[[01 - Clases y Estructura Basica]]` — Dónde se declaran los campos.
-- `[[05 - Modificadores de Acceso]]` — `private`/`public`/`protected` en campos.
-- `[[07 - Constructores y this]]` — Inicialización obligatoria de `final` y campos.
-- `[[08 - Instanciacion y new]]` — Cada `new` crea copia propia de campos instancia.
-- `[[09 - Multiples Objetos e Identidad]]` — e1.campo ≠ e2.campo.
-- `[[10 - Metodos de Instancia]]` — Métodos leen/escriben `this.campo`.
-- `[[13 - Static vs Instancia]]` — Diferencia campo `static` vs sin `static`.
+## Conexiones
 
-## Resumen en Una Frase
-
-> **Un atributo es una variable de instancia que define el estado único de cada objeto; encapsúlalo (`private`), válida en setters, y devuelve copias en getters.**
+- [[01 - Clases y Estructura Basica]] - Los atributos son parte de la clase
+- [[05 - Modificadores de Acceso]] - Los atributos suelen ser private
+- [[07 - Constructores y this]] - Inicializar atributos en constructor
+- [[08 - Instanciacion y new]] - Los atributos nacen con new
+- [[09 - Multiples Objetos e Identidad]] - Cada objeto tiene sus propios atributos
+- [[13 - Static vs Instancia]] - Campos static (compartidos) vs de instancia
+- [[21 - Getters y Setters]] - Acceso controlado a atributos
 
 ---
 
 ## Tags
-`#java #fundamentos #atributos #campos #variables-instancia #estado #encapsulamiento #final #valores-defecto`
+`#java #fundamentos #atributos #campos #estado #variables-instancia #campos-estaticos`

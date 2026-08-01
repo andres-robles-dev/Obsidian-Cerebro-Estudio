@@ -4,260 +4,358 @@ tags: [java, fundamentos, constructores, this, sobrecarga, inicializacion]
 
 # 07 - Constructores y this
 
-## Concepto Central
+---
 
-Un **constructor** es un bloque de código especial que se ejecuta **automáticamente** al crear un objeto con `new`. Su única misión: **inicializar el estado del objeto** (asignar valores a sus campos) para que nazca en un estado válido y usable. El nombre **debe** coincidir exactamente con el de la clase y **no tiene tipo de retorno** (ni `void`).
+## NIVEL JUNIOR
 
-La palabra clave **`this`** es una referencia al **objeto actual** (la instancia en ejecución). Sirve para:
-1. Desambiguar **campo vs parámetro** (`this.nombre = nombre`)
-2. Llamar a **otro constructor** de la misma clase (`this(...)`) — *constructor chaining*
-3. Pasar **la propia instancia** a otro método/objeto (`otro.metodo(this)`)
+### Que es un constructor?
 
-## Para Qué Sirve / Cuándo Usarlo
+Un constructor es un metodo especial que se ejecuta cuando creas un objeto con `new`. Su trabajo es preparar el objeto para que este listo para usar.
 
-- Garantizar que **todo objeto nace válido** (invariantes cumplidos)
-- Centralizar lógica de inicialización (evita duplicar código en setters)
-- Permitir **múltiples formas de crear** un objeto (sobrecarga)
-- Inyectar dependencias obligatorias (constructor = contrato de creación)
-- `this`: resolver colisión nombres, encadenar constructores, pasar `this` como callback
+### Reglas del constructor
 
-## Sintaxis General
+- Tiene el MISMO nombre que la clase
+- NO lleva `void` ni ningun tipo de retorno
+- Se llama automaticamente al hacer `new`
+
+### Ejemplo minimo
 
 ```java
-class NombreClase {
-    // Constructor sin parámetros (por defecto si no hay otros)
-    public NombreClase() {
-        // Inicialización básica
+public class Perro {
+    String nombre;
+    int edad;
+
+    // Constructor
+    public Perro(String nombre, int edad) {
+        this.nombre = nombre;
+        this.edad = edad;
     }
 
-    // Constructor con parámetros (común)
-    public NombreClase(Tipo1 param1, Tipo2 param2) {
-        this.campo1 = param1;      // this.campo = parámetro
-        this.campo2 = param2;
-    }
-
-    // Constructor encadenado (llama a otro constructor de MISMA clase)
-    public NombreClase(Tipo1 param1) {
-        this(param1, valorPorDefecto); // DEBE ser PRIMERA línea
-    }
-
-    // Bloque de inicialización de instancia (opcional, antes de constructor)
-    {
-        // Código común a TODOS los constructores
+    public void ladrar() {
+        System.out.println(nombre + " dice: Guau!");
     }
 }
 ```
 
-### Reglas Clave
+### Como se usa
 
-| Regla | Detalle |
-|-------|---------|
-| **Nombre** | Igual a la clase (`Coche` → `public Coche()`) |
-| **Sin retorno** | Ni `void`, ni `int`, ni nada. Solo nombre. |
-| **`this(...)`** | Solo en **primera línea** de constructor. Llama a otro constructor de la misma clase. |
-| **`super(...)`** | Solo en **primera línea**. Llama a constructor padre. Si no pones `this()` ni `super()`, Java inserta `super()` implícito. |
-| **Constructor por defecto** | Si **no escribes ningún** constructor, Java genera `public Clase() { super(); }`. Si escribes **cualquiera**, **no** genera el sin-argumentos. |
+```java
+public class Principal {
+    public static void main(String[] args) {
+        Perro p1 = new Perro("Max", 3);
+        Perro p2 = new Perro("Luna", 1);
 
-## Ejemplo Propio: Rectangulo
+        p1.ladrar();
+        p2.ladrar();
+    }
+}
+```
+
+### Que hace this?
+
+`this` significa "este objeto". Sirve para diferenciar cuando el parametro y el atributo se llaman igual:
+
+```java
+public Perro(String nombre, int edad) {
+    this.nombre = nombre;  // this.nombre = atributo, nombre = parametro
+    this.edad = edad;      // this.edad = atributo, edad = parametro
+}
+```
+
+### Constructor por defecto
+
+Si NO escribes ningun constructor, Java pone uno vacio automaticamente:
+
+```java
+public class Gato {
+    String nombre;
+    // Java crea: public Gato() {}
+}
+
+// Puedes hacer: Gato g = new Gato();  // Funciona por el constructor por defecto
+```
+
+Pero si escribes UN constructor, el por defecto desaparece:
+
+```java
+public class Gato {
+    String nombre;
+
+    public Gato(String nombre) {
+        this.nombre = nombre;
+    }
+}
+
+// Gato g = new Gato();  // ERROR: ya no existe el constructor sin parametros
+```
+
+---
+
+## NIVEL MID
+
+### Sobrecarga de constructores
+
+Puedes tener varios constructores con distintos parametros:
 
 ```java
 public class Rectangulo {
-    // --- CAMPOS ---
-    private double ancho;
-    private double alto;
-    private String color;
-    private boolean relleno;
+    double ancho;
+    double alto;
+    String color;
+    boolean relleno;
 
-    // Contador estático de instancias creadas
-    private static int contador = 0;
-
-    // --- CONSTRUCTOR COMPLETO (canónico) ---
+    // Constructor completo
     public Rectangulo(double ancho, double alto, String color, boolean relleno) {
-        validarPositivo(ancho, "Ancho");
-        validarPositivo(alto, "Alto");
         this.ancho = ancho;
         this.alto = alto;
-        this.color = (color != null && !color.isBlank()) ? color : "Negro";
+        this.color = color;
         this.relleno = relleno;
-        contador++; // Incrementa static
     }
 
-    // --- CONSTRUCTOR SOBRECARGADO: solo dimensiones (defaults color/relleno) ---
+    // Constructor solo con medidas (color y relleno por defecto)
     public Rectangulo(double ancho, double alto) {
-        this(ancho, alto, "Negro", false); // Encadena al canónico (PRIMERA LÍNEA)
-    }
-
-    // --- CONSTRUCTOR SOBRECARGADO: cuadrado (ancho=alto) ---
-    public Rectangulo(double lado) {
-        this(lado, lado); // Encadena al de 2 params → ese encadena al canónico
-    }
-
-    // --- CONSTRUCTOR COPIA (crea nuevo rectángulo igual a otro) ---
-    public Rectangulo(Rectangulo otro) {
-        this(otro.ancho, otro.alto, otro.color, otro.relleno);
-    }
-
-    // --- MÉTODO PRIVADO: validación compartida ---
-    private void validarPositivo(double valor, String nombre) {
-        if (valor <= 0) {
-            throw new IllegalArgumentException(nombre + " debe ser > 0, recibido: " + valor);
-        }
-    }
-
-    // --- GETTERS ---
-    public double getAncho() { return ancho; }
-    public double getAlto() { return alto; }
-    public String getColor() { return color; }
-    public boolean isRelleno() { return relleno; }
-
-    // --- SETTERS CON VALIDACIÓN ---
-    public void setAncho(double ancho) {
-        validarPositivo(ancho, "Ancho");
         this.ancho = ancho;
-    }
-
-    public void setAlto(double alto) {
-        validarPositivo(alto, "Alto");
         this.alto = alto;
+        this.color = "Negro";
+        this.relleno = false;
     }
 
-    public void setColor(String color) {
-        this.color = (color != null && !color.isBlank()) ? color : "Negro";
-    }
-
-    public void setRelleno(boolean relleno) {
-        this.relleno = relleno;
-    }
-
-    // --- MÉTODOS DE NEGOCIO ---
-    public double area() { return ancho * alto; }
-    public double perimetro() { return 2 * (ancho + alto); }
-    public boolean esCuadrado() { return Math.abs(ancho - alto) < 0.0001; }
-
-    public void mostrar() {
-        System.out.println("=== Rectángulo ===");
-        System.out.println("Ancho: " + ancho);
-        System.out.println("Alto: " + alto);
-        System.out.println("Color: " + color);
-        System.out.println("Relleno: " + relleno);
-        System.out.println("Área: " + area());
-        System.out.println("Perímetro: " + perimetro());
-        System.out.println("Es cuadrado: " + esCuadrado());
-    }
-
-    // --- MÉTODO ESTÁTICO: acceso a contador ---
-    public static int getContador() { return contador; }
-
-    // --- MAIN DE PRUEBA ---
-    public static void main(String[] args) {
-        // Usos de constructores sobrecargados
-        Rectangulo r1 = new Rectangulo(5, 3, "Rojo", true);  // Canónico
-        Rectangulo r2 = new Rectangulo(4, 4);                // 2 params → defaults
-        Rectangulo r3 = new Rectangulo(6);                   // 1 param (cuadrado)
-        Rectangulo r4 = new Rectangulo(r1);                  // Copia de r1
-
-        r1.mostrar();
-        System.out.println();
-        r2.mostrar();
-        System.out.println();
-        r3.mostrar();
-        System.out.println();
-        r4.mostrar();
-
-        System.out.println("\nTotal instancias creadas: " + Rectangulo.getContador());
-
-        // Demostración this en setter
-        r1.setAncho(10); // this.ancho = 10
-        System.out.println("\nTras setAncho(10): área = " + r1.area());
+    // Constructor para cuadrado
+    public Rectangulo(double lado) {
+        this.ancho = lado;
+        this.alto = lado;
+        this.color = "Negro";
+        this.relleno = false;
     }
 }
 ```
 
-## Explicación Detallada Línea a Línea
+### this() para encadenar constructores
 
-| Línea | Explicación |
-|-------|-------------|
-| `public Rectangulo(double ancho, double alto, String color, boolean relleno)` | Constructor **canónico** (el más completo). Valida, asigna con `this.`, incrementa `static`. |
-| `this.ancho = ancho;` | `this.ancho` = campo de instancia. `ancho` = parámetro. Sin `this.`, `ancho = ancho` asigna parámetro a sí mismo. |
-| `this.color = (color != null ...) ? color : "Negro";` | Operador ternario para default si `null`/vacío. |
-| `public Rectangulo(double ancho, double alto) { this(ancho, alto, "Negro", false); }` | **Constructor chaining**: `this(...)` llama a otro constructor. **Debe ser primera línea**. |
-| `public Rectangulo(double lado) { this(lado, lado); }` | Encadena al de 2 params → ese encadena al canónico. Evita duplicar validación/asignación. |
-| `public Rectangulo(Rectangulo otro)` | **Constructor copia**. Crea nueva instancia con mismos valores. |
-| `private void validarPositivo(...)` | Lógica compartida. `private` = solo esta clase. |
-| `contador++` | Modifica campo `static`. Ver `[[13 - Static vs Instancia]]`. |
-| `r1.setAncho(10);` | En setter: `this.ancho = ancho;` desambigua. |
+Puedes llamar a un constructor desde otro con `this(...)`. Debe ser la PRIMERA linea:
+
+```java
+public class Rectangulo {
+    double ancho;
+    double alto;
+    String color;
+    boolean relleno;
+
+    // Constructor canonico (el que hace todo el trabajo)
+    public Rectangulo(double ancho, double alto, String color, boolean relleno) {
+        this.ancho = ancho;
+        this.alto = alto;
+        this.color = color;
+        this.relleno = relleno;
+    }
+
+    // Los demas constructores delegan en el canonico
+    public Rectangulo(double ancho, double alto) {
+        this(ancho, alto, "Negro", false);
+    }
+
+    public Rectangulo(double lado) {
+        this(lado, lado, "Negro", false);
+    }
+}
+```
+
+### Validacion en constructor
+
+```java
+public class CuentaBancaria {
+    private double saldo;
+
+    public CuentaBancaria(double saldoInicial) {
+        if (saldoInicial < 0) {
+            throw new IllegalArgumentException(
+                "El saldo inicial no puede ser negativo: " + saldoInicial
+            );
+        }
+        this.saldo = saldoInicial;
+    }
+}
+```
+
+---
+
+## NIVEL SENIOR
+
+### Records: constructores compactos
+
+```java
+public record Libro(String titulo, String autor, int anio, String isbn) {
+    // Constructor compacto: no hace falta asignar los campos
+    public Libro {
+        if (titulo == null || titulo.isBlank()) {
+            throw new IllegalArgumentException("Titulo obligatorio");
+        }
+        if (anio < 1900 || anio > 2026) {
+            throw new IllegalArgumentException("Anio fuera de rango: " + anio);
+        }
+    }
+
+    // Constructor adicional
+    public Libro(String titulo, String autor) {
+        this(titulo, autor, 2026, "SIN-ISBN");
+    }
+}
+```
+
+### Constructor con Optional
+
+```java
+import java.util.Optional;
+
+public class Usuario {
+    private final long id;
+    private final String nombre;
+    private final Optional<String> email;
+    private final Optional<String> telefono;
+
+    public Usuario(long id, String nombre, String email, String telefono) {
+        this.id = id;
+        this.nombre = nombre;
+        this.email = Optional.ofNullable(email);
+        this.telefono = Optional.ofNullable(telefono);
+    }
+
+    // Constructor con valores obligatorios
+    public Usuario(long id, String nombre) {
+        this(id, nombre, null, null);
+    }
+}
+```
+
+### Patron Builder con constructor privado
+
+```java
+public class Pedido {
+    private final int id;
+    private final String cliente;
+    private final List<String> productos;
+    private final String direccionEnvio;
+    private final boolean urgente;
+
+    private Pedido(Builder constructor) {
+        this.id = constructor.id;
+        this.cliente = constructor.cliente;
+        this.productos = List.copyOf(constructor.productos);
+        this.direccionEnvio = constructor.direccionEnvio;
+        this.urgente = constructor.urgente;
+    }
+
+    public static class Builder {
+        private int id;
+        private String cliente;
+        private List<String> productos = new ArrayList<>();
+        private String direccionEnvio;
+        private boolean urgente = false;
+
+        public Builder conId(int id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder paraCliente(String cliente) {
+            this.cliente = cliente;
+            return this;
+        }
+
+        public Builder conProducto(String producto) {
+            this.productos.add(producto);
+            return this;
+        }
+
+        public Builder enviarA(String direccion) {
+            this.direccionEnvio = direccion;
+            return this;
+        }
+
+        public Builder urgente() {
+            this.urgente = true;
+            return this;
+        }
+
+        public Pedido construir() {
+            return new Pedido(this);
+        }
+    }
+}
+
+// Uso:
+// var pedido = new Pedido.Builder()
+//     .conId(1)
+//     .paraCliente("Ana")
+//     .conProducto("Laptop")
+//     .urgente()
+//     .construir();
+```
+
+### this en lambdas y clases anidadas
+
+```java
+public class Servicio {
+    private String nombre;
+
+    public void ejecutar() {
+        // En lambdas, this se refiere a la clase contenedora
+        Runnable tarea = () -> {
+            System.out.println(this.nombre);
+        };
+
+        // En clases anonimas, this se refiere a la clase anonima
+        Runnable tarea2 = new Runnable() {
+            @Override
+            public void run() {
+                System.out.println(Servicio.this.nombre);
+            }
+        };
+    }
+}
+```
+
+---
 
 ## Errores Comunes
 
-> [!warning] **Error 1: Poner `void` o tipo en constructor**
-> ```java
-> public void Rectangulo(double a, double b) { } // ❌ Método, no constructor
-> public int Rectangulo() { return 0; }          // ❌
-> ```
-> ✅ **Correcto**: `public Rectangulo(double a, double b) { }` (sin tipo).
+> Poner `void` en el constructor. `public void Rectangulo() {}` es un metodo, no un constructor. El constructor no lleva tipo de retorno.
 
-> [!warning] **Error 2: `this(...)` no en primera línea**
-> ```java
-> public Rectangulo(double a) {
->     System.out.println("Creando"); // ❌ Error: this() must be first statement
->     this(a, a);
-> }
-> ```
-> ✅ **Correcto**: `this(a, a);` en línea 1. Si necesitas lógica antes, usa método `init()` llamado desde canónico.
+> Llamar a `this(...)` despues de otras instrucciones. `this()` debe ser la primera linea del constructor.
 
-> [!warning] **Error 3: Llamar `this()` y `super()` en mismo constructor**
-> ```java
-> public Rectangulo(double a) {
->     this(a, a);
->     super(); // ❌ Solo uno permitido, y en primera línea
-> }
-> ```
-> ✅ **Correcto**: El canónico hace `super()` implícito (o explícito). Los encadenados `this()` delegan.
+> Olvidar que al crear un constructor con parametros, desaparece el constructor sin parametros. Si lo necesitas, debes escribirlo explicitamente.
 
-> [!warning] **Error 4: Olvidar constructor sin args tras definir uno con args**
-> ```java
-> class A { public A(int x) {} }
-> new A(); // ❌ Error: no constructor sin argumentos
-> ```
-> ✅ **Correcto**: Añade `public A() { this(0); }` o `public A() { }` explícito.
+> Usar `this` en un metodo `static`. `this` no existe en contexto `static` porque no hay objeto.
 
-> [!warning] **Error 5: `this` en contexto `static`**
-> ```java
-> static void metodo() { this.ancho = 5; } // ❌ static no tiene this
-> ```
-> ✅ **Correcto**: `this` solo en métodos/constructores de instancia.
+> No validar parametros en el constructor. Un objeto puede nacer en estado invalido.
 
-> [!warning] **Error 6: Shadowing sin `this` en setter**
-> ```java
-> void setAncho(double ancho) { ancho = ancho; } // ❌ No hace nada al campo
-> ```
-> ✅ **Correcto**: `this.ancho = ancho;`
+---
 
-## Buenas Prácticas
+## Buenas Practicas
 
-1. **Un constructor canónico** — El que tiene todos los parámetros y hace validación/asignación real.
-2. **Encadena (`this(...)`) hacia el canónico** — Los demás constructores delegan. Un solo punto de verdad.
-3. **Valida en el canónico** — Los encadenados confían en él.
-4. **`final` en campos inmutables** — Asigna en constructor (o declaración). Ver `[[06 - Atributos y Campos]]`.
-5. **Constructor copia defensivo** — Si campos son mutables (arrays, listas), copia profunda en constructor copia.
-6. **Documenta contrato** — Javadoc en constructor público: qué parámetros, qué excepciones lanza.
-7. **Evita lógica pesada en constructor** — Solo inicialización. Cosas complejas → factoría/builder.
-8. **`this` consistente** — Úsalo **siempre** en setters y constructores para campos, aunque no haya colisión (claridad).
+1. Un constructor canonico que recibe todos los parametros y hace la validacion.
+2. Los demas constructores llaman al canonico con `this(...)` (encadenamiento).
+3. Valida parametros en el constructor para que el objeto nazca valido.
+4. Usa `final` en campos que se asignan en el constructor y nunca cambian.
+5. Para muchos parametros, considera el patron Builder.
+6. Documenta con Javadoc: que espera cada parametro y que excepciones lanza.
+7. Records cuando la clase solo tiene datos, sin logica compleja.
 
-## Conexión con Otros Temas
+---
 
-- `[[01 - Clases y Estructura Basica]]` — Constructores son miembros de la clase.
-- `[[06 - Atributos y Campos]]` — Inicialización de campos (`final`, valores defecto).
-- `[[08 - Instanciacion y new]]` — `new Rectangulo(...)` invoca constructor.
-- `[[09 - Multiples Objetos e Identidad]]` — Cada `new` llama constructor → objeto distinto.
-- `[[10 - Metodos de Instancia]]` — Setters usan `this` igual que constructores.
-- `[[13 - Static vs Instancia]]` — `contador++` en constructor modifica `static`.
+## Conexiones
 
-## Resumen en Una Frase
-
-> **El constructor inicializa el objeto para que nazca válido; `this` desambigua campo/parámetro y encadena constructores hacia uno canónico único.**
+- [[01 - Clases y Estructura Basica]] - El constructor es parte de la clase
+- [[06 - Atributos y Campos]] - El constructor inicializa los atributos
+- [[08 - Instanciacion y new]] - `new` llama al constructor
+- [[09 - Multiples Objetos e Identidad]] - Cada new ejecuta su propio constructor
+- [[10 - Metodos de Instancia]] - Los constructores tambien usan this
+- [[13 - Static vs Instancia]] - En static no existe this
+- [[20 - Javadoc y Documentacion]] - Documentar parametros del constructor
+- [[21 - Getters y Setters]] - Constructor puede usar setters para validar
+- [[23 - Metodos - Parametros, Retorno y Return]] - Return en constructores
 
 ---
 
 ## Tags
-`#java #fundamentos #constructores #this #sobrecarga #constructor-chaining #inicializacion #constructor-copia`
+`#java #fundamentos #constructores #this #sobrecarga #constructor-chaining #inicializacion`

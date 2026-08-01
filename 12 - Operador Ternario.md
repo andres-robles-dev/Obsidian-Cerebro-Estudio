@@ -1,203 +1,217 @@
 ---
-tags: [java, fundamentos, operador, ternario, condicional, expresion]
+tags: [java, fundamentos, operador-ternario, condicional, expresion]
 ---
 
 # 12 - Operador Ternario
 
-## Concepto Central
+---
 
-El **operador ternario** (`? :`) es la **única expresión condicional** en Java: evalúa una condición booleana y devuelve **uno de dos valores** según sea `true` o `false`. Sintaxis: `condicion ? valorSiVerdadero : valorSiFalso`. Es una **expresión** (produce valor), no una sentencia (no termina en `;` por sí misma). Útil para asignaciones, argumentos, returns concisos.
+## NIVEL JUNIOR
 
-## Para Qué Sirve / Cuándo Usarlo
+### Que es el operador ternario?
 
-- Asignación condicional compacta: `int x = (a > b) ? a : b;`
-- Argumento condicional en llamada: `metodo(flag ? "A" : "B");`
-- `return` expresivo: `return n % 2 == 0 ? "par" : "impar";`
-- Inicialización de `final`: `final String msg = ok ? "OK" : "FAIL";`
-- Evitar `if-else` verboso para lógica simple de **valor**
+Es una forma corta de escribir un `if-else` cuando quieres elegir entre dos valores.
 
-> **No usar** para lógica compleja, efectos secundarios, o anidados profundos (legibilidad).
-
-## Sintaxis General
+### Sintaxis
 
 ```java
-// Expresión completa (produce valor)
-tipo variable = condicionBooleana ? expresionTrue : expresionFalse;
-
-// En return
-return condicion ? valorTrue : valorFalse;
-
-// En argumento
-otroMetodo(condicion ? argTrue : argFalse);
-
-// En impresión
-System.out.println(condicion ? "Sí" : "No");
-
-// Anidado (desaconsejado > 1 nivel)
-String r = a > b ? "mayor" : (a < b ? "menor" : "igual");
+variable = (condicion) ? valorSiVerdadero : valorSiFalso;
 ```
 
-### Reglas de Tipos
-
-- Los dos ramas (`:` separados) deben ser **compatibles** en tipo.
-- Java aplica **promoción numérica** / **tipo común superior** (LUB - Least Upper Bound).
-- `String` + `Object` → `Object`; `int` + `double` → `double`; `Integer` + `Double` → `Number` (boxing).
-
-## Ejemplo Propio: ControlAccesoEdad
+### Ejemplo basico
 
 ```java
-public class ControlAccesoEdad {
-    // Constantes de negocio
-    private static final int EDAD_MINIMA = 18;
-    private static final int EDAD_JUBILACION = 65;
-    private static final int EDAD_MAXIMA_ACCESO = 120;
+int edad = 18;
+String mensaje = (edad >= 18) ? "Eres mayor de edad" : "Eres menor de edad";
+System.out.println(mensaje);
+```
 
-    // --- MÉTODO PRINCIPAL: usa ternario en return ---
-    public static String evaluarAcceso(int edad, boolean esVip) {
-        // Validación rangos (expresión booleana compuesta)
-        boolean edadValida = edad >= 0 && edad <= EDAD_MAXIMA_ACCESO;
+Esto es equivalente a:
 
-        // Ternario anidado simple: 3 casos
-        String base = edadValida
-            ? (edad >= EDAD_JUBILACION ? "Jubilado" : (edad >= EDAD_MINIMA ? "Adulto" : "Menor"))
-            : "Edad inválida";
+```java
+int edad = 18;
+String mensaje;
+if (edad >= 18) {
+    mensaje = "Eres mayor de edad";
+} else {
+    mensaje = "Eres menor de edad";
+}
+System.out.println(mensaje);
+```
 
-        // Ternario para sufijo VIP
-        String vipTag = esVip ? " [VIP]" : "";
+### Otro ejemplo
 
-        return base + vipTag;
-    }
+```java
+int nota = 7;
+String resultado = (nota >= 5) ? "Aprobado" : "Suspenso";
+System.out.println(resultado);
+```
 
-    // --- MÉTODO: cálculo precio entrada con ternario ---
-    public static double calcularPrecio(int edad, boolean esVip, boolean esEstudiante) {
-        double base = 10.0;
+### Caracteristica importante
 
-        // Descuentos acumulativos con ternarios encadenados (legibles en líneas)
-        double precio = base
-            - (edad < 12           ? 5.0   : 0)   // Niño
-            - (edad >= 65          ? 3.0   : 0)   // Jubilado
-            - (esEstudiante        ? 2.0   : 0)   // Estudiante
-            - (esVip               ? 1.0   : 0);  // VIP
+El ternario **siempre devuelve un valor**. No es como un `if` que solo ejecuta codigo.
 
-        // Suelo a 0 (ternario)
-        return precio > 0 ? precio : 0;
-    }
+---
 
-    // --- MÉTODO: mensaje personalizado con ternario en argumento ---
-    public static void saludar(String nombre, int edad, boolean vip) {
-        String titulo = vip ? "Estimado" : "Hola";
-        String segmento = edad < 18 ? "joven" : (edad < 65 ? "adulto" : "senior");
-        // Ternario directo en println
-        System.out.println(titulo + " " + nombre + ", bienvenido " + segmento + (vip ? " VIP" : "") + "!");
-    }
+## NIVEL MID
 
-    // --- MAIN DE PRUEBA ---
+### Ternario con diferentes tipos
+
+```java
+public class DemoTernario {
     public static void main(String[] args) {
-        System.out.println("=== Evaluación Acceso ===");
-        int[] edades = {10, 17, 18, 25, 65, 70, 130};
-        boolean[] vip = {false, true, false, true, false, true, false};
+        int numero = 10;
 
-        for (int i = 0; i < edades.length; i++) {
-            String resultado = evaluarAcceso(edades[i], vip[i]);
-            double precio = calcularPrecio(edades[i], vip[i], edades[i] <= 25);
-            System.out.printf("Edad %3d | VIP:%-5s → %-18s | Precio: %.2f€%n",
-                edades[i], vip[i], resultado, precio);
-        }
+        // Con String
+        String tipo = (numero % 2 == 0) ? "Par" : "Impar";
 
-        System.out.println("\n=== Saludos ===");
-        saludar("Ana", 16, false);
-        saludar("Carlos", 30, true);
-        saludar("María", 70, false);
+        // Con int
+        int maximo = (numero > 5) ? numero : 5;
 
-        // Demostración tipos resultado ternario
-        System.out.println("\n=== Tipos en ternario ===");
-        int a = 5, b = 10;
-        double d = a > b ? a : b;           // int → double (promoción)
-        Number n = a > b ? Integer.valueOf(a) : Double.valueOf(b); // Integer|Double → Number
-        Object o = a > b ? "mayor" : 99;    // String|Integer → Object
-        System.out.println("double: " + d + ", Number: " + n + ", Object: " + o);
+        // Con boolean
+        boolean esPositivo = (numero >= 0) ? true : false;
+
+        System.out.println(tipo);      // "Par"
+        System.out.println(maximo);    // 10
+        System.out.println(esPositivo); // true
     }
 }
 ```
 
-## Explicación Detallada Línea a Línea
+### Ternario en metodos
 
-| Línea | Explicación |
-|-------|-------------|
-| `boolean edadValida = edad >= 0 && edad <= EDAD_MAXIMA_ACCESO;` | Variable intermedia legible. Evita repetir condición compleja en ternario. |
-| `String base = edadValida ? (edad >= 65 ? ... ) : "Edad inválida";` | **Ternario anidado 2 niveles**. Paréntesis obligatorios para precedencia. |
-| `String vipTag = esVip ? " [VIP]" : "";` | Ternario simple para sufijo. `""` (String vacío) compatible con `" [VIP]"`. |
-| `double precio = base - (cond ? desc : 0) - ...` | **Ternarios en expresión aritmética**. Cada uno devuelve `double` (promoción `int`→`double`). |
-| `return precio > 0 ? precio : 0;` | **Guarda** (clamp) con ternario. Evita `if (precio < 0) precio = 0;`. |
-| `String titulo = vip ? "Estimado" : "Hola";` | Asignación condicional simple. |
-| `String segmento = edad < 18 ? "joven" : (edad < 65 ? "adulto" : "senior");` | Ternario anidado 2 niveles para 3 rangos. |
-| `System.out.println(... (vip ? " VIP" : "") ...)` | Ternario **inline** en concatenación. |
-| `double d = a > b ? a : b;` | `a,b` son `int`, resultado `double` por **promoción numérica** (asignación a `double`). |
-| `Number n = ... ? Integer.valueOf(a) : Double.valueOf(b);` | Tipos wrapper distintos → **LUB = Number**. Boxing automático. |
-| `Object o = ... ? "mayor" : 99;` | `String` e `Integer` → **LUB = Object**. Boxing del `int`. |
+```java
+public class Calculo {
+    public double precioConDescuento(double precio, boolean esVip) {
+        return esVip ? precio * 0.8 : precio;
+    }
+
+    public String clasificar(int nota) {
+        return (nota >= 9) ? "Sobresaliente"
+             : (nota >= 7) ? "Notable"
+             : (nota >= 5) ? "Aprobado"
+             : "Suspenso";
+    }
+}
+```
+
+### Ternario dentro de concatenacion
+
+```java
+public class Demo {
+    public static void main(String[] args) {
+        int temperatura = 30;
+        System.out.println(
+            "Hace " + temperatura + " grados. " +
+            (temperatura > 25 ? "Hace calor" : "Temperatura agradable")
+        );
+    }
+}
+```
+
+---
+
+## NIVEL SENIOR
+
+### Ternario con Optional
+
+```java
+import java.util.Optional;
+
+public class DemoTernarioModerno {
+    public Optional<String> obtenerNombre(boolean existe) {
+        return existe ? Optional.of("Ana") : Optional.empty();
+    }
+
+    public String formatoSeguro(String valor) {
+        return valor != null ? valor.trim().toUpperCase() : "SIN VALOR";
+    }
+}
+```
+
+### Ternario con switch expression (Java 14+)
+
+Para mas de dos opciones, `switch` como expresion es mas legible que ternarios anidados:
+
+```java
+public class DemoSwithExpresion {
+    public static void main(String[] args) {
+        int dia = 3;
+
+        // Con ternarios anidados (dificil de leer):
+        String tipo = (dia == 6 || dia == 7) ? "Finde" : (dia == 1) ? "Lunes" : "Laborable";
+
+        // Con switch expresion (mas claro):
+        String tipoClaro = switch (dia) {
+            case 1 -> "Lunes";
+            case 6, 7 -> "Finde";
+            default -> "Laborable";
+        };
+
+        System.out.println(tipoClaro);
+    }
+}
+```
+
+### Ternario con record
+
+```java
+public record Resultado(boolean exito, String mensaje) {
+    public static Resultado de(boolean condicion) {
+        return condicion
+            ? new Resultado(true, "Operacion completada")
+            : new Resultado(false, "Operacion fallida");
+    }
+}
+```
+
+### Pattern matching con ternario (Java 21+)
+
+```java
+public class DemoPatternTernario {
+    public String clasificar(Object obj) {
+        return switch (obj) {
+            case String s -> s.length() > 5 ? "Texto largo" : "Texto corto";
+            case Integer i -> i > 0 ? "Positivo" : i < 0 ? "Negativo" : "Cero";
+            case null -> "Es nulo";
+            default -> "Tipo desconocido";
+        };
+    }
+}
+```
+
+---
 
 ## Errores Comunes
 
-> [!warning] **Error 1: Usar ternario como sentencia (sin asignar/retornar)**
-> ```java
-> edad >= 18 ? System.out.println("Adulto") : System.out.println("Menor"); // ❌ void no válido en expresión
-> ```
-> ✅ **Correcto**: `System.out.println(edad >= 18 ? "Adulto" : "Menor");` o `if-else`.
+> Usar ternario para acciones en vez de valores. El ternario debe devolver un valor, no ejecutar acciones. Para ejecutar acciones usa `if-else`.
 
-> [!warning] **Error 2: Tipos incompatibles en ramas**
-> ```java
-> Object x = true ? "texto" : 123; // ✅ Object (LUB)
-> String s = true ? "texto" : 123; // ❌ String vs Integer incompatible
-> ```
-> ✅ **Correcto**: Asegura tipo común o castea: `(String) (cond ? "a" : "b")`.
+> Anidar ternarios sin control. `a ? b ? c : d : e` es dificil de leer. Para mas de 2 opciones usa `switch` expresion.
 
-> [!warning] **Error 3: Anidamiento ilegible**
-> ```java
-> String r = a>b?"A":a<b?"B":a==c?"C":"D"; // ❌ Imposible de leer
-> ```
-> ✅ **Correcto**: `if-else if-else` o `switch` / extraer a método.
+> Poner operaciones complejas en cada rama. Si la logica es larga, usa `if-else` tradicional.
 
-> [!warning] **Error 4: Efectos secundarios en ramas**
-> ```java
-> int x = cond ? (metodoConSideEffect(), 1) : 0; // ❌ Coma en expresión: confuso
-> ```
-> ✅ **Correcto**: Separa lógica. Ternario = **valor**, no acción.
+> Olvidar los parentesis en expresiones compuestas. `(a > 0 && b > 0) ? "ok" : "ko"` esta bien, pero sin parentesis puede dar resultados inesperados.
 
-> [!warning] **Error 5: `null` en una rama sin tipo objetivo claro**
-> ```java
-> String s = cond ? "valor" : null; // ✅ OK (null compatible con String)
-> // Pero si variable es `var`:
-> var x = cond ? "valor" : null; // ❌ Error: tipo inferido = String, null ok pero confuso
-> ```
+---
 
-## Buenas Prácticas
+## Buenas Practicas
 
-1. **Una línea, simple** — `cond ? A : B` donde A,B son expresiones puras.
-2. **Paréntesis en anidados** — `(cond1 ? A : (cond2 ? B : C))`.
-3. **Extrae a variable** si condición compleja: `boolean ok = ...; String r = ok ? A : B;`.
-4. **Prefiere `if-else`** para >2 casos, lógica con efectos, o bloques >1 línea.
-5. **`switch` expression (Java 12+)** para múltiples casos limpios:
-   ```java
-   String tipo = switch (edad) {
-       case int e when e < 18 -> "Menor";
-       case int e when e < 65 -> "Adulto";
-       default -> "Senior";
-   };
-   ```
-6. **`Objects.toString(obj, "default")`** para null-safe en ternario: `cond ? obj.toString() : "n/a"`.
+1. Usa ternario solo para elegir entre DOS valores simples.
+2. Para mas de 2 opciones, usa `switch` expresion (Java 14+).
+3. Si la logica es larga o tiene efectos secundarios, usa `if-else`.
+4. Manten el ternario en una sola linea si es posible.
+5. No anides ternarios. Si necesitas anidar, mejor usa `switch` o `if-else`.
 
-## Conexión con Otros Temas
+---
 
-- `[[04 - Variables y Literales]]` — Asignación a `final` con ternario.
-- `[[10 - Metodos de Instancia]]` — `return` con ternario.
-- `[[13 - Static vs Instancia]]` — Métodos `static` usan ternario sin `this`.
-- `[[16 - Convenciones de Nombrado]]` — Nombres booleanos claros (`esVip`, `edadValida`).
+## Conexiones
 
-## Resumen en Una Frase
-
-> **El ternario `cond ? A : B` es una expresión que devuelve `A` si `cond` es true, `B` si false; úsalo para valores simples, no para flujo de control complejo.**
+- [[04 - Variables y Literales]] - Asignacion de literales con ternario
+- [[10 - Metodos de Instancia]] - Return con ternario
+- [[16 - Bucles y Control de Flujo]] - if-else vs ternario
+- [[23 - Metodos - Parametros, Retorno y Return]] - Ternario como expresion de retorno
 
 ---
 
 ## Tags
-`#java #fundamentos #ternario #operador-condicional #expresion #asignacion-condicional`
+`#java #fundamentos #operador-ternario #condicional #expresion #if-else`

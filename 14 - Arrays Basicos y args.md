@@ -1,243 +1,268 @@
 ---
-tags: [java, fundamentos, arrays, args, main, indice, length, multidimensional, foreach]
+tags: [java, fundamentos, arrays, args, arreglos, indice]
 ---
 
-# 14 - Arrays Básicos y args
+# 14 - Arrays Basicos y args
 
-## Concepto Central
+---
 
-Un **array** es un **objeto** contenedor de tamaño fijo que almacena **múltiples valores del mismo tipo** (primitivos o referencias) accesibles por **índice numérico base 0**. `String[] args` en `main` es el array que recibe los argumentos de línea de comandos al lanzar `java Clase arg1 arg2`.
+## NIVEL JUNIOR
 
-## Para Qué Sirve / Cuándo Usarlo
+### Que es un array?
 
-- Colecciones ordenadas de tamaño conocido: días semana, notas alumnos, píxeles imagen
-- `args` en `main`: parámetros externos (rutas, flags, configuración)
-- Buffers temporales, tablas de búsqueda, matrices (2D)
-- Base para `ArrayList`, `HashMap`, etc. (colecciones dinámicas)
+Un array es una coleccion de elementos del mismo tipo, guardados en una sola variable. Piensa en un array como una fila de casilleros numerados.
 
-## Sintaxis General
-
-### Declaración, Creación, Inicialización
+### Como se declara
 
 ```java
-// 1. Declarar + crear (tamaño fijo, valores por defecto)
-tipo[] nombre = new tipo[tamaño];
-int[] nums = new int[5]; // [0,0,0,0,0]
-
-// 2. Declarar + inicializar con valores (literal array)
-tipo[] nombre = {val1, val2, val3};
-String[] dias = {"Lun", "Mar", "Mié"};
-
-// 3. Crear anónimo (para pasar a método)
-metodo(new int[]{1,2,3});
-
-// 4. Array multidimensional (array de arrays)
-tipo[][] matriz = new tipo[filas][columnas];
-int[][] tablero = new int[8][8]; // Ajedrez
+// Tipo[] nombre = new Tipo[cantidad];
+int[] edades = new int[5];  // Array de 5 enteros
+String[] nombres = new String[3];  // Array de 3 textos
 ```
 
-### Acceso y Propiedades
+### Indices: empiezan en 0
 
-| Operación | Sintaxis | Notas |
-|-----------|----------|-------|
-| Leer elemento | `array[indice]` | `0 <= indice < array.length` |
-| Escribir elemento | `array[indice] = valor` | Tipo compatible |
-| Longitud | `array.length` | **Campo** (no método), `final`, tiempo O(1) |
-| Recorrido índice | `for (int i=0; i<a.length; i++)` | Control total |
-| Recorrido for-each | `for (Tipo e : array)` | Solo lectura, sin índice |
-| Copia | `Arrays.copyOf(arr, n)` | `java.util.Arrays` |
-| Ordenar | `Arrays.sort(arr)` | In-place, dual-pivot quicksort |
-| Buscar | `Arrays.binarySearch(arr, key)` | Requiere ordenado |
-| Comparar | `Arrays.equals(a1, a2)` | Elemento a elemento |
-| String | `Arrays.toString(arr)` | `[1, 2, 3]` legible |
-
-## Ejemplo Propio: RegistroNotas + DemoArgs
+Los casilleros se numeran desde 0, no desde 1:
 
 ```java
-import java.util.Arrays;
+int[] numeros = new int[3];
+numeros[0] = 10;  // Primer elemento
+numeros[1] = 20;  // Segundo elemento
+numeros[2] = 30;  // Tercer elemento
 
-public class RegistroNotas {
-    // Constantes
-    private static final double NOTA_MIN = 0.0;
-    private static final double NOTA_MAX = 10.0;
+System.out.println(numeros[0]);  // 10
+System.out.println(numeros[1]);  // 20
+System.out.println(numeros[2]);  // 30
+```
 
-    // Estado: array de notas (referencia)
-    private double[] notas;
-    private String asignatura;
+### Array con valores iniciales
 
-    // Constructor con array (copia defensiva)
-    public RegistroNotas(String asignatura, double[] notasIniciales) {
-        this.asignatura = asignatura;
-        this.notas = (notasIniciales != null) ? Arrays.copyOf(notasIniciales, notasIniciales.length) : new double[0];
-    }
+```java
+int[] numeros = {10, 20, 30, 40, 50};
+String[] colores = {"Rojo", "Verde", "Azul"};
+```
 
-    // Añadir nota (crea array mayor + copia) — ineficiente para muchas inserciones, usa ArrayList en real
-    public void addNota(double nota) {
-        validar(nota);
-        notas = Arrays.copyOf(notas, notas.length + 1);
-        notas[notas.length - 1] = nota;
-    }
+### length: cuantos elementos tiene
 
-    // Estadísticas
-    public double media() {
-        if (notas.length == 0) return 0;
-        double sum = 0;
-        for (double n : notas) sum += n; // for-each
-        return sum / notas.length;
-    }
+```java
+int[] numeros = {10, 20, 30};
+System.out.println(numeros.length);  // 3
+```
 
-    public double maxima() {
-        if (notas.length == 0) return 0;
-        double max = notas[0];
-        for (int i = 1; i < notas.length; i++) if (notas[i] > max) max = notas[i]; // índice
-        return max;
-    }
+### Recorrer un array con for
 
-    public double minima() {
-        if (notas.length == 0) return 0;
-        double min = notas[0];
-        for (double n : notas) if (n < min) min = n;
-        return min;
-    }
+```java
+int[] numeros = {10, 20, 30, 40, 50};
+for (int i = 0; i < numeros.length; i++) {
+    System.out.println("Posicion " + i + ": " + numeros[i]);
+}
+```
 
-    public void mostrar() {
-        System.out.println("=== " + asignatura + " ===");
-        System.out.println("Notas: " + Arrays.toString(notas));
-        System.out.printf("Media: %.2f | Min: %.2f | Max: %.2f | N: %d%n",
-            media(), minima(), maxima(), notas.length);
-    }
+### String[] args en main
 
-    private void validar(double n) {
-        if (n < NOTA_MIN || n > NOTA_MAX)
-            throw new IllegalArgumentException("Nota " + n + " fuera [" + NOTA_MIN + "," + NOTA_MAX + "]");
-    }
+El parametro `args` del main es un array de String. Recibe los argumentos al ejecutar el programa:
 
-    // --- MAIN: procesa args como notas ---
+```java
+public class Saludar {
     public static void main(String[] args) {
-        System.out.println("=== Demo args ===");
-        System.out.println("args.length = " + args.length);
-        System.out.println("args = " + Arrays.toString(args));
-
-        // args son Strings → parsear a double
-        double[] notasArgs = new double[args.length];
-        for (int i = 0; i < args.length; i++) {
-            try {
-                notasArgs[i] = Double.parseDouble(args[i]);
-            } catch (NumberFormatException e) {
-                System.err.println("Argumento inválido (no número): '" + args[i] + "'. Se ignora.");
-                notasArgs[i] = -1; // Marcador
-            }
-        }
-
-        // Filtrar válidas (>=0)
-        double[] validas = Arrays.stream(notasArgs).filter(n -> n >= 0).toArray();
-
-        RegistroNotas reg = new RegistroNotas("Desde CLI", validas);
-        reg.mostrar();
-
-        // Demo array 2D
-        demoMatriz();
-    }
-
-    private static void demoMatriz() {
-        System.out.println("\n=== Matriz 3x3 (tablero) ===");
-        int[][] tablero = new int[3][3];
-        int val = 1;
-        for (int i = 0; i < tablero.length; i++) {
-            for (int j = 0; j < tablero[i].length; j++) {
-                tablero[i][j] = val++;
-            }
-        }
-        // Imprimir matriz
-        for (int[] fila : tablero) {
-            System.out.println(Arrays.toString(fila));
-        }
-        // Acceso: tablero[fila][col]
-        System.out.println("Centro: " + tablero[1][1]); // 5
+        System.out.println("Hola " + args[0]);
     }
 }
 ```
 
-## Explicación Detallada Línea a Línea
+Ejecutar: `java Saludar Ana` -> Imprime "Hola Ana"
 
-| Línea | Explicación |
-|-------|-------------|
-| `private double[] notas;` | Campo referencia a array. Inicialmente `null`. |
-| `Arrays.copyOf(notasIniciales, ...)` | **Copia defensiva**: evita aliasing con array pasado por cliente. |
-| `notas = Arrays.copyOf(notas, notas.length + 1);` | **Redimensionar**: crea array nuevo +1, copia contenido. O(n). |
-| `for (double n : notas)` | **For-each**: itera valores, sin índice. No permite borrar/insertar. |
-| `for (int i = 1; i < notas.length; i++)` | **For índice**: necesita índice para comparar `notas[i] > max`. |
-| `Double.parseDouble(args[i])` | Convierte `String` → `double`. Lanza `NumberFormatException` si inválido. |
-| `Arrays.stream(...).filter(...).toArray()` | **Stream API (Java 8+)**: filtrado funcional. Requiere `import java.util.Arrays;`. |
-| `int[][] tablero = new int[3][3];` | **Array 2D**: array de 3 arrays de 3 ints cada uno. `tablero.length=3`, `tablero[0].length=3`. |
-| `for (int[] fila : tablero)` | For-each sobre filas (cada fila es `int[]`). |
+---
+
+## NIVEL MID
+
+### Recorrer con for-each
+
+```java
+int[] numeros = {10, 20, 30, 40, 50};
+for (int numero : numeros) {
+    System.out.println(numero);
+}
+```
+
+Mas sencillo que el for tradicional. No necesitas el indice.
+
+### Array de objetos
+
+```java
+public class Alumno {
+    String nombre;
+    double nota;
+}
+
+Alumno[] alumnos = new Alumno[3];
+alumnos[0] = new Alumno();
+alumnos[0].nombre = "Ana";
+alumnos[0].nota = 8.5;
+
+alumnos[1] = new Alumno();
+alumnos[1].nombre = "Luis";
+alumnos[1].nota = 7.0;
+
+for (Alumno a : alumnos) {
+    System.out.println(a.nombre + ": " + a.nota);
+}
+```
+
+### Matriz (array bidimensional)
+
+```java
+int[][] matriz = {
+    {1, 2, 3},
+    {4, 5, 6},
+    {7, 8, 9}
+};
+
+System.out.println(matriz[0][0]);  // 1 (fila 0, columna 0)
+System.out.println(matriz[1][2]);  // 6 (fila 1, columna 2)
+```
+
+### Args con validacion
+
+```java
+public class Calculadora {
+    public static void main(String[] args) {
+        if (args.length < 2) {
+            System.out.println("Uso: java Calculadora <numero1> <numero2>");
+            return;
+        }
+
+        double a = Double.parseDouble(args[0]);
+        double b = Double.parseDouble(args[1]);
+        System.out.println("Suma: " + (a + b));
+    }
+}
+```
+
+---
+
+## NIVEL SENIOR
+
+### Stream con arrays
+
+```java
+import java.util.Arrays;
+
+public class DemoStreamArrays {
+    public static void main(String[] args) {
+        int[] numeros = {5, 2, 8, 1, 9, 3};
+
+        // Filtrar, ordenar y convertir
+        var resultado = Arrays.stream(numeros)
+            .filter(n -> n > 4)
+            .sorted()
+            .toArray();
+
+        System.out.println(Arrays.toString(resultado));  // [5, 8, 9]
+
+        // Sumar todos
+        int suma = Arrays.stream(numeros).sum();
+
+        // Media
+        double media = Arrays.stream(numeros).average().orElse(0);
+    }
+}
+```
+
+### List.of y arrays
+
+```java
+import java.util.List;
+
+public class DemoArraysModerno {
+    public static void main(String[] args) {
+        // Array a lista inmutable
+        String[] colores = {"Rojo", "Verde", "Azul"};
+        List<String> listaColores = List.of(colores);
+
+        // Lista a array
+        var lista = List.of("A", "B", "C");
+        String[] array = lista.toArray(String[]::new);
+    }
+}
+```
+
+### Arrays.copyOf y System.arraycopy
+
+```java
+import java.util.Arrays;
+
+public class DemoCopias {
+    public static void main(String[] args) {
+        int[] original = {1, 2, 3, 4, 5};
+
+        // Copia con tamanio diferente
+        int[] copia = Arrays.copyOf(original, 10);  // {1,2,3,4,5,0,0,0,0,0}
+        int[] recorte = Arrays.copyOfRange(original, 1, 4);  // {2,3,4}
+
+        System.out.println(Arrays.toString(copia));
+        System.out.println(Arrays.toString(recorte));
+    }
+}
+```
+
+### Varargs: array implicito
+
+```java
+public class Utiles {
+    public static void imprimirTodo(String... elementos) {
+        // elementos es un String[] internamente
+        for (String e : elementos) {
+            System.out.println(e);
+        }
+    }
+
+    public static double media(double... numeros) {
+        return Arrays.stream(numeros).average().orElse(0);
+    }
+}
+
+// Uso:
+// Utiles.imprimirTodo("A", "B", "C");
+// double m = Utiles.media(1, 2, 3, 4);
+```
+
+---
 
 ## Errores Comunes
 
-> [!warning] **Error 1: Índice fuera de rango**
-> ```java
-> int[] a = new int[3];
-> a[3] = 10; // ❌ ArrayIndexOutOfBoundsException (índices 0,1,2)
-> ```
-> ✅ **Correcto**: `if (i >= 0 && i < a.length) a[i] = 10;`
+> Acceder a un indice que no existe. `int[] arr = new int[3]; arr[5] = 10;` lanza `ArrayIndexOutOfBoundsException`. Los indices van de 0 a `length-1`.
 
-> [!warning] **Error 2: `length()` con paréntesis**
-> ```java
-> int len = a.length(); // ❌ length es CAMPO, no método
-> ```
-> ✅ **Correcto**: `a.length`
+> Confundir `length` (atributo del array) con `length()` (metodo de String). Arrays usan `length` sin parentesis.
 
-> [!warning] **Error 3: Array no inicializado (null)**
-> ```java
-> int[] a; System.out.println(a.length); // ❌ NPE
-> ```
-> ✅ **Correcto**: `int[] a = new int[0];` o `= {}`.
+> Olvidar que los arrays tienen TAMANIO FIJO. No puedes anadir ni quitar elementos. Para eso usa [[15 - Listas y ArrayList]].
 
-> [!warning] **Error 4: For-each no permite modificar array**
-> ```java
-> for (int n : a) n = 5; // ❌ Modifica variable local n, NO a[i]
-> ```
-> ✅ **Correcto**: `for (int i=0; i<a.length; i++) a[i] = 5;`
+> Pasar un indice negativo. `arr[-1]` tambien lanza `ArrayIndexOutOfBoundsException`.
 
-> [!warning] **Error 5: `==` compara referencias, no contenido**
-> ```java
-> int[] a = {1,2}; int[] b = {1,2};
-> if (a == b) ... // ❌ false (distintos objetos)
-> ```
-> ✅ **Correcto**: `Arrays.equals(a, b)` o `Arrays.deepEquals` para 2D.
+> No comprobar `args.length` antes de usar `args[0]`. Si no hay argumentos, lanza excepcion.
 
-> [!warning] **Error 6: `args` en main siempre existe (length 0 si vacío)**
-> ```java
-> // java MiClase → args.length == 0, args != null
-> // java MiClase a b → args = ["a", "b"]
-> ```
+---
 
-## Buenas Prácticas
+## Buenas Practicas
 
-1. **Prefiere `ArrayList`/`List`** para tamaño variable — `add()` O(1) amortizado vs `Arrays.copyOf` O(n).
-2. **Copia defensiva** en constructores/setters que reciben arrays — `Arrays.copyOf(arr, arr.length)`.
-3. **`Arrays.toString()` / `deepToString()`** para depuración — no `System.out.println(arr)` (imprime hash).
-4. **For-each por defecto** — Índice solo si necesitas posición o mutar.
-5. **Valida `args` en main** — `if (args.length < esperados) { usage(); return; }`.
-6. **`Arrays.sort()` muta original** — Copia si necesitas conservar orden: `Arrays.sort(Arrays.copyOf(a, a.length))`.
-7. **Arrays primitivos vs wrappers** — `int[]` más memoria/rendimiento que `Integer[]`.
-8. **Varargs = array** — `void m(int... nums)` recibe `int[]`. `m(1,2,3)` o `m(new int[]{1,2,3})`.
+1. Prefiere `List` sobre arrays para colecciones que cambian de tamanio.
+2. Usa `Arrays.toString()` o `Arrays.deepToString()` para imprimir arrays.
+3. Usa `Arrays.stream()` para operaciones funcionales sobre arrays.
+4. Para copiar arrays, usa `Arrays.copyOf()` en vez de bucles manuales.
+5. Valida siempre `args.length` antes de acceder a `args[i]`.
+6. Usa varargs (`Tipo...`) en vez de arrays como parametros si esperas 0..N elementos.
 
-## Conexión con Otros Temas
+---
 
-- `[[03 - Tipos Primitivos y Referencia]]` — Array es objeto (referencia), elementos pueden ser primitivos.
-- `[[04 - Variables y Literales]]` — Literal array `{1,2,3}`, variable `int[] a`.
-- `[[08 - Instanciacion y new]]` — `new int[5]` crea objeto en Heap.
-- `[[09 - Multiples Objetos e Identidad]]` — Dos arrays con mismo contenido ≠ mismo objeto.
-- `[[10 - Metodos de Instancia]]` — Métodos reciben/retornan arrays.
-- `[[13 - Static vs Instancia]]` — `Arrays` clase utilitaria `static`.
-- `[[15 - Flujo de Ejecucion JVM]]` — `args` creado por JVM antes de `main`.
+## Conexiones
 
-## Resumen en Una Frase
-
-> **Array = objeto contenedor tamaño fijo, índice 0..length-1, `length` campo; `args` en main = `String[]` con parámetros CLI; usa `Arrays` para utilidades y `ArrayList` si tamaño cambia.**
+- [[02 - Punto de Entrada main]] - String[] args del main
+- [[03 - Tipos Primitivos y Referencia]] - Arrays de primitivos vs objetos
+- [[15 - Listas y ArrayList]] - Alternativa moderna a arrays
+- [[16 - Bucles y Control de Flujo]] - Recorrer arrays con for y for-each
+- [[24 - ArrayList - Metodos Avanzados]] - Stream y colecciones
 
 ---
 
 ## Tags
-`#java #fundamentos #arrays #args #main #indice #length #foreach #multidimensional #arrays-util`
+`#java #fundamentos #arrays #args #arreglos #indice #varargs`

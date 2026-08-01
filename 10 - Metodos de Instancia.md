@@ -1,237 +1,278 @@
 ---
-tags: [java, fundamentos, metodos, instancia, void, return, parametros, sobrecarga, this]
+tags: [java, fundamentos, metodos, instancia, void, retorno, parametros]
 ---
 
-# 10 - Métodos de Instancia
+# 10 - Metodos de Instancia
 
-## Concepto Central
+---
 
-Un **método de instancia** es un bloque de código con nombre que pertenece a un **objeto** (instancia) y opera sobre **sus datos** (campos `this.campo`). Se invoca **sobre una referencia**: `objeto.metodo(args)`. Puede leer/modificar estado (`this`), recibir parámetros, devolver un valor (`return`) o solo realizar acción (`void`).
+## NIVEL JUNIOR
 
-## Para Qué Sirve / Cuándo Usarlo
+### Que es un metodo?
 
-- Encapsular comportamiento asociado a un objeto: `cuenta.retirar(100)`, `rectangulo.area()`
-- Reutilizar lógica sin duplicar código
-- Exponer API pública controlada (ocultar implementación)
-- Mantener invariantes validando en setters/métodos de negocio
-- Polimorfismo (sobrescritura en herencia)
-
-## Sintaxis General
+Un metodo es una accion que un objeto puede hacer. Define **que puede hacer** un objeto.
 
 ```java
-[modificadores] tipoRetorno nombreMetodo([listaParametros]) [throws Excepciones] {
-    // Cuerpo: sentencias, uso de this.campo, llamadas a otros métodos
-    return valor; // Obligatorio si tipoRetorno != void
+public class Perro {
+    String nombre;
+
+    public void ladrar() {
+        System.out.println("Guau! Guau!");
+    }
 }
 ```
 
-| Parte | Descripción |
-|-------|-------------|
-| `modificadores` | `public`, `private`, `protected`, `static` (ver [[13]]), `final`, `abstract` |
-| `tipoRetorno` | Tipo del valor devuelto (`int`, `String`, `void`, `MiClase`, `List<T>`...) |
-| `nombreMetodo` | `camelCase`, verbo acción: `calcular`, `obtener`, `procesar`, `esValido` |
-| `listaParametros` | `Tipo nombre, Tipo2 nombre2` — cero o más. Son **variables locales** al método. |
-| `throws` | Excepciones checked que propaga (opcional) |
-| `return` | Termina método y devuelve valor. En `void`: `return;` opcional al final. |
-
-### Paso de Parámetros: **Valor de la Referencia**
-
-| Tipo Parámetro | Qué se Copia | Efecto en Original |
-|----------------|--------------|-------------------|
-| **Primitivo** (`int`, `double`...) | Valor (bits) | **Ninguno** — método trabaja con copia |
-| **Referencia** (`String`, `Objeto`, `Array`) | Dirección (referencia) | **Puede mutar objeto** apuntado — **no** reasignar parámetro |
+Para llamar al metodo:
 
 ```java
-void primitivo(int x) { x = 10; }           // Copia: original intacto
-void referencia(StringBuilder sb) { sb.append("X"); } // Misma referencia: MUTA original
-void reasignar(StringBuilder sb) { sb = new StringBuilder(); } // Cambia ref LOCAL, original intacto
+Perro p = new Perro();
+p.ladrar();  // Imprime "Guau! Guau!"
 ```
 
-## Ejemplo Propio: Calculadora
+### Partes de un metodo
+
+```java
+public void saludar() {
+    System.out.println("Hola!");
+}
+```
+
+- `public` - quien puede verlo
+- `void` - no devuelve nada
+- `saludar` - nombre del metodo
+- `()` - parametros (vacios aqui)
+- `{ }` - el codigo que ejecuta
+
+### Metodo con parametros
+
+Los parametros son datos que el metodo necesita para funcionar:
+
+```java
+public void saludarA(String nombre) {
+    System.out.println("Hola " + nombre + "!");
+}
+```
+
+```java
+p.saludarA("Ana");  // Imprime "Hola Ana!"
+```
+
+### Metodo que devuelve algo
+
+```java
+public int sumar(int a, int b) {
+    return a + b;
+}
+```
+
+```java
+int resultado = calculadora.sumar(5, 3);
+System.out.println(resultado);  // 8
+```
+
+---
+
+## NIVEL MID
+
+### Tipos de metodos segun su proposito
+
+```java
+public class Utilidades {
+
+    // Metodo que modifica el estado del objeto
+    public void establecerNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    // Metodo que consulta el estado
+    public String obtenerNombre() {
+        return nombre;
+    }
+
+    // Metodo que hace un calculo y devuelve resultado
+    public double calcularIVA(double precio) {
+        return precio * 0.21;
+    }
+
+    // Metodo que muestra informacion (efecto secundario)
+    public void mostrarEstado() {
+        System.out.println("Nombre: " + nombre);
+    }
+}
+```
+
+### this en metodos
+
+Dentro de un metodo, `this` es el objeto que esta ejecutando el metodo:
+
+```java
+public class Coche {
+    String color;
+
+    public void pintar(String color) {
+        this.color = color;  // this.color = atributo, color = parametro
+    }
+
+    public void mostrarColor() {
+        System.out.println("Color: " + this.color);  // this es opcional aqui
+    }
+}
+```
+
+### Sobrecarga de metodos
+
+Varios metodos con el mismo nombre pero distintos parametros:
 
 ```java
 public class Calculadora {
-    // --- ESTADO (historial simple) ---
-    private final List<String> historial = new ArrayList<>();
-    private static final int MAX_HISTORIAL = 100;
-
-    // --- OPERACIONES BÁSICAS (void: acción, no devuelven) ---
-    public void sumar(double a, double b) {
-        double r = a + b;
-        registrar("SUM", a, b, r);
-        System.out.println(a + " + " + b + " = " + r);
-    }
-
-    public void restar(double a, double b) {
-        double r = a - b;
-        registrar("RES", a, b, r);
-        System.out.println(a + " - " + b + " = " + r);
-    }
-
-    public void multiplicar(double a, double b) {
-        double r = a * b;
-        registrar("MUL", a, b, r);
-        System.out.println(a + " × " + b + " = " + r);
-    }
-
-    public void dividir(double a, double b) {
-        if (b == 0) {
-            System.out.println("Error: división por cero");
-            return; // Salida anticipada en void
-        }
-        double r = a / b;
-        registrar("DIV", a, b, r);
-        System.out.println(a + " ÷ " + b + " = " + r);
-    }
-
-    // --- OPERACIONES CON RETORNO (expresiones, composables) ---
-    public double suma(double a, double b) { return a + b; }
-    public double resta(double a, double b) { return a - b; }
-    public double multiplicacion(double a, double b) { return a * b; }
-    public double division(double a, double b) {
-        if (b == 0) throw new ArithmeticException("División por cero");
-        return a / b;
-    }
-
-    // --- MÉTODOS QUE USAN ESTADO (this) ---
-    private void registrar(String op, double a, double b, double r) {
-        if (historial.size() >= MAX_HISTORIAL) historial.remove(0); // FIFO
-        historial.add(String.format("%s: %.2f %s %.2f = %.2f", op, a, opChar(op), b, r));
-    }
-
-    private char opChar(String op) {
-        return switch (op) { case "SUM" -> '+'; case "RES" -> '-'; case "MUL" -> '×'; case "DIV" -> '÷'; default -> '?'; };
-    }
-
-    public void mostrarHistorial() {
-        System.out.println("\n=== Historial (" + historial.size() + ") ===");
-        for (String h : historial) System.out.println(h);
-    }
-
-    public void limpiarHistorial() { historial.clear(); }
-
-    // --- SOBRECARGA: mismo nombre, distinta firma ---
-    public double sumar(double... valores) { // Varargs
-        double s = 0;
-        for (double v : valores) s += v;
-        registrar("SUM", 0, 0, s); // Simplificado
-        return s;
-    }
-
-    public int sumar(int a, int b) { // Sobrecarga por tipos
+    public int sumar(int a, int b) {
         return a + b;
     }
 
-    // --- MAIN DE PRUEBA ---
-    public static void main(String[] args) {
-        Calculadora calc = new Calculadora();
+    public double sumar(double a, double b) {
+        return a + b;
+    }
 
-        // Void methods (acción)
-        calc.sumar(10, 5);
-        calc.restar(20, 8);
-        calc.multiplicar(6, 7);
-        calc.dividir(100, 4);
-        calc.dividir(10, 0); // Manejo error
-
-        // Return methods (expresión)
-        double r = calc.suma(3.5, 2.1) * calc.multiplicacion(2, 2);
-        System.out.println("\nExpresión: (3.5+2.1) * (2*2) = " + r);
-
-        // Varargs
-        System.out.println("Suma varargs: " + calc.sumar(1,2,3,4,5,6));
-
-        // Sobrecarga int
-        System.out.println("Suma int: " + calc.sumar(10, 20));
-
-        // Historial (estado this)
-        calc.mostrarHistorial();
+    public int sumar(int a, int b, int c) {
+        return a + b + c;
     }
 }
 ```
 
-## Explicación Detallada Línea a Línea
+Java sabe cual llamar segun los tipos y cantidad de parametros.
 
-| Línea | Explicación |
-|-------|-------------|
-| `private final List<String> historial` | Campo de instancia `final` (referencia inmutable). Inicializado en línea. |
-| `public void sumar(double a, double b)` | Método **void**: realiza acción (imprime, registra), **no devuelve** valor. |
-| `return;` en `dividir` | Salida anticipada en `void`. Válido. Sin valor. |
-| `public double suma(double a, double b) { return a + b; }` | Método **con retorno**: calcula y devuelve. **Componible**: `calc.suma(...) * calc.multiplicacion(...)`. |
-| `throw new ArithmeticException(...)` | Lanza excepción *unchecked*. Cliente debe `try-catch` o propagar. |
-| `private void registrar(...)` | Método **privado** (helper interno). Usa `this.historial` (estado instancia). |
-| `for (String h : historial)` | *Enhanced for* (for-each) sobre colección. Lee `this.historial`. |
-| `public double sumar(double... valores)` | **Varargs**: 0..N `double`. Internamente array `double[]`. Sobrecarga de `sumar(double,double)`. |
-| `public int sumar(int a, int b)` | **Sobrecarga**: mismo nombre, **firma distinta** (tipos parámetros). Resuelta en compile-time. |
-| `calc.sumar(10, 5)` | Invocación: `objeto.metodo(args)`. `this` dentro = `calc`. |
+---
+
+## NIVEL SENIOR
+
+### Metodos con records
+
+```java
+public record Producto(String nombre, double precio) {
+    // Metodo de instancia en un record
+    public double calcularIVA() {
+        return precio * 0.21;
+    }
+
+    public String formatear() {
+        return "%s - %.2f euros".formatted(nombre, precio);
+    }
+}
+```
+
+### Metodos con Optional
+
+```java
+import java.util.Optional;
+
+public class RepositorioUsuarios {
+    private List<Usuario> usuarios = new ArrayList<>();
+
+    public Optional<Usuario> buscarPorEmail(String email) {
+        return usuarios.stream()
+            .filter(u -> u.email().equalsIgnoreCase(email))
+            .findFirst();
+    }
+
+    public Usuario buscarOCrear(String email, String nombre) {
+        return buscarPorEmail(email)
+            .orElseGet(() -> {
+                var nuevo = new Usuario(nombre, email);
+                usuarios.add(nuevo);
+                return nuevo;
+            });
+    }
+}
+```
+
+### Metodos con varargs
+
+```java
+public class CalculadoraAvanzada {
+    public double sumar(double... numeros) {
+        double total = 0;
+        for (double n : numeros) {
+            total += n;
+        }
+        return total;
+    }
+
+    public double media(double... numeros) {
+        if (numeros.length == 0) {
+            return 0;
+        }
+        return sumar(numeros) / numeros.length;
+    }
+}
+
+// Uso:
+// calc.sumar(1, 2, 3);        // 6
+// calc.sumar(1, 2, 3, 4, 5); // 15
+```
+
+### Metodos con Stream y lambdas internas
+
+```java
+public class GestorPedidos {
+    private List<Pedido> pedidos = new ArrayList<>();
+
+    public List<Pedido> filtrarUrgentes() {
+        return pedidos.stream()
+            .filter(Pedido::urgente)
+            .toList();
+    }
+
+    public double totalPendiente() {
+        return pedidos.stream()
+            .filter(p -> !p.pagado())
+            .mapToDouble(Pedido::total)
+            .sum();
+    }
+
+    public void procesarPendientes(Consumer<Pedido> procesador) {
+        pedidos.stream()
+            .filter(p -> !p.pagado())
+            .forEach(procesador);
+    }
+}
+```
+
+---
 
 ## Errores Comunes
 
-> [!warning] **Error 1: Olvidar `return` en método no-void**
-> ```java
-> int suma(int a, int b) { a + b; } // ❌ missing return statement
-> ```
-> ✅ **Correcto**: `return a + b;` o `int r = a+b; return r;`
+> Olvidar la palabra `return` en metodos que no son `void`. El compilador dara error.
 
-> [!warning] **Error 2: `return` con valor en `void`**
-> ```java
-> void saludar() { return "Hola"; } // ❌ incompatible types
-> ```
-> ✅ **Correcto**: `void` → `return;` o nada al final.
+> Poner `return` en un metodo `void`. No puedes devolver un valor en un metodo `void`. Solo puedes poner `return;` para salir antes.
 
-> [!warning] **Error 3: Confundir paso por valor (referencia)**
-> ```java
-> void cambiar(String s) { s = "Nuevo"; }
-> String original = "Viejo"; cambiar(original); // original sigue "Viejo"
-> ```
-> ✅ **Entiende**: Parámetro `s` copia referencia. `s = ...` cambia copia local. Para mutar: `StringBuilder sb = new StringBuilder(); cambiar(sb);` donde `cambiar` hace `sb.append(...)`.
+> Confundir parametros con argumentos. Los parametros son los que declaras en el metodo. Los argumentos son los valores que pasas al llamarlo.
 
-> [!warning] **Error 4: Sobrescritura accidental (overriding) vs sobrecarga (overloading)**
-> ```java
-> class Padre { void m(int x) {} }
-> class Hijo { void m(double x) {} } // ❌ Sobrecarga, no override
-> ```
-> ✅ **Override**: Mismo nombre, **mismos parámetros**, mismo retorno (o covariante), `@Override` annotation.
+> Llamar a un metodo de instancia sin crear el objeto. Si no es `static`, necesitas `new`.
 
-> [!warning] **Error 5: Llamar método instancia sin objeto**
-> ```java
-> class A { void m() {} }
-> A.m(); // ❌ Non-static method cannot be referenced from static context
-> ```
-> ✅ **Correcto**: `new A().m();` o `A a = new A(); a.m();`
+---
 
-> [!warning] **Error 6: `this` en método `static`**
-> ```java
-> static void m() { this.x = 1; } // ❌ static context has no this
-> ```
-> ✅ **Correcto**: `this` solo en instancia.
+## Buenas Practicas
 
-## Buenas Prácticas
+1. Un metodo = una responsabilidad. Que haga solo una cosa.
+2. Nombres verbo: `calcularTotal()`, `enviarEmail()`, `obtenerUsuario()`.
+3. Parametros `final` si no los reasignas dentro.
+4. Metodos cortos (< 20 lineas). Si es mas largo, dividelo.
+5. `@Override` cuando sobreescribes un metodo de una superclase.
+6. Documenta con [[20 - Javadoc y Documentacion]] los metodos publicos.
+7. Prefiere `Optional` como retorno en vez de `null`.
 
-1. **Un método, una responsabilidad** — `calcular()` calcula, `guardar()` persiste, `imprimir()` imprime.
-2. **`void` para comandos, `return` para consultas** — *Command Query Separation*. `cuenta.retirar(100)` (void), `cuenta.getSaldo()` (return).
-3. **Parámetros `final`** — `void m(final int x)` evita reasignación accidental.
-4. **Valida temprano** — `if (b == 0) throw ...` al inicio (fail-fast).
-5. **Evita `boolean` flags como parámetros** — `procesar(true, false)` ilegible. Mejor dos métodos: `procesarRapido()`, `procesarCompleto()`.
-6. **Sobrecarga con cuidado** — Solo si semántica idéntica. `sumar(int,int)` y `sumar(double,double)` OK. `procesar(int)` y `procesar(String)` confuso.
-7. **Varargs al final** — `void m(int fijo, String... vars)` válido. `void m(String... vars, int fijo)` ❌.
-8. **`@Override` siempre** — Compilador avisa si firma no coincide con padre/interfaz.
-9. **Documenta contrato** — Javadoc: qué hace, parámetros, retorno, excepciones, efectos colaterales (mutación).
+---
 
-## Conexión con Otros Temas
+## Conexiones
 
-- `[[01 - Clases y Estructura Basica]]` — Métodos son miembros de la clase.
-- `[[06 - Atributos y Campos]]` — Métodos leen/escriben `this.campo`.
-- `[[07 - Constructores y this]]` — Constructores son métodos especiales de inicialización.
-- `[[08 - Instanciacion y new]]` — `new Clase()` crea objeto para llamar métodos.
-- `[[09 - Multiples Objetos e Identidad]]` — `this` = identidad del objeto receptor.
-- `[[13 - Static vs Instancia]]` — Diferencia método `static` (clase) vs instancia.
-- `[[17 - Separacion de Responsabilidades]]` — Métodos cohesivos, clase con una razón de cambio.
-
-## Resumen en Una Frase
-
-> **Un método de instancia es una operación con nombre que se ejecuta sobre un objeto (`this`), recibe parámetros (por valor), puede leer/escribir sus campos, y opcionalmente devuelve un resultado.**
+- [[01 - Clases y Estructura Basica]] - Los metodos viven en la clase
+- [[05 - Modificadores de Acceso]] - Control de acceso a metodos
+- [[07 - Constructores y this]] - Constructores vs metodos
+- [[13 - Static vs Instancia]] - Metodos de instancia vs metodos static
+- [[20 - Javadoc y Documentacion]] - Documentar metodos
+- [[23 - Metodos - Parametros, Retorno y Return]] - Profundizacion en metodos
 
 ---
 
 ## Tags
-`#java #fundamentos #metodos #instancia #void #return #parametros #sobrecarga #varargs #this`
+`#java #fundamentos #metodos #instancia #void #retorno #parametros #sobrecarga`
