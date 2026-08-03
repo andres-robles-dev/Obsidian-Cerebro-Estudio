@@ -1,7 +1,6 @@
 # Obsidian internal
-.obsidian/workspace*
-.obsidian/cache*
-.obsidian/plugins/*/data.json
+.obsidian/
+wiki-links.md
 .trash/
 
 # OS

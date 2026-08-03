@@ -139,6 +139,26 @@ mindmap
       Null_handling
       Excepciones_en_case
       Compilacion_JIT
+    Record_y_Value_Objects
+      Sintaxis_minima
+      Accessors_sin_get
+      Compact_constructor
+      Inmutabilidad
+      Value_Objects_DDD
+      Pattern_matching
+      Sealed_y_exhaustividad
+      copyWith
+      Serializacion_segura
+      Limitaciones
+    List_of_Colecciones_Inmutables
+      List_of
+      Set_of_Map_of
+      copyOf
+      vs_Arrays_asList
+      Null_y_duplicados
+      Inmutabilidad_estructural
+      Rendimiento_memoria
+      Programacion_defensiva
 ```
 
 ---
@@ -192,6 +212,8 @@ mindmap
 34. [[34 - Clases Wrapper (envolventes)]]
 35. [[35 - Getters booleanos]]
 36. [[36 - Switch expression]]
+37. [[37 - Record (y Value Objects)]]
+38. [[38 - List.of y Colecciones Inmutables]]
 
 ### Referencia Rapida
 - [[99 - Glosario Rapido]] - Definiciones con enlaces
@@ -224,13 +246,14 @@ Al final de cada tema encontraras:
 | `#metodos` | 07, 10, 12, 13, 23 |
 | `#jvm` | 02, 08, 17 |
 | `#buenas-practicas` | 05, 18, 19, 21, 22 |
-| `#colecciones` | 15, 24 |
+| `#colecciones` | 15, 24, 38 |
 | `#bucles` | 16 |
 | `#javadoc` | 20 |
 | `#paquetes` | 25 |
 | `#wrapper` | 34 |
 | `#getters` | 35 |
 | `#switch` | 36 |
+| `#record` | 37 |
 
 ---
 
