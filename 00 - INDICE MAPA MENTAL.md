@@ -166,6 +166,17 @@ mindmap
       Antipatrones
       Migracion_checklist
       Herramientas_modernas
+    Manejo_de_Excepciones
+      Jerarquia_Throwable
+      Error_vs_Exception
+      Checked_Unchecked
+      Try_Catch_Finally
+      Try_with_resources
+      Throws_vs_Throw
+      Excepciones_personalizadas
+      Propagacion_Stack_trace
+      Optional_y_Streams
+      Anti-patrones
 ```
 
 ---
@@ -222,6 +233,7 @@ mindmap
 37. [[37 - Record (y Value Objects)]]
 38. [[38 - List.of y Colecciones Inmutables]]
 39. [[39 - Tipos y Wrappers - La Guia Definitiva]]
+40. [[40 - Manejo de Excepciones]]
 
 ### Referencia Rapida
 - [[99 - Glosario Rapido]] - Definiciones con enlaces
@@ -262,6 +274,7 @@ Al final de cada tema encontraras:
 | `#getters` | 35 |
 | `#switch` | 36 |
 | `#record` | 37 |
+| `#excepciones` | 40 |
 
 ---
 
