@@ -4,6 +4,8 @@ tags: [java, fundamentos, tipos, primitivos, referencia, string]
 
 # 03 - Tipos Primitivos y Referencia
 
+> **Puente:** Los *wrappers* (tema [[34 - Clases Wrapper (envolventes)]]) son la version objeto de estos primitivos; la guia de decision completa esta en [[39 - Tipos y Wrappers - La Guia Definitiva]].
+
 ---
 
 ## NIVEL JUNIOR
@@ -17,14 +19,16 @@ Java tiene dos tipos de datos:
 
 ### Los 8 primitivos (solo recuerda los 4 mas usados)
 
-| Tipo | Guarda | Ejemplo |
-|------|--------|---------|
-| `int` | Numeros enteros | `int edad = 25;` |
-| `double` | Numeros decimales | `double precio = 19.99;` |
-| `boolean` | Verdadero o falso | `boolean activo = true;` |
-| `char` | Un solo caracter | `char letra = 'A';` |
-
-Los otros 4 (`byte`, `short`, `long`, `float`) se usan en casos especiales.
+| Tipo | Wrapper | Guarda | Ejemplo |
+|------|---------|--------|---------|
+| `int` | `Integer` | Numeros enteros | `int edad = 25;` |
+| `double` | `Double` | Numeros decimales | `double precio = 19.99;` |
+| `boolean` | `Boolean` | Verdadero o falso | `boolean activo = true;` |
+| `char` | `Character` | Un solo caracter | `char letra = 'A';` |
+| `byte` | `Byte` | Entero pequeno | `byte b = 100;` |
+| `short` | `Short` | Entero corto | `short s = 1000;` |
+| `long` | `Long` | Entero grande | `long l = 1_000_000_000L;` |
+| `float` | `Float` | Decimal simple | `float f = 3.14f;` |
 
 ### Tipos referencia (los mas comunes)
 
@@ -83,6 +87,8 @@ public class DiferenciaValorReferencia {
 }
 ```
 
+> **⚠️ Excepcion importante:** Los *wrappers* (`Integer`, `Double`, etc.) son objetos pero **se comparan por valor** (`.equals()`), no por referencia. Esto rompe la regla general de "objetos = referencia". Detalles en [[34 - Clases Wrapper (envolventes)]].
+
 ### Tipo por defecto segun el contexto
 
 ```java
@@ -121,7 +127,7 @@ public record Coordenadas(double latitud, double longitud) {
 
 ### Wrappers: primitivos como objetos
 
-Java tiene versiones objeto de los primitivos para usarlos en colecciones:
+Java tiene versiones objeto de los primitivos para usarlos en colecciones. **Profundidad completa en [[34 - Clases Wrapper (envolventes)]] y guia de decision en [[39 - Tipos y Wrappers - La Guia Definitiva]].**
 
 ```java
 import java.util.ArrayList;
@@ -136,11 +142,25 @@ public class DemoWrappers {
         lista.add(10);  // autoboxing de int a Integer
         lista.add(20);
 
-        int suma = lista.get(0) + lista.get(1); // unboxing automatico
+int suma = lista.get(0) + lista.get(1); // unboxing automatico
         System.out.println("Suma: " + suma);
     }
 }
 ```
+
+---
+
+### Preview: ¿Por qué existen los Wrappers?
+
+Los primitivos son rapidos y viven en el stack, pero **no son objetos**. Java necesita objetos para:
+
+- **Colecciones y genéricos**: `List<int>` no compila; `List<Integer>` sí
+- **Null**: un `int` nunca es null; un `Integer` sí (util en BD/APIs)
+- **Reflection y frameworks**: Spring, Jackson, Hibernate trabajan con objetos
+
+El tema [[34 - Clases Wrapper (envolventes)]] explora esto en profundidad. La guia de decision rapida (¿primitivo o wrapper?) esta en [[39 - Tipos y Wrappers - La Guia Definitiva]].
+
+---
 
 ### Text blocks (Java 15+)
 
@@ -226,8 +246,10 @@ public class ConversionSegura {
 - [[14 - Arrays Basicos y args]] - Arrays de primitivos vs arrays de objetos
 - [[23 - Metodos - Parametros, Retorno y Return]] - Paso por valor siempre en Java
 - [[24 - ArrayList - Metodos Avanzados]] - Autoboxing con colecciones
+- [[34 - Clases Wrapper (envolventes)]] - Profundidad tecnica de los wrappers
+- [[39 - Tipos y Wrappers - La Guia Definitiva]] - Guia de decision y sintesis
 
 ---
 
 ## Tags
-`#java #fundamentos #tipos #primitivos #referencia #string #wrappers`
+`#java #fundamentos #tipos #primitivos #referencia #string #wrappers #guia`

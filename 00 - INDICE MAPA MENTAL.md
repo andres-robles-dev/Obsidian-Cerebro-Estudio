@@ -159,6 +159,13 @@ mindmap
       Inmutabilidad_estructural
       Rendimiento_memoria
       Programacion_defensiva
+    Tipos_y_Wrappers_Guia
+      Decision_Rapida_30seg
+      Tabla_Maestra
+      Patrones_uso_real
+      Antipatrones
+      Migracion_checklist
+      Herramientas_modernas
 ```
 
 ---
@@ -214,6 +221,7 @@ mindmap
 36. [[36 - Switch expression]]
 37. [[37 - Record (y Value Objects)]]
 38. [[38 - List.of y Colecciones Inmutables]]
+39. [[39 - Tipos y Wrappers - La Guia Definitiva]]
 
 ### Referencia Rapida
 - [[99 - Glosario Rapido]] - Definiciones con enlaces
@@ -242,7 +250,7 @@ Al final de cada tema encontraras:
 | Tag | Archivos |
 |-----|----------|
 | `#clases` | 01, 06, 07, 08, 09 |
-| `#tipos` | 03, 04, 14 |
+| `#tipos` | 03, 04, 14, 39 |
 | `#metodos` | 07, 10, 12, 13, 23 |
 | `#jvm` | 02, 08, 17 |
 | `#buenas-practicas` | 05, 18, 19, 21, 22 |
@@ -250,7 +258,7 @@ Al final de cada tema encontraras:
 | `#bucles` | 16 |
 | `#javadoc` | 20 |
 | `#paquetes` | 25 |
-| `#wrapper` | 34 |
+| `#wrapper` | 34, 39 |
 | `#getters` | 35 |
 | `#switch` | 36 |
 | `#record` | 37 |

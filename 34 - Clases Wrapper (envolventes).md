@@ -4,6 +4,8 @@ tags: [java, fundamentos, wrapper, envolventes, tipos, autoboxing, inmutabilidad
 
 # 34 - Clases Wrapper (envolventes) en Profundidad
 
+> **Requiere:** haber leido [[03 - Tipos Primitivos y Referencia]]. La guia de decision rapida (Â¿primitivo o wrapper?) esta en [[39 - Tipos y Wrappers - La Guia Definitiva]].
+
 Las clases Wrapper son envoltorios que permiten usar tipos primitivos como objetos. Son fundamental para colecciones, generics y el ecosistema Java moderno.
 
 ---
@@ -29,7 +31,7 @@ Java tiene 8 tipos primitivos (`int`, `double`, `boolean`, etc.). Las clases Wra
 
 ### Por que existen?
 
-Las colecciones de Java (`ArrayList`, `HashMap`, etc.) solo aceptan objetos, no primitivos:
+Como ya intuiste en [[03 - Tipos Primitivos y Referencia]], los primitivos no entran en colecciones. Las colecciones de Java (`ArrayList`, `HashMap`, etc.) solo aceptan objetos, no primitivos:
 
 ```java
 // Esto NO compila:
@@ -71,7 +73,7 @@ int primitivo = wrapper;  // Java hace: wrapper.intValue()
 
 ### Autoboxing y unboxing
 
-Java convierte automaticamente entre primitivos y Wrapper en ciertas situaciones:
+Esto es lo que el tema [[03 - Tipos Primitivos y Referencia]] llamaba "valor vs referencia" â?" aqui el valor se envuelve. Java convierte automaticamente entre primitivos y Wrapper en ciertas situaciones:
 
 ```java
 // Autoboxing: primitivo -> Wrapper
@@ -128,7 +130,7 @@ Integer d = 200;
 System.out.println(c == d);   // false: instancias distintas
 ```
 
-### Conversión de tipos entre Wrapper
+### ConversiÃ³n de tipos entre Wrapper
 
 ```java
 // String a Integer:
@@ -190,7 +192,7 @@ if (a.intValue() == b.intValue()) { }
 // HashMap con Wrapper como clave:
 Map<Integer, String> mapa = new HashMap<>();
 mapa.put(1, "Uno");
-mapa.put(null, "Nulos también permitidos");  // null es válido en Wrapper, NO en primitivos
+mapa.put(null, "Nulos tambiÃ©n permitidos");  // null es vÃ¡lido en Wrapper, NO en primitivos
 
 // Problema con null como clave:
 Integer clave = obtenerDeBD();  // puede ser null
@@ -220,7 +222,7 @@ int lanzando = Optional.ofNullable(resultado)
     .orElseThrow(() -> new RuntimeException("Valor requerido"));
 ```
 
-### Conversión entre primitivos y Wrapper en arrays
+### ConversiÃ³n entre primitivos y Wrapper en arrays
 
 ```java
 // Primitivo a Wrapper (boxing):
@@ -320,11 +322,11 @@ for (char ch = 'A'; ch <= 'Z'; ch++) {
 ### Boolean Wrapper detalles
 
 ```java
-// Boolean tiene solo dos instancias posibles (patrón singleton):
+// Boolean tiene solo dos instancias posibles (patrÃ³n singleton):
 Boolean verdadero = Boolean.TRUE;
 Boolean falso = Boolean.FALSE;
 
-// La única forma de obtener instancia diferente es con new (obsoleto):
+// La Ãºnica forma de obtener instancia diferente es con new (obsoleto):
 Boolean otro = new Boolean(true);  // evita usar esto
 
 // valueOf retorna TRUE o FALSE (las instancias cacheadas):
@@ -333,7 +335,7 @@ System.out.println(b == Boolean.TRUE);  // true
 
 // parseBoolean devuelve primitivo:
 boolean primitivo = Boolean.parseBoolean("true");  // true
-boolean noExiste = Boolean.parseBoolean("trué");    // false (no lanza excepcion)
+boolean noExiste = Boolean.parseBoolean("truÃ©");    // false (no lanza excepcion)
 ```
 
 ---
@@ -383,7 +385,7 @@ Java es tanto primitivo como orientado a objetos:
 | Null | No puede ser null | Puede ser null |
 | Colecciones | No | Si |
 | Generics | No | Si |
-| Tamaño | Fijo (según tipo) | Objeto con overhead |
+| TamaÃ±o | Fijo (segÃºn tipo) | Objeto con overhead |
 | Default value | 0, false, '\u0000' | null |
 
 ---
@@ -397,12 +399,12 @@ Java es tanto primitivo como orientado a objetos:
 Byte b = 127;      // Maximo valor de byte
 Byte bMin = -128;   // Minimo valor de byte
 
-// Conversión:
+// ConversiÃ³n:
 byte primitivo = b;                  // unboxing
 int ampliado = b;                    // widening automatico (byte -> int)
-short también = b;                   // byte -> short funciona
+short tambiÃ©n = b;                   // byte -> short funciona
 
-// byte a otros tipos (con conversión explicita si pierde informacion):
+// byte a otros tipos (con conversiÃ³n explicita si pierde informacion):
 long desdeLong = b;                 // byte a long (widening, seguro)
 float desdeFloat = b;               // byte a float (widening, pero puede perder precision)
 double desdeDouble = b;             // byte a double (widening)
@@ -414,21 +416,21 @@ double desdeDouble = b;             // byte a double (widening)
 Short s = 30000;
 short primitivo = s;
 
-// Conversión a int (widening, seguro):
-int i = s;  // No pierde información
+// ConversiÃ³n a int (widening, seguro):
+int i = s;  // No pierde informaciÃ³n
 
-// Conversión a byte (narrowing, puede perder datos):
+// ConversiÃ³n a byte (narrowing, puede perder datos):
 byte b = s.byteValue();  // Si s > 127 o s < -128, se trunca
 ```
 
 ### Integer: `-2^31` a `2^31 - 1`
 
-El Wrapper más usado. Incluye parsing, conversiones de base y deteccion de overflow.
+El Wrapper mÃ¡s usado. Incluye parsing, conversiones de base y deteccion de overflow.
 
 ```java
 Integer i = 42;
 
-// Conversión de base:
+// ConversiÃ³n de base:
 String binario = Integer.toBinaryString(42);    // "101010"
 String octal = Integer.toOctalString(42);       // "52"
 String hex = Integer.toHexString(42);           // "2a"
@@ -456,7 +458,7 @@ long mas = 9999999999999L;   // sin L, Java intenta int y falla (excede el rango
 ```java
 Float f = 3.14f;  // La f es obligatoria para literales float
 
-// Precisión limitada (no es exacto para muchos decimales):
+// PrecisiÃ³n limitada (no es exacto para muchos decimales):
 System.out.println(0.1f + 0.2f);          // 0.30000001 (no es 0.3 exacto)
 System.out.println(0.1 + 0.2);            // Con double: 0.30000000000000004
 
@@ -477,7 +479,7 @@ System.out.println(Float.isNaN(nan));        // true (forma correcta de verifica
 ### Double: 64-bit IEEE 754
 
 ```java
-Double d = 3.14159;  // Sin sufijo: un double literal se convierte automáticamente a Double
+Double d = 3.14159;  // Sin sufijo: un double literal se convierte automÃ¡ticamente a Double
 
 // El Wrapper mas preciso para decimales:
 System.out.println(0.1 + 0.2);             // 0.30000000000000004 (impreciso)
@@ -503,9 +505,9 @@ Character ch = 'A';
 // Java puede representar caracteres suplementarios (emoji, etc.) con surrogates:
 Character high = '\uD83D';  // surrogate
 Character low = '\uDE00';   // surrogate
-// j juntos forman un emoji 😀
+// j juntos forman un emoji ðY~?
 
-// Metodos utilísimos:
+// Metodos utilÃ­simos:
 Character.isLetter('A');           // true
 Character.isDigit('7');            // true
 Character.isWhitespace(' ');       // true
@@ -547,7 +549,7 @@ Boolean b = Boolean.valueOf("true");   // Boolean.TRUE (cacheado)
 ### Integer cache
 
 ```java
-// Java cachea Integer desde -128 hasta 127 por defecto (JVM estándar).
+// Java cachea Integer desde -128 hasta 127 por defecto (JVM estÃ¡ndar).
 // Fuera de ese rango, cada nuevo autoboxing crea un NUEVO objeto.
 
 Integer a = 127;
@@ -566,7 +568,7 @@ System.out.println(c.equals(d));   // true
 
 ### Long cache
 
-Misma regla que Integer, cachea valores típicos:
+Misma regla que Integer, cachea valores tÃ­picos:
 
 ```java
 Long la = 100L;
@@ -575,10 +577,10 @@ System.out.println(la == lb);       // true (cache)
 
 Long lc = 1000L;
 Long ld = 1000L;
-System.out.println(lc == ld);       // false (fuera de la cache típica)
+System.out.println(lc == ld);       // false (fuera de la cache tÃ­pica)
 ```
 
-### Short y Byte también tienen cache (todas las operaciones de autoboxing usan cache):
+### Short y Byte tambiÃ©n tienen cache (todas las operaciones de autoboxing usan cache):
 
 ```java
 Byte ba = 10;
@@ -628,7 +630,7 @@ if (posibleNull != null) {
 // Forma 2: usar Optional (recomendado en Java moderno)
 int seguro = Optional.ofNullable(posibleNull).orElse(0);
 
-// Forma 3: usar comparación segura con Objects.equals()
+// Forma 3: usar comparaciÃ³n segura con Objects.equals()
 // (solo funciona si comparas con otro Wrapper, no con primitivo):
 boolean esCero = Integer.valueOf(0).equals(posibleNull);  // falso si es null
 
@@ -668,11 +670,11 @@ Integer clave = null;
 
 ---
 
-## 5. Conversión entre tipos y widening/narrowing
+## 5. ConversiÃ³n entre tipos y widening/narrowing
 
-### Widening automático (promocion implicita)
+### Widening automÃ¡tico (promocion implicita)
 
-Cuando asignas un primitivo mas pequeño a un Wrapper de mayor rango:
+Cuando asignas un primitivo mas pequeÃ±o a un Wrapper de mayor rango:
 
 ```java
 byte b = 10;
@@ -726,7 +728,7 @@ int trailing = w.numberOfTrailingZeros(42);    // 1 (ceros a la derecha)
 
 ---
 
-## 6. Wrapper y expresiones aritméticas
+## 6. Wrapper y expresiones aritmÃ©ticas
 
 ### Autoboxing + primitivo = primitivo
 
@@ -742,7 +744,7 @@ Integer w1 = 10;
 Integer w2 = 20;
 int suma = w1 + w2;  // w1.intValue() + w2.intValue() = 30 (primitivo)
 
-// Asignación a Wrapper: el resultado se hace autoboxing automáticamente:
+// AsignaciÃ³n a Wrapper: el resultado se hace autoboxing automÃ¡ticamente:
 Integer resultadoWrapper = w1 + w2;  // equivalente a Integer.valueOf(30)
 
 // Cadena de operaciones mixtas:
@@ -754,7 +756,7 @@ float resultadoMixto = a + b + c + d;  // TODO: a+b+c+d = 10 (int), luego 10.0f 
 // Pero: a+b+c = 6 (int, porque int+int=int), luego 6+4=10, luego 10.0f
 ```
 
-### Wrapper con String concatenación
+### Wrapper con String concatenaciÃ³n
 
 ```java
 Integer n = 42;
@@ -763,17 +765,17 @@ String s = "El numero es " + n;  // n se hace toString() implicitamente: "El num
 // Pero cuidado con operaciones mixtas:
 Integer x = null;
 String resultado = "valor: " + x;  // "valor: null" (el null se convierte a la cadena "null")
-// No da NullPointerException! Java maneja null en concatenación con String de forma especial
+// No da NullPointerException! Java maneja null en concatenaciÃ³n con String de forma especial
 
-// Pero si concatenas un primitivo después del null:
+// Pero si concatenas un primitivo despuÃ©s del null:
 String r2 = resultado + 5;  // "valor: null5" (funciona sin error)
 ```
 
 ---
 
-## 7. Wrapper y genéricos (tipos parametrizados)
+## 7. Wrapper y genÃ©ricos (tipos parametrizados)
 
-### Por qué los genéricos solo aceptan Wrapper:
+### Por quÃ© los genÃ©ricos solo aceptan Wrapper:
 
 ```java
 // Generics solo aceptan tipos referencia (clases):
@@ -783,7 +785,7 @@ List<Integer> numeros = new ArrayList<>();            // OK
 Map<int, String> mapa = new HashMap<>();              // ERROR
 Map<Integer, String> mapa = new HashMap<>();          // OK
 
-// Los genéricos también no permiten tipos primitivos como type variable:
+// Los genÃ©ricos tambiÃ©n no permiten tipos primitivos como type variable:
 public class Caja<T> {
     private T valor;
 }
@@ -870,7 +872,7 @@ System.out.println(promedio.orElse(0.0));  // 86.25
 
 ---
 
-## 9. Valores especiales y casos límite
+## 9. Valores especiales y casos lÃ­mite
 
 ### NaN (Not a Number) y -0.0
 
@@ -913,10 +915,10 @@ Integer i = 100;
 Long l = i.longValue();  // correcto. Pero AUTOMATICAMENTE:
 
 // Esto FUNCIONA (autoboxing + widening):
-// Long ll = i;  // ERROR: no hay conversión implicita de Integer a Long directamente
+// Long ll = i;  // ERROR: no hay conversiÃ³n implicita de Integer a Long directamente
 // Long ll = (long) i;  // NECESITA cast explicito
 
-// Lo que SÍ funciona automático:
+// Lo que SÃ? funciona automÃ¡tico:
 int prim = i;          // unboxing: Integer -> int
 long largo = prim;    // widening: int -> long
 // Pero Integer -> Long directo no existe como conversion implicita de tipo
@@ -963,7 +965,7 @@ contador.incrementAndGet();  // atomico: 1
 contador.incrementAndGet();  // atomico: 2
 contador.get();              // 2
 
-// AtomicInteger usa un int interno (primitivo), pero permite operaciones atómicas
+// AtomicInteger usa un int interno (primitivo), pero permite operaciones atÃ³micas
 // comparables a un "Wrapper mutable". En concurrencia, es la alternativa correcta.
 ```
 
@@ -971,15 +973,15 @@ contador.get();              // 2
 
 ## Errores Comunes
 
-> Usar `==` para comparar Wrapper fuera del rango de cache (-128 a 127 para `Integer`, valores típicos para otros Wrapper). Usa `.equals()` siempre.
+> Usar `==` para comparar Wrapper fuera del rango de cache (-128 a 127 para `Integer`, valores tÃ­picos para otros Wrapper). Usa `.equals()` siempre.
 
 > Hacer unboxing de `null`: `Integer i = null; int x = i;` lanza `NullPointerException`.
 
 > Usar `parseInt` cuando necesitas un `Integer` (objeto): `parseInt` devuelve `int`. Usa `valueOf` para obtener `Integer`.
 
-> Hacer operaciones aritméticas en bucles con autoboxing (crea millones de objetos temporales y presiona al GC).
+> Hacer operaciones aritmÃ©ticas en bucles con autoboxing (crea millones de objetos temporales y presiona al GC).
 
-> Usar `Double`/`Float` para cálculos monetarios. Usa `BigDecimal` en su lugar.
+> Usar `Double`/`Float` para cÃ¡lculos monetarios. Usa `BigDecimal` en su lugar.
 
 > Asumir que `new Integer(42) == new Integer(42)` es `true`. Crea dos objetos distintos, son diferentes incluso en valor y fuera de cache.
 
@@ -992,7 +994,7 @@ contador.get();              // 2
 ## Buenas Practicas
 
 1. **Prefiere primitivos en variables locales y campos** cuando no necesitas null ni collections: `int` > `Integer`.
-2. **Usa `valueOf()` sobre el constructor** (los constructores están obsoletos): `Integer.valueOf()` reutiliza la cache interna de JVM.
+2. **Usa `valueOf()` sobre el constructor** (los constructores estÃ¡n obsoletos): `Integer.valueOf()` reutiliza la cache interna de JVM.
 3. **Compara Wrapper con `.equals()`**, nunca con `==`.
 4. **Usa `Optional<Integer>`** cuando el valor puede ser `null` y quieres manejarlo explicitamente.
 5. **Usa `IntStream`, `LongStream`, `DoubleStream`** en vez de `Stream<Integer>` etc. para evitar boxing en pipelines numericos.
@@ -1000,7 +1002,24 @@ contador.get();              // 2
 7. **No uses Wrapper para datos monetarios**: usa `BigDecimal` o centavos con `long`.
 8. **Usa `Objects.equals()` para comparar Wrapper que pueden ser null** sin NPE: `Objects.equals(a, b)`.
 9. **En colecciones, prefiere los tipos especializados** de Eclipse Collections o Koloboke si el performance importa (evitan boxing).
-10. **Aprovecha la inmutabilidad**: como los Wrapper son inmutables y thread-safe, son seguros para compartir entre hilos sin sincronización.
+10. **Aprovecha la inmutabilidad**: como los Wrapper son inmutables y thread-safe, son seguros para compartir entre hilos sin sincronizaciÃ³n.
+
+---
+
+
+### Puente al tema 39: Cuando elegir cada uno
+
+Esta guia sintetiza la decision en 5 reglas:
+
+| Situacion | Eleccion | Por que |
+|-----------|----------|---------|
+| Calculo / bucle / contador | int / long | Sin GC, max rendimiento |
+| Constante interna / config | int / double | Nunca null, compile-time |
+| Lista / Set / Map / generico | Integer / Long | Requiere tipo referencia |
+| DTO / API / BD (nullable) | Integer / Long | Permite null / Optional |
+| Clave compuesta Map | Record / Wrapper | quals/hashCode generado |
+
+Guia completa con flowchart, tabla maestra, anti-patrones y checklist: [[39 - Tipos y Wrappers - La Guia Definitiva]].
 
 ---
 
@@ -1009,13 +1028,14 @@ contador.get();              // 2
 - [[03 - Tipos Primitivos y Referencia]] - Base: tipos primitivos vs referencia, a los que Wrapper envuelven
 - [[04 - Variables y Literales]] - Autoboxing y unboxing automaticos en asignaciones
 - [[05 - Modificadores de Acceso]] - Los constructores de Wrapper son public, no private (a diferencia de Singleton)
-- [[13 - Static vs Instancia]] - La cache de Integer usa instancias static compartidas (Singleton implícito)
+- [[13 - Static vs Instancia]] - La cache de Integer usa instancias static compartidas (Singleton implÃ­cito)
 - [[23 - Metodos - Parametros, Retorno y Return]] - Boxing/unboxing en retornos y parametros
 - [[30 - Principio fundamental de Java (y POO)]] - Objeto vs primitivo; Wrapper es la puente necesaria para colecciones
 - [[31 - Curso Completo de .method()]] - Metodos como parseInt, valueOf, compareTo, etc. en Wrapper
 - [[33 - enum en Profundidad]] - Boolean tiene solo dos instancias (patrón similar al Singleton/enum)
+- [[39 - Tipos y Wrappers - La Guia Definitiva]] - Guia de decision y sintesis
 
 ---
 
 ## Tags
-`#java #fundamentos #wrapper #envolventes #tipos #autoboxing #inmutabilidad #colecciones`
+`#java #fundamentos #wrapper #envolventes #tipos #autoboxing #inmutabilidad #colecciones #guia`
