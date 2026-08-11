@@ -94,6 +94,8 @@ System.out.println(nombres);  // [ANA, LUIS, CARLOS]
 
 ### Stream API
 
+> Ver tambien: [[43 - Stream API en Profundidad]] - curso completo de Streams
+
 La forma mas potente de trabajar con listas:
 
 ```java

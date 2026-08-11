@@ -135,6 +135,8 @@ List<String> colores = List.of("Rojo", "Verde", "Azul");
 
 ### ArrayList con Stream
 
+> Ver tambien: [[43 - Stream API en Profundidad]] - curso completo de Streams
+
 ```java
 import java.util.*;
 

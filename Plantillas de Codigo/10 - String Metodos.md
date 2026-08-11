@@ -13,6 +13,7 @@ String textoReemplazado = nombreVariable.replace(antiguo, nuevo);
 boolean contiene = nombreVariable.contains(valor);
 boolean empiezaCon = nombreVariable.startsWith(valor);
 boolean terminaCon = nombreVariable.endsWith(valor);
+boolean igualSinCase = nombreVariable.equalsIgnoreCase(valor);
 
 String[] partes = nombreVariable.split(separador);
 int indice = nombreVariable.indexOf(valor);
@@ -42,6 +43,7 @@ String reemplazado = texto.replace("o", "0");
 
 boolean contiene = texto.contains("Mundo");
 boolean termina = texto.endsWith("Java");
+boolean respondeSi = entrada.equalsIgnoreCase("si");
 
 String[] palabras = texto.trim().split(" ");
 int indice = texto.indexOf("Mundo");

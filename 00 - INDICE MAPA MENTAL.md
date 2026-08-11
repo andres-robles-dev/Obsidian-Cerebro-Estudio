@@ -188,6 +188,34 @@ mindmap
       Reglas_API_retorno
       Anti-patrones
       Null_explicito
+    Lambda_y_Funcional
+      Funcion_anonima
+      Sintaxis_flecha
+      Interfaces_funcionales
+      Predicate_Function_Consumer_Supplier
+      Method_references
+      Efectivamente_final
+      Composicion_andThen
+      this_en_lambdas
+    Stream_API
+      Pipeline
+      Fuente_intermedias_terminal
+      filter_map_flatMap
+      findFirst_Optional
+      sorted_distinct_limit
+      reduce_toList_count
+      Pereza_lazy
+      Primitivos_IntStream
+      Parallel_streams
+    Patron_Catalogo
+      Enum_con_datos
+      Inmutable
+      Lookup_static
+      fromCodigo
+      Streams_y_busquedas
+      equalsIgnoreCase
+      Optional_como_retorno
+      vs_Map_externo_vs_BD
 ```
 
 ---
@@ -246,6 +274,9 @@ mindmap
 39. [[39 - Tipos y Wrappers - La Guia Definitiva]]
 40. [[40 - Manejo de Excepciones]]
 41. [[41 - Optional en Profundidad]]
+42. [[42 - Lambda en Profundidad]]
+43. [[43 - Stream API en Profundidad]]
+44. [[44 - Patron Catalogo Inmutable con Enum]]
 
 ### Referencia Rapida
 - [[99 - Glosario Rapido]] - Definiciones con enlaces
@@ -293,6 +324,9 @@ Al final de cada tema encontraras:
 | `#record` | 37 |
 | `#excepciones` | 40 |
 | `#optional` | 41, 23, 31 |
+| `#lambda` | 42 |
+| `#streams` | 43, 24, 34 |
+| `#catalogo` | 44, 33 |
 
 ---
 

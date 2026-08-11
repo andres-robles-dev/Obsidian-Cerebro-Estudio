@@ -30,6 +30,23 @@ Java tiene dos tipos de datos:
 | `long` | `Long` | Entero grande | `long l = 1_000_000_000L;` |
 | `float` | `Float` | Decimal simple | `float f = 3.14f;` |
 
+
+## Tipos primitivos y sus clases envolvente
+
+|Tipo (primitivo)|Clase envolvente|Tamaño en memoria (primitivo)|Ejemplo|
+|---|---|---|---|
+
+| Tipo (primitivo) | Clase envolvente | Tamaño en memoria (primitivo)                                             | Ejemplo                    |
+| ---------------- | ---------------- | ------------------------------------------------------------------------- | -------------------------- |
+| `int`            | `Integer`        | 4 bytes (32 bits)                                                         | `int edad = 25;`           |
+| `double`         | `Double`         | 8 bytes (64 bits)                                                         | `double precio = 19.99;`   |
+| `boolean`        | `Boolean`        | no especificado (1 bit lógico, pero en la práctica ocupa al menos 1 byte) | `boolean activo = true;`   |
+| `char`           | `Character`      | 2 bytes (16 bits)                                                         | `char letra = 'A';`        |
+| `byte`           | `Byte`           | 1 byte (8 bits)                                                           | `byte b = 100;`            |
+| `short`          | `Short`          | 2 bytes (16 bits)                                                         | `short s = 1000;`          |
+| `long`           | `Long`           | 8 bytes (64 bits)                                                         | `long l = 1_000_000_000L;` |
+| `float`          | `Float`          | 4 bytes (32 bits)                                                         | `float f = 3.14f;`         |
+
 ### Tipos referencia (los mas comunes)
 
 ```java
