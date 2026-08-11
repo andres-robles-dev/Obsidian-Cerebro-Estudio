@@ -1,38 +1,51 @@
 # 11 - Variables y Literales
 
 ```java
-// Primitivos: 8 tipos
-byte b = 100;
-short s = 30000;
-int entero = 42;
-long largo = 1_000_000L;          // sufijo L obligatorio para long
-float flotante = 2.5f;            // sufijo f obligatorio para float
-double doble = 3.14;              // decimal por defecto
-boolean activo = true;
-char letra = 'A';
+byte nombreVariable = valor;
+short nombreVariable = valor;
+int nombreVariable = valor;
+long nombreVariable = valorSufijoL;
+float nombreVariable = valorSufijoF;
+double nombreVariable = valorDecimal;
+boolean nombreVariable = valorVerdaderoOFalso;
+char nombreVariable = valorCaracter;
 
-// Referencia
-String nombre = "Ana";
+String nombreTexto = valorTexto;
 
-// Inferencia de tipo (Java 10+): solo para variables locales
-var numero = 10;                  // se infiere int
-var lista = new ArrayList<String>();
+var nombreVariable = valor;
 
-// Constantes
-final double IVA = 0.19;          // no se puede reasignar
-
-// Longitud y separador de miles (Java 7+)
-int poblacion = 8_000_000;
+final TipoDato NOMBRE_CONSTANTE = valor;
 ```
 
 **Cuando se usa:** en toda declaracion de datos: numeros, texto, booleanos, listas.
 
 **Reglas:**
-- Sufijos: `L` (long), `f` (float), `d` (double, opcional)
-- Comillas simples para `char`, dobles para `String`
-- El `_` en numeros largos solo mejora la lectura (1_000_000)
-- `var` infiere el tipo pero no puede usarse en campos ni parametros
-- `final` crea constante: debe inicializarse y no se reasigna
-- Nombres: camelCase (variables), UPPER_SNAKE (constantes)
+- Sufijos: L para long, f para float (obligatorios)
+- Comillas simples para char, dobles para String
+- var infiere el tipo: solo en variables locales, no en campos ni parametros
+- final crea constante: debe inicializarse y no se reasigna
+- Nombres: camelCase para variables, UPPER_SNAKE para constantes
+
+---
+
+## Ejemplo de uso
+
+```java
+byte nota = 10;
+short temperatura = 30000;
+int entero = 42;
+long poblacion = 8_000_000L;
+float flotante = 2.5f;
+double doble = 3.14;
+boolean activo = true;
+char letra = 'A';
+
+String nombre = "Ana";
+
+var numero = 10;
+var lista = new ArrayList<String>();
+
+final double IVA = 0.19;
+```
 
 **Ver tema:** [[04 - Variables y Literales]]

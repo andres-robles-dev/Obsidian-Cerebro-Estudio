@@ -1,10 +1,36 @@
 # 21 - Record
 
 ```java
-// Definicion minima: campos -> accessors, equals, hashCode, toString
+public record NombreRecord(TipoDato nombreAtributo, TipoDato otroAtributo) {
+
+    public NombreRecord {
+        if (condicionInvalida) {
+            throw new IllegalArgumentException("mensaje de error");
+        }
+    }
+}
+
+NombreRecord nombreVariable = new NombreRecord(argumento1, argumento2);
+
+TipoDato valor = nombreVariable.nombreAtributo();
+```
+
+**Cuando se usa:** para datos inmutables que solo transportan valores (DTOs, Value Objects, resultados). Igualdad por contenido sin escribir equals/hashCode a mano.
+
+**Reglas:**
+- Inmutable: campos final, sin setters
+- Accessors SIN get: variable.nombreAtributo(), no getNombreAtributo()
+- equals, hashCode y toString se generan por VALOR automaticamente
+- El compact constructor se escribe sin parametros y valida antes de asignar
+- No apto para clases con logica mutable o herencia
+
+---
+
+## Ejemplo de uso
+
+```java
 public record Usuario(long id, String nombre, int edad) {
 
-    // Compact constructor: valida antes de crear
     public Usuario {
         if (edad < 0) {
             throw new IllegalArgumentException("La edad no puede ser negativa");
@@ -15,20 +41,10 @@ public record Usuario(long id, String nombre, int edad) {
     }
 }
 
-// Uso:
 Usuario u = new Usuario(1, "Ana", 30);
-long id = u.id();              // accessor SIN get
+long id = u.id();
 String nombre = u.nombre();
-boolean iguales = u.equals(new Usuario(1, "Ana", 30));  // true por valor
+boolean iguales = u.equals(new Usuario(1, "Ana", 30));   // true por valor
 ```
-
-**Cuando se usa:** para datos inmutables que solo transportan valores (DTOs, Value Objects, resultados). Cuando quieres igualdad por contenido sin escribir equals/hashCode a mano.
-
-**Reglas:**
-- Inmutable: campos `final`, sin setters
-- Accessors sin prefijo: `u.nombre()`, no `u.getNombre()`
-- `equals`/`hashCode`/`toString` se generan por VALOR automaticamente
-- El compact constructor se escribe sin parametros y valida antes de asignar
-- No apto para clases con logica mutable o herencia
 
 **Ver tema:** [[37 - Record (y Value Objects)]]

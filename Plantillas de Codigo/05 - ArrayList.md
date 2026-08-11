@@ -1,41 +1,48 @@
 # 05 - ArrayList
 
 ```java
-import java.util.ArrayList;
-import java.util.List;
+List<TipoDato> nombreColeccion = new ArrayList<>();
 
-public class EjemploLista {
-    public static void main(String[] args) {
-        // Declarar: siempre con la interfaz List
-        List<String> nombres = new ArrayList<>();
+nombreColeccion.add(elemento);
+nombreColeccion.add(indice, elemento);
 
-        // Agregar
-        nombres.add("Ana");
-        nombres.add("Luis");
-        nombres.add(0, "Primero");     // inserta en posicion
+TipoDato valorObtenido = nombreColeccion.get(indice);
+int cantidad = nombreColeccion.size();
 
-        // Leer
-        String primero = nombres.get(0);
-        int total = nombres.size();
+nombreColeccion.remove(elemento);
+nombreColeccion.remove(indice);
 
-        // Quitar
-        nombres.remove("Luis");        // quita por valor
-        nombres.remove(0);             // quita por indice
-
-        // Recorrer
-        for (String nombre : nombres) {
-            System.out.println(nombre);
-        }
-    }
+for (TipoDato elemento : nombreColeccion) {
+    System.out.println(elemento);
 }
 ```
 
-**Cuando se usa:** siempre que necesites una coleccion dinamica que crece y decrece (lista de usuarios, tareas, resultados).
+**Cuando se usa:** siempre que necesites una coleccion dinamica que crece y decrece (listas de usuarios, tareas, resultados).
 
 **Reglas:**
-- Declara con `List<T>` (interfaz), instancia con `new ArrayList<>()`
-- El tipo va en los `<>` (generics): solo guarda objetos, NO primitivos
-- `remove` compara con `equals` (funciona con String, Integer, records...)
-- Los indices van de 0 a `size()-1`; un indice invalido lanza `IndexOutOfBoundsException`
+- Se declara con List (interfaz) y se instancia con new ArrayList<>()
+- El tipo va en los <> y solo guarda objetos, no primitivos
+- remove compara con equals (funciona con String, Integer, records...)
+- Indices de 0 a size()-1; un indice invalido lanza IndexOutOfBoundsException
+
+---
+
+## Ejemplo de uso
+
+```java
+List<String> nombres = new ArrayList<>();
+
+nombres.add("Ana");
+nombres.add("Luis");
+
+String primero = nombres.get(0);
+int total = nombres.size();
+
+nombres.remove("Luis");
+
+for (String nombre : nombres) {
+    System.out.println(nombre);
+}
+```
 
 **Ver temas:** [[15 - Listas y ArrayList]] - [[24 - ArrayList - Metodos Avanzados]]

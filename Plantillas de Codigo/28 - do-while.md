@@ -1,4 +1,22 @@
-# 28 - do-while (validacion y menus)
+# 28 - do-while
+
+```java
+do {
+    codigoARepetir;
+} while (condicion);
+```
+
+**Cuando se usa:** para estructuras que deben ejecutarse al menos UNA vez: menus (repetir hasta salir) y validacion de entrada (pedir hasta que sea correcta).
+
+**Reglas:**
+- La condicion se evalua al FINAL: el bloque siempre corre al menos una vez
+- Si la primera ejecucion podria no pasar, usa while
+- La condicion debe volverse falsa o habra un bucle infinito
+- Ideal para menus con opcion de salida
+
+---
+
+## Ejemplo de uso
 
 ```java
 import java.util.Scanner;
@@ -8,7 +26,6 @@ public class Menu {
         Scanner sc = new Scanner(System.in);
         int opcion;
 
-        // Menu: se muestra al menos UNA vez y se repite hasta salir
         do {
             System.out.println("=== MENU ===");
             System.out.println("1. Ver saldo");
@@ -29,13 +46,5 @@ public class Menu {
     }
 }
 ```
-
-**Cuando se usa:** para estructuras que deben ejecutarse al menos UNA vez: menus (repetir hasta salir) y validacion de entrada (pedir hasta que sea correcta).
-
-**Reglas:**
-- La condicion se evalua al FINAL: el bloque siempre corre al menos una vez
-- Usalo cuando la primera ejecucion es segura; si puede no ejecutarse, usa `while`
-- Cuidado con bucles infinitos: la condicion debe volverse falsa
-- Para validar con `nextInt()` recuerda que texto invalido lanza `InputMismatchException`
 
 **Ver tema:** [[32 - do-while en Profundidad]]

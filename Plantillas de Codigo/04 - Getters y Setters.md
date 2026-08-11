@@ -1,7 +1,37 @@
 # 04 - Getters y Setters
 
 ```java
-public class Empleado {
+public class NombreClase {
+    private TipoDato nombreAtributo;
+
+    public TipoDato getNombreAtributo() {
+        return nombreAtributo;
+    }
+
+    public void setNombreAtributo(TipoDato nombreAtributo) {
+        this.nombreAtributo = nombreAtributo;
+    }
+
+    public boolean isAtributoBooleano() {
+        return atributoBooleano;
+    }
+}
+```
+
+**Cuando se usa:** para exponer y modificar el estado de un objeto respetando el encapsulamiento (campos private accesibles solo por metodos).
+
+**Reglas:**
+- Convencion JavaBeans: getNombreAtributo() / setNombreAtributo(valor)
+- Los booleanos usan isAtributoBooleano() en vez de get
+- Un campo final no lleva setter
+- Puedes validar dentro del setter (ej: rechazar valores invalidos)
+
+---
+
+## Ejemplo de uso
+
+```java
+public class Usuario {
     private String nombre;
     private boolean activo;
 
@@ -13,7 +43,6 @@ public class Empleado {
         this.nombre = nombre;
     }
 
-    // Los booleanos usan is en vez de get:
     public boolean isActivo() {
         return activo;
     }
@@ -23,14 +52,5 @@ public class Empleado {
     }
 }
 ```
-
-**Cuando se usa:** para exponer y modificar el estado de un objeto respetando el encapsulamiento (campos `private` accesibles solo por metodos).
-
-**Reglas:**
-- Convencion JavaBeans: `getCampo()` / `setCampo(valor)`
-- Los `boolean` usan `isCampo()` (no `getCampo()`)
-- Solo genera setters si el campo debe cambiar (un campo `final` no lleva setter)
-- Puedes validar dentro del setter (ej: rechazar edades negativas)
-- Usa getters con logica cuando la informacion se calcula (ej: `getNombreCompleto()`)
 
 **Ver temas:** [[21 - Getters y Setters]] - [[35 - Getters booleanos]]

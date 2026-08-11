@@ -1,6 +1,50 @@
 # 01 - Clase Basica
 
 ```java
+public class NombreClase {
+    private TipoDato nombreAtributo;
+    private TipoDato otroAtributo;
+
+    public NombreClase(TipoDato nombreAtributo, TipoDato otroAtributo) {
+        this.nombreAtributo = nombreAtributo;
+        this.otroAtributo = otroAtributo;
+    }
+
+    public TipoDato getNombreAtributo() {
+        return nombreAtributo;
+    }
+
+    public void setNombreAtributo(TipoDato nombreAtributo) {
+        this.nombreAtributo = nombreAtributo;
+    }
+
+    public TipoDato getOtroAtributo() {
+        return otroAtributo;
+    }
+
+    @Override
+    public String toString() {
+        return "NombreClase{" +
+                "nombreAtributo='" + nombreAtributo + '\'' +
+                ", otroAtributo=" + otroAtributo +
+                '}';
+    }
+}
+```
+
+**Cuando se usa:** para crear cualquier objeto del dominio. Es el esqueleto base de toda clase con estado: campos private, constructor, getters/setters y toString.
+
+**Reglas:**
+- La clase public se llama igual que el archivo y en PascalCase
+- Los campos van private (encapsulamiento)
+- El estado se protege con getters/setters
+- toString() te deja ver el objeto al imprimirlo
+
+---
+
+## Ejemplo de uso
+
+```java
 public class Usuario {
     private String nombre;
     private int edad;
@@ -33,13 +77,4 @@ public class Usuario {
 }
 ```
 
-**Cuando se usa:** para crear cualquier objeto del dominio (Usuario, Producto, Pedido...). Es el esqueleto base de toda clase con estado.
-
-**Reglas:**
-- La clase `public` debe llamarse igual que el archivo (`.java`)
-- Nombre en PascalCase (Usuario, Producto)
-- Los campos van `private` (encapsulamiento)
-- El estado se protege con getters/setters
-- Sobrescribe `toString()` para ver el objeto en prints
-
-**Ver temas:** [[01 - Clases y Estructura Basica]] - [[21 - Getters y Setters]]
+**Ver tema:** [[01 - Clases y Estructura Basica]] - [[21 - Getters y Setters]]
