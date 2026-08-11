@@ -238,6 +238,11 @@ mindmap
 ### Referencia Rapida
 - [[99 - Glosario Rapido]] - Definiciones con enlaces
 
+### Plantillas de Codigo
+> Estructuras listas para copiar, ordenadas de mas usadas a menos. Cada una tiene el codigo, cuando se usa y sus reglas.
+
+- [[01 - Clase Basica]] · [[02 - Punto de Entrada main]] · [[03 - Constructor]] · [[04 - Getters y Setters]] · [[05 - ArrayList]] · [[06 - Bucles]] · [[07 - Scanner]] · [[08 - System.out]] · [[09 - Metodos de Instancia]] · [[10 - String Metodos]] · [[11 - Variables y Literales]] · [[12 - Arrays]] · [[13 - Operador Ternario]] · [[14 - static]] · [[15 - enum Simple]] · [[16 - enum con Constructor y Metodos]] · [[17 - Switch Expression]] · [[18 - Try-Catch-Finally]] · [[19 - Try-With-Resources]] · [[20 - Excepcion Personalizada]] · [[21 - Record]] · [[22 - List.of Set.of Map.of]] · [[23 - Optional]] · [[24 - Singleton]] · [[25 - Wrapper Integer]] · [[26 - Metodos Avanzados (varargs y guard clauses)]] · [[27 - Paquete e Imports]] · [[28 - do-while]]
+
 ---
 
 ## Como Leer Cada Tema
