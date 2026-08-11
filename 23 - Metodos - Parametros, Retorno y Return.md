@@ -140,6 +140,8 @@ public String clasificarNota(int nota) {
 
 ### Optional como retorno
 
+> Ver tambien: [[41 - Optional en Profundidad]] - curso completo de Optional
+
 Mejor que devolver `null`:
 
 ```java

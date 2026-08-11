@@ -177,6 +177,17 @@ mindmap
       Propagacion_Stack_trace
       Optional_y_Streams
       Anti-patrones
+    Optional_y_Null_Safety
+      Contenedor_valor_o_vacio
+      of_ofNullable_empty
+      orElse_orElseGet_orElseThrow
+      map_filter_flatMap
+      ifPresent_ifPresentOrElse
+      Primitivos_OptionalInt
+      Optional_y_Streams
+      Reglas_API_retorno
+      Anti-patrones
+      Null_explicito
 ```
 
 ---
@@ -234,6 +245,7 @@ mindmap
 38. [[38 - List.of y Colecciones Inmutables]]
 39. [[39 - Tipos y Wrappers - La Guia Definitiva]]
 40. [[40 - Manejo de Excepciones]]
+41. [[41 - Optional en Profundidad]]
 
 ### Referencia Rapida
 - [[99 - Glosario Rapido]] - Definiciones con enlaces
@@ -280,6 +292,7 @@ Al final de cada tema encontraras:
 | `#switch` | 36 |
 | `#record` | 37 |
 | `#excepciones` | 40 |
+| `#optional` | 41, 23, 31 |
 
 ---
 

@@ -51,4 +51,4 @@ String resultado = nombre.orElseThrow(
 String mayuscula = nombre.map(String::toUpperCase).orElse("---");
 ```
 
-**Ver tema:** [[23 - Metodos - Parametros, Retorno y Return]]
+**Ver temas:** [[23 - Metodos - Parametros, Retorno y Return]] - [[41 - Optional en Profundidad]]

@@ -110,6 +110,8 @@ public class EjemplosString {
 
 ### Optional — El protector contra null
 
+> Ver tambien: [[41 - Optional en Profundidad]] - curso completo de Optional
+
 `Optional<T>` es un contenedor que puede tener un valor o no. Evita los `NullPointerException`.
 
 ```java
