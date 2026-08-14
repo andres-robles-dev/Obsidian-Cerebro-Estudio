@@ -47,6 +47,18 @@ char letra = 'A';          // 'A' es un literal de caracter
 boolean cierto = true;     // true es un literal booleano
 ```
 
+- **Definición:** un **literal** es un valor escrito directamente en el código fuente.
+- Representa un **valor fijo** que Java puede utilizar.
+
+**Ejemplos:**
+
+```JAVA
+int edad = 25;          // 25 → literal
+String nombre = "Ana";  // "Ana" → literal
+boolean activo = true;  // true → literal
+```
+
+**Idea clave:** el literal es **el valor escrito directamente**, no el nombre de la variable.
 ### Ejemplo basico
 
 ```java
@@ -73,6 +85,26 @@ public class EjemploVariables {
 
 ### Tipos de literales
 
+**Definición:**  
+Los **tipos de literales** son las diferentes formas de representar valores directamente en el código.
+
+**Notas clave:**
+
+- Los literales representan **valores escritos directamente**.
+- El tipo de literal determina qué tipo de dato representa.
+- Los principales son: **enteros, decimales, caracteres, cadenas, booleanos y `null`**.
+##### Ejemplos:
+
+```JAVA
+25          // entero
+3.14        // decimal
+'A'         // char
+"Hola"      // String
+true        // boolean
+null        // nulo
+```
+
+
 ```java
 public class LiteralesEjemplos {
     public static void main(String[] args) {
@@ -98,9 +130,33 @@ public class LiteralesEjemplos {
 }
 ```
 
+**Idea clave:** `25` es un literal entero, `"Hola"` es un literal `String`, `'A'` es un literal `char`, etc.
+
 ### Ambito (scope) de variables
 
-El ambito es donde la variable "vive" y se puede usar:
+**Definición:**  
+El **scope** es la zona del código donde una variable **puede ser accedida y utilizada**.
+
+**Notas clave:**
+
+- Una variable solo puede utilizarse dentro de su ámbito.
+- Un **método**, un **bloque `{}`** o una **clase** pueden crear ámbitos.
+- En ámbitos diferentes, se puede repetir el mismo nombre.
+- En el mismo ámbito, no se puede declarar otra variable local con el mismo nombre.
+
+**Ejemplo:**
+
+```JAVA
+void metodoA() {
+    String buscar = "A";
+}
+
+void metodoB() {
+    String buscar = "B";
+}
+```
+
+Aquí no hay conflicto porque cada `buscar` pertenece a un **ámbito diferente**.
 
 ```java
 public class AmbitoVariables {
@@ -117,7 +173,27 @@ public class AmbitoVariables {
 }
 ```
 
+**Idea clave:** **Scope = dónde puedo usar una variable.**
 ### Constantes con final
+
+**Definición:**  
+Una **constante** es una variable cuyo valor **no puede cambiar** después de ser asignado. Se declara con `final`.
+
+**Notas clave:**
+
+- `final` impide reasignar la variable.
+- Por convención, las constantes se escriben en **MAYÚSCULAS**.
+- Si tiene varias palabras, se separan con `_`.
+- Las mayúsculas son una **convención**, no una obligación de Java.
+
+**Ejemplo:**
+
+```JAVA
+final int DIAS_SEMANA = 7;
+
+// DIAS_SEMANA = 5; ❌ Error
+
+```
 
 ```java
 public class Constantes {
@@ -135,7 +211,25 @@ Las constantes se escriben en MAYUSCULAS con guion bajo.
 
 ### Inferencia de tipo con var (Java 10+)
 
-`var` le dice a Java: "deduce tu mismo el tipo":
+**Definición:**  
+La **inferencia de tipo** permite que Java **deduzca automáticamente el tipo** de una variable a partir del valor que se le asigna.
+
+**Notas clave:**
+
+- `var` se introdujo en **Java 10**.
+- El tipo lo determina el compilador.
+- La variable sigue teniendo un **tipo fijo**; `var` no la convierte en dinámica.
+- Se puede usar junto con variables que tienen el tipo escrito explícitamente.
+- Se recomienda usarlo cuando el tipo sea **claro y mejore la legibilidad**.
+
+**Ejemplo:**
+
+```JAVA
+var nombre = "Carlos";  // Java infiere String
+var edad = 25;          // Java infiere int
+var activo = true;      // Java infiere boolean
+
+```
 
 ```java
 public class DemoVar {
@@ -150,6 +244,7 @@ public class DemoVar {
 }
 ```
 
+**Idea clave:** `var` significa **“Java, deduce el tipo por mí”**.
 ### Efectivamente final
 
 Desde Java 8, si una variable no cambia despues de inicializarse, es "efectivamente final". Puedes usarla en lambdas:

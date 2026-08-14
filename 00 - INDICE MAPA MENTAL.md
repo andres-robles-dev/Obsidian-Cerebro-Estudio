@@ -67,7 +67,19 @@ mindmap
       List_Interface
       ArrayList_Dinamico
       Add_Remove_Get
-      Generics
+    Genericos_y_Tipos
+      Tipos_parametrizados_T
+      List_T_Map_KV
+      Optional_T_ejemplo_real
+      Clases_genericas
+      Metodos_genericos
+      Interfaces_genericas
+      Bounded_extends
+      Wildcards
+      PECS
+      Type_erasure
+      Records_genericos
+      Diamond
     Bucles_Control_Flujo
       For_Tradicional
       For_Each
@@ -277,6 +289,7 @@ mindmap
 42. [[42 - Lambda en Profundidad]]
 43. [[43 - Stream API en Profundidad]]
 44. [[44 - Patron Catalogo Inmutable con Enum]]
+45. [[45 - Genericos en Profundidad]]
 
 ### Referencia Rapida
 - [[99 - Glosario Rapido]] - Definiciones con enlaces
@@ -284,7 +297,7 @@ mindmap
 ### Plantillas de Codigo
 > Estructuras listas para copiar, ordenadas de mas usadas a menos. Cada una tiene el codigo, cuando se usa y sus reglas.
 
-- [[01 - Clase Basica]] · [[02 - Punto de Entrada main]] · [[03 - Constructor]] · [[04 - Getters y Setters]] · [[05 - ArrayList]] · [[06 - Bucles]] · [[07 - Scanner]] · [[08 - System.out]] · [[09 - Metodos de Instancia]] · [[10 - String Metodos]] · [[11 - Variables y Literales]] · [[12 - Arrays]] · [[13 - Operador Ternario]] · [[14 - static]] · [[15 - enum Simple]] · [[16 - enum con Constructor y Metodos]] · [[17 - Switch Expression]] · [[18 - Try-Catch-Finally]] · [[19 - Try-With-Resources]] · [[20 - Excepcion Personalizada]] · [[21 - Record]] · [[22 - List.of Set.of Map.of]] · [[23 - Optional]] · [[24 - Singleton]] · [[25 - Wrapper Integer]] · [[26 - Metodos Avanzados (varargs y guard clauses)]] · [[27 - Paquete e Imports]] · [[28 - do-while]]
+- [[01 - Clase Basica]] · [[02 - Punto de Entrada main]] · [[03 - Constructor]] · [[04 - Getters y Setters]] · [[05 - ArrayList]] · [[06 - Bucles]] · [[07 - Scanner]] · [[08 - System.out]] · [[09 - Metodos de Instancia]] · [[10 - String Metodos]] · [[11 - Variables y Literales]] · [[12 - Arrays]] · [[13 - Operador Ternario]] · [[14 - static]] · [[15 - enum Simple]] · [[16 - enum con Constructor y Metodos]] · [[17 - Switch Expression]] · [[18 - Try-Catch-Finally]] · [[19 - Try-With-Resources]] · [[20 - Excepcion Personalizada]] · [[21 - Record]] · [[22 - List.of Set.of Map.of]] · [[23 - Optional]] · [[24 - Singleton]] · [[25 - Wrapper Integer]] · [[26 - Metodos Avanzados (varargs y guard clauses)]] · [[27 - Paquete e Imports]] · [[28 - do-while]] · [[29 - Clase Generica]]
 
 ---
 
@@ -327,6 +340,7 @@ Al final de cada tema encontraras:
 | `#lambda` | 42 |
 | `#streams` | 43, 24, 34 |
 | `#catalogo` | 44, 33 |
+| `#generics` | 45, 15, 41 |
 
 ---
 
