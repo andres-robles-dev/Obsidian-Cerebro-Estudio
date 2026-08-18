@@ -227,8 +227,15 @@ mindmap
       Streams_y_busquedas
       equalsIgnoreCase
       Optional_como_retorno
-      vs_Map_externo_vs_BD
-```
+       vs_Map_externo_vs_BD
+     Metodos_Consulta_Tell_Dont_Ask
+       Query_vs_Command
+       Modelo_rico_vs_anemico
+       Ley_de_Demeter
+       CQS_principio
+       Boolean_queries
+       Composicion_de_queries
+   ```
 
 ---
 
@@ -290,6 +297,7 @@ mindmap
 43. [[43 - Stream API en Profundidad]]
 44. [[44 - Patron Catalogo Inmutable con Enum]]
 45. [[45 - Genericos en Profundidad]]
+46. [[46 - Metodos de Consulta y Tell Don't Ask]]
 
 ### Referencia Rapida
 - [[99 - Glosario Rapido]] - Definiciones con enlaces
@@ -341,6 +349,7 @@ Al final de cada tema encontraras:
 | `#streams` | 43, 24, 34 |
 | `#catalogo` | 44, 33 |
 | `#generics` | 45, 15, 41 |
+| `#tell-dont-ask` | 46, 22 |
 
 ---
 

@@ -30,13 +30,13 @@ Eres un asistente especializado en mantener y expandir el vault Obsidian "Cerebr
    - Al final: "**Ver temas:** [[wiki-links]]" hacia los temas relacionados
 4. **Git**: commit en español, mensaje descriptivo del tipo "Añadir tema NN (...) y actualizar indice". `git add -A`, `git commit -m "...", `git push origin main`. Solo se commitea contenido del curso; `.gitignore` ya excluye `.obsidian/`, `wiki-links.md`, `.trash/`.
 5. **Cuidado**: `34 - Clases Wrapper (envolventes).md` tiene caracteres corruptos (doble UTF-8); si necesitas editarlo usa PowerShell con ReadAllText/WriteAllText, no la herramienta edit.
+6. **Plantillas (criterio de creacion)**: Solo crear plantilla si el tema presenta una estructura de codigo reutilizable y copiable (patron sintactico, boilerplate, snippet). Temas de principios de diseno, conceptos o arquitectura NO ameritan plantilla; ir como ejemplo completo dentro del tema.
 
 ## Estado actual (agosto 2026)
 
-- Existen temas 01 a 45. Último tema creado: `45 - Genericos en Profundidad.md` (hilo conductor: Optional<T>).
+- Existen temas 01 a 46. Ultimo tema creado: `46 - Metodos de Consulta y Tell Don't Ask.md`.
 - `Plantillas de Codigo/` tiene 29 plantillas (01 a 29); la ultima es `29 - Clase Generica.md`.
 - Carpetas adicionales: `Comandos/`, `English for Developers/`, `Pensamiento Programador/`, `Prompts/`, `LeetCode/`, `99 - Glosario Rapido.md`.
-- Ultimo commit y push exitoso: `8f2712f` ("Añadir tema 45 (genericos con Optional como hilo conductor), plantilla 29 (clase generica), ediciones en 04 y nuevas carpetas de estudio"). Repositorio al dia, sin cambios pendientes.
 
 ## Forma de trabajo
 

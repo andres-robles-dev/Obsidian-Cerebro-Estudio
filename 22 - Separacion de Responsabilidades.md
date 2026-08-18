@@ -127,7 +127,7 @@ public class CalculadorDescuento {
 
 ### Tell, Don't Ask
 
-No le preguntes a un objeto por sus datos para luego hacer algo con ellos. Mejor dile que haga algo.
+No le preguntes a un objeto por sus datos para luego hacer algo con ellos. Mejor dile que haga algo. Ver tema completo: [[46 - Metodos de Consulta y Tell Don't Ask]]
 
 ```java
 // MAL: preguntar (Ask)
@@ -298,6 +298,7 @@ public class PedidoServicioBien {
 - [[19 - Separacion de Responsabilidades]] - Nivel basico de separacion
 - [[20 - Javadoc y Documentacion]] - Documentar la arquitectura
 - [[21 - Getters y Setters]] - Encapsulamiento
+- [[46 - Metodos de Consulta y Tell Don't Ask]] - Tell Don't Ask en profundidad
 - [[25 - Paquetes y Organizacion]] - Organizar por capas
 
 ---

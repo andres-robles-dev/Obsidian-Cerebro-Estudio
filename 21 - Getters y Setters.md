@@ -261,6 +261,7 @@ public class Almacen {
 - [[08 - Instanciacion y new]] - Creacion de objetos encapsulados
 - [[18 - Convenciones de Nombrado]] - Convencion getX/isX/setX
 - [[19 - Separacion de Responsabilidades]] - Encapsulamiento como separacion
+- [[46 - Metodos de Consulta y Tell Don't Ask]] - Queries vs commands, Tell Don't Ask
 
 ---
 

@@ -56,6 +56,8 @@ Referencia alfabetica de terminos clave. Cada entrada tiene definicion y enlace 
 
 **Cohesion** -- Grado en que elementos de un modulo/pertenecen juntos. Alta = buena. -> [[19 - Separacion de Responsabilidades]]
 
+**CQS (Command-Query Separation)** -- Principio: cada metodo es O command O query, nunca ambos. -> [[46 - Metodos de Consulta y Tell Don't Ask]]
+
 **Coleccion** -- `List`, `Set`, `Map`, `Queue`. Estructuras de datos dinamicas.
 
 **Constante** -- `static final` + inmutable. Convencion `UPPER_SNAKE_CASE`. -> [[04 - Variables y Literales]], [[18 - Convenciones de Nombrado]]
@@ -108,6 +110,8 @@ Referencia alfabetica de terminos clave. Cada entrada tiene definicion y enlace 
 
 **Getters / Setters** -- Metodos `getX()`/`setX()` (o `isX()` para `boolean`). -> [[21 - Getters y Setters]]
 
+**Ley de Demeter** -- No hables con extraños: un metodo solo invoca metodos en sus amigos directos (this, parametros, objetos que crea, campos directos). -> [[46 - Metodos de Consulta y Tell Don't Ask]]
+
 ---
 
 ## H
@@ -157,6 +161,10 @@ Referencia alfabetica de terminos clave. Cada entrada tiene definicion y enlace 
 **Metodo** -- Bloque nombrado con parametros, retorno, cuerpo. -> [[10 - Metodos de Instancia]], [[23 - Metodos - Parametros, Retorno y Return]]
 
 **Metodo Estatico** -- `static`. Pertenece a clase. Sin `this`. -> [[13 - Static vs Instancia]]
+
+**Metodos de Consulta (Query Methods)** -- Metodos que devuelven informacion sobre el estado sin modificarlo ni efectos secundarios. Opuesto a command methods. -> [[46 - Metodos de Consulta y Tell Don't Ask]]
+
+**Modelo Anemico** -- Clase con solo getters/setters sin logica de negocio. Anti-patron. Opuesto a modelo rico. -> [[46 - Metodos de Consulta y Tell Don't Ask]]
 
 **Metodo de Instancia** -- Sin `static`. Requiere objeto. Accede a `this`. -> [[10 - Metodos de Instancia]]
 
@@ -224,7 +232,7 @@ Referencia alfabetica de terminos clave. Cada entrada tiene definicion y enlace 
 
 ## T
 
-**Tell, Don't Ask** -- Dile al objeto que haga algo, no le preguntes datos para decidir fuera. -> [[22 - Separacion de Responsabilidades]]
+**Tell, Don't Ask** -- Dile al objeto que haga algo, no le preguntes datos para decidir fuera. -> [[22 - Separacion de Responsabilidades]], [[46 - Metodos de Consulta y Tell Don't Ask]]
 
 **Text Blocks (Java 15+)** -- `"""..."""` para Strings multilinea. -> [[11 - System.out y Concatenacion]]
 
