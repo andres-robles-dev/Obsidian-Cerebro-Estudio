@@ -235,6 +235,13 @@ mindmap
        CQS_principio
        Boolean_queries
        Composicion_de_queries
+    List_copyOf_Inmutabilidad
+      Copia_defensiva
+      Reglas_null
+      vs_Collections_unmodifiable
+      Set_copyOf_Map_copyOf
+      Objetos_mutables_en_lista_inmutable
+      Builder_y_copyOf
    ```
 
 ---
@@ -298,6 +305,7 @@ mindmap
 44. [[44 - Patron Catalogo Inmutable con Enum]]
 45. [[45 - Genericos en Profundidad]]
 46. [[46 - Metodos de Consulta y Tell Don't Ask]]
+47. [[47 - List.copyOf() (inmutabilidad)]]
 
 ### Referencia Rapida
 - [[99 - Glosario Rapido]] - Definiciones con enlaces
@@ -350,6 +358,7 @@ Al final de cada tema encontraras:
 | `#catalogo` | 44, 33 |
 | `#generics` | 45, 15, 41 |
 | `#tell-dont-ask` | 46, 22 |
+| `#inmutabilidad` | 47, 38, 37 |
 
 ---
 

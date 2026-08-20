@@ -128,7 +128,7 @@ Referencia alfabetica de terminos clave. Cada entrada tiene definicion y enlace 
 
 **Igualdad** -- Equivalencia logica de contenido. `.equals()`. -> [[09 - Multiples Objetos e Identidad]]
 
-**Inmutabilidad** -- Objeto cuyo estado no cambia tras construccion. `record`, `String`, `LocalDate`. -> [[21 - Getters y Setters]]
+**Inmutabilidad** -- Objeto cuyo estado no cambia tras construccion. `record`, `String`, `LocalDate`. -> [[21 - Getters y Setters]], [[47 - List.copyOf() (inmutabilidad)]]
 
 **Instancia** -- Objeto concreto creado con `new`. Tiene identidad, estado, comportamiento. -> [[08 - Instanciacion y new]]
 
@@ -151,6 +151,8 @@ Referencia alfabetica de terminos clave. Cada entrada tiene definicion y enlace 
 **Lambda** -- Funcion anonima: `(a, b) -> a + b`. Implementa Functional Interface. -> [[16 - Bucles y Control de Flujo]]
 
 **Literal** -- Valor escrito en codigo: `42`, `3.14f`, `'A'`, `"Hola"`, `true`. -> [[04 - Variables y Literales]]
+
+**List.copyOf()** -- Crea copia inmutable de una coleccion. Sin null, copia real, UnsupportedOperationException en modificacion. -> [[47 - List.copyOf() (inmutabilidad)]]
 
 ---
 

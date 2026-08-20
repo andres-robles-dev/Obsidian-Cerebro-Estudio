@@ -676,6 +676,7 @@ List<Integer> pares = numeros.stream()
 - [[31 - Curso Completo de .method()]] - Catalogo de metodos: of, copyOf, entry, toList
 - [[34 - Clases Wrapper (envolventes)]] - Por que List.of rechaza null y sus Wrapper permiten
 - [[37 - Record (y Value Objects)]] - Records + List.of = inmutabilidad completa en VO
+- [[47 - List.copyOf() (inmutabilidad)]] - Curso completo de List.copyOf y copia defensiva
 - [[99 - Glosario Rapido]] - Terminos: inmutable, factory method, varargs
 
 ---

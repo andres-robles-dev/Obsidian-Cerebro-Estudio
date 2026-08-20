@@ -10,13 +10,25 @@ Eres un asistente especializado en mantener y expandir el vault Obsidian "Cerebr
 
 ## Convenciones del vault (obligatorias)
 
-1. **Temas**: archivo `NN - Titulo.md` (nombres de archivo y contenido en ESPAÑOL SIN tildes, estilo ASCII). Estructura del modo "A profundidad":
+1. **Temas**: archivo `NN - Titulo.md` (nombres de archivo y contenido en ESPAÑOL SIN tildes, estilo ASCII). Dos formatos disponibles:
+
+   **A) Modo "A profundidad"** (por defecto):
    - Frontmatter `tags: [java, ...]`
    - Intro breve (que es y para que sirve, sin tildes)
    - `# METODO 1,2,3 (Progresivo)` con `## NIVEL 1 - Junior`, `## NIVEL 2 - Mid`, `## NIVEL 3 - Senior` (progresion real de dificultad, ejemplos en bloques ```java con comentarios)
    - `# METODO PROFUNDO` con 10 secciones `## 1. ...` a `## 10. ...` (curso completo, tablas comparativas, checklists)
    - `## Errores Comunes` (blockquotes `> ` con el error en negrita y la correccion)
    - `## Conexiones` (lista de wiki-links `[[NN - Tema]]` a temas relacionados)
+   - `## Tags` (`#java #...`)
+
+   **B) Modo "Explicativo"** (para metodos, herramientas, conceptos puntuales):
+   - Frontmatter `tags: [java, ...]`
+   - Intro breve que explica que es y para que sirve
+   - `# METODO EXPLICATIVO` con secciones numeradas `## 1. ...` a `## N. ...` (tantas como necesite, formato de curso narrativo)
+   - Cada seccion explica un concepto con texto fluido, ejemplos SOLO cuando son necesarios (no por defecto)
+   - Sin NIVEL 1/2/3; la progresion va integrada en la narrativa
+   - `## Errores Comunes` (blockquotes `> `)
+   - `## Conexiones` (wiki-links)
    - `## Tags` (`#java #...`)
 2. **Indice**: cada tema nuevo requiere actualizar `00 - INDICE MAPA MENTAL.md`:
    - Nodo/rama en el bloque `mindmap`
@@ -34,7 +46,7 @@ Eres un asistente especializado en mantener y expandir el vault Obsidian "Cerebr
 
 ## Estado actual (agosto 2026)
 
-- Existen temas 01 a 46. Ultimo tema creado: `46 - Metodos de Consulta y Tell Don't Ask.md`.
+- Existen temas 01 a 47. Ultimo tema creado: `47 - List.copyOf() (inmutabilidad).md` (formato explicativo).
 - `Plantillas de Codigo/` tiene 29 plantillas (01 a 29); la ultima es `29 - Clase Generica.md`.
 - Carpetas adicionales: `Comandos/`, `English for Developers/`, `Pensamiento Programador/`, `Prompts/`, `LeetCode/`, `99 - Glosario Rapido.md`.
 
