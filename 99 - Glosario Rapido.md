@@ -28,6 +28,12 @@ Referencia alfabetica de terminos clave. Cada entrada tiene definicion y enlace 
 
 **Autoboxing / Unboxing** -- Conversion automatica `int` <-> `Integer`, `double` <-> `Double`, etc. -> [[03 - Tipos Primitivos y Referencia]]
 
+**Autenticacion** -- Verificar identidad (quien eres): login, token, certificado. Distinto de autorizacion. -> [[57 - Spring Security autenticacion y cadena de filtros]]
+
+**Autorizacion** -- Verificar permisos (que puedes hacer): roles, reglas por ruta. -> [[57 - Spring Security autenticacion y cadena de filtros]]
+
+**Autoconfiguracion (Spring Boot)** -- Spring configura automaticamente lo que detecta en el classpath. Convencion sobre configuracion. -> [[49 - Spring Boot arranque de aplicacion]]
+
 ---
 
 ## B
@@ -58,6 +64,8 @@ Referencia alfabetica de terminos clave. Cada entrada tiene definicion y enlace 
 
 **CQS (Command-Query Separation)** -- Principio: cada metodo es O command O query, nunca ambos. -> [[46 - Metodos de Consulta y Tell Don't Ask]]
 
+**Contenedor IoC** -- ApplicationContext de Spring: crea, guarda y conecta los beans. Inyeccion de dependencias. -> [[49 - Spring Boot arranque de aplicacion]]
+
 **Coleccion** -- `List`, `Set`, `Map`, `Queue`. Estructuras de datos dinamicas.
 
 **Constante** -- `static final` + inmutable. Convencion `UPPER_SNAKE_CASE`. -> [[04 - Variables y Literales]], [[18 - Convenciones de Nombrado]]
@@ -75,6 +83,8 @@ Referencia alfabetica de terminos clave. Cada entrada tiene definicion y enlace 
 **DIP (Dependency Inversion Principle)** -- Depender de abstracciones (interfaces), no concreciones. -> [[22 - Separacion de Responsabilidades]]
 
 **DTO (Data Transfer Object)** -- Objeto simple (solo datos) para mover entre capas. -> [[22 - Separacion de Responsabilidades]]
+
+**Docker Compose** -- Archivo YAML que levanta el entorno completo (base de datos, cache) con un comando. -> [[59 - Docker Compose]]
 
 ---
 
@@ -128,6 +138,8 @@ Referencia alfabetica de terminos clave. Cada entrada tiene definicion y enlace 
 
 **Igualdad** -- Equivalencia logica de contenido. `.equals()`. -> [[09 - Multiples Objetos e Identidad]]
 
+**Import** -- Declaracion que trae una clase de otro paquete al archivo. Sin coste en runtime. -> [[61 - Imports en profundidad]]
+
 **Inmutabilidad** -- Objeto cuyo estado no cambia tras construccion. `record`, `String`, `LocalDate`. -> [[21 - Getters y Setters]], [[47 - List.copyOf() (inmutabilidad)]]
 
 **Instancia** -- Objeto concreto creado con `new`. Tiene identidad, estado, comportamiento. -> [[08 - Instanciacion y new]]
@@ -144,6 +156,8 @@ Referencia alfabetica de terminos clave. Cada entrada tiene definicion y enlace 
 
 **JVM (Java Virtual Machine)** -- Maquina virtual: carga clases, ejecuta bytecode, gestiona memoria. -> [[17 - Flujo de Ejecucion JVM]]
 
+**JUnit** -- Libreria estandar de pruebas unitarias en Java: `@Test`, assertions, `assertThrows`. -> [[48 - JUnit y pruebas de unidad]]
+
 ---
 
 ## L
@@ -159,6 +173,14 @@ Referencia alfabetica de terminos clave. Cada entrada tiene definicion y enlace 
 ## M
 
 **Main** -- `public static void main(String[] args)`. Punto de entrada JVM. -> [[02 - Punto de Entrada main]]
+
+**Maven (Parent)** -- `spring-boot-starter-parent`: herencia de versiones compatibles y configuracion base. -> [[50 - Herencia del parent de Spring Boot en Maven]]
+
+**Maven (POM)** -- `pom.xml`: descriptor del proyecto (coordenadas, dependencias, build). -> [[55 - Cierre del descriptor Maven]]
+
+**Maven (Scope test)** -- Dependencias solo para pruebas: no viajan al jar final. -> [[53 - Dependencias de prueba y alcance test]]
+
+**MockMvc** -- Simula peticiones HTTP contra controllers sin servidor real. Con `@WebMvcTest`. -> [[58 - Pruebas Spring Boot MockMvc y SpringBootTest]]
 
 **Metodo** -- Bloque nombrado con parametros, retorno, cuerpo. -> [[10 - Metodos de Instancia]], [[23 - Metodos - Parametros, Retorno y Return]]
 
@@ -202,6 +224,8 @@ Referencia alfabetica de terminos clave. Cada entrada tiene definicion y enlace 
 
 **Primitivo** -- `byte, short, int, long, float, double, boolean, char`. Valor directo. -> [[03 - Tipos Primitivos y Referencia]]
 
+**Prueba de Unidad** -- Codigo que comprueba automaticamente un metodo: estructura Arrange-Act-Assert. -> [[48 - JUnit y pruebas de unidad]]
+
 ---
 
 ## R
@@ -217,6 +241,12 @@ Referencia alfabetica de terminos clave. Cada entrada tiene definicion y enlace 
 ## S
 
 **Scope (Ambito)** -- Region donde una variable es visible. -> [[04 - Variables y Literales]]
+
+**SecurityFilterChain** -- Bean que configura la cadena de filtros de seguridad: reglas por ruta, sesion, CSRF. -> [[57 - Spring Security autenticacion y cadena de filtros]]
+
+**Spotless** -- Plugin que formatea el codigo automaticamente: `spotless:check` verifica, `spotless:apply` aplica. -> [[60 - Spotless y formato automatico]]
+
+**Starter (Spring Boot)** -- Dependencia paquete por capacidad (`starter-web`, `starter-test`): trae el conjunto compatible. -> [[52 - Starters de Spring Boot en Maven]]
 
 **Separacion de Responsabilidades (SRP)** -- Una clase, una responsabilidad. -> [[19 - Separacion de Responsabilidades]], [[22 - Separacion de Responsabilidades]]
 
@@ -249,6 +279,8 @@ Referencia alfabetica de terminos clave. Cada entrada tiene definicion y enlace 
 ---
 
 ## V
+
+**Validacion (Bean Validation)** -- Reglas declarativas en el DTO (`@NotBlank`, `@Email`) evaluadas con `@Valid`. -> [[56 - Validacion con Spring Boot]]
 
 **Var (Java 10+)** -- `var x = "hola";` Inferencia de tipo en variables locales. -> [[04 - Variables y Literales]]
 
@@ -291,6 +323,14 @@ Referencia alfabetica de terminos clave. Cada entrada tiene definicion y enlace 
 | Javadoc, documentacion | [[20 - Javadoc y Documentacion]] |
 | Getters y Setters | [[21 - Getters y Setters]] |
 | Paquetes, organizacion | [[25 - Paquetes y Organizacion]] |
+| JUnit, pruebas de unidad | [[48 - JUnit y pruebas de unidad]] |
+| Spring Boot, arranque, IoC | [[49 - Spring Boot arranque de aplicacion]] |
+| Maven parent, propiedades | [[50 - Herencia del parent de Spring Boot en Maven]], [[51 - Propiedades Maven y version de Java]] |
+| Starters, dependencias, scopes | [[52 - Starters de Spring Boot en Maven]], [[53 - Dependencias de prueba y alcance test]] |
+| Plugin Boot, descriptor pom | [[54 - Plugin de construccion de Spring Boot]], [[55 - Cierre del descriptor Maven]] |
+| Validacion, seguridad | [[56 - Validacion con Spring Boot]], [[57 - Spring Security autenticacion y cadena de filtros]] |
+| MockMvc, SpringBootTest | [[58 - Pruebas Spring Boot MockMvc y SpringBootTest]] |
+| Docker Compose, Spotless, imports | [[59 - Docker Compose]], [[60 - Spotless y formato automatico]], [[61 - Imports en profundidad]] |
 
 ---
 

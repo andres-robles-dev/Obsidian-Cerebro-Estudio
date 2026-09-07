@@ -231,6 +231,7 @@ public class Interactivo {
 - [[14 - Arrays Basicos y args]] - `args` es un array de String
 - [[17 - Flujo de Ejecucion JVM]] - La JVM busca el main al arrancar
 - [[23 - Metodos - Parametros, Retorno y Return]] - main es un metodo
+- [[49 - Spring Boot arranque de aplicacion]] - El main que arranca Spring Boot
 
 ---
 

@@ -300,6 +300,9 @@ public class PedidoServicioBien {
 - [[21 - Getters y Setters]] - Encapsulamiento
 - [[46 - Metodos de Consulta y Tell Don't Ask]] - Tell Don't Ask en profundidad
 - [[25 - Paquetes y Organizacion]] - Organizar por capas
+- [[49 - Spring Boot arranque de aplicacion]] - Capas Service/Repository/Controller e inyeccion
+- [[56 - Validacion con Spring Boot]] - Validar en la entrada, logica en el servicio
+- [[57 - Spring Security autenticacion y cadena de filtros]] - Seguridad como capa transversal
 
 ---
 

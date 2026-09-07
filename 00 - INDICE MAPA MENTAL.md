@@ -235,14 +235,74 @@ mindmap
        CQS_principio
        Boolean_queries
        Composicion_de_queries
-    List_copyOf_Inmutabilidad
-      Copia_defensiva
-      Reglas_null
-      vs_Collections_unmodifiable
-      Set_copyOf_Map_copyOf
-      Objetos_mutables_en_lista_inmutable
-      Builder_y_copyOf
-   ```
+     List_copyOf_Inmutabilidad
+       Copia_defensiva
+       Reglas_null
+       vs_Collections_unmodifiable
+       Set_copyOf_Map_copyOf
+       Objetos_mutables_en_lista_inmutable
+       Builder_y_copyOf
+     JUnit_Pruebas_Unidad
+       Anatomia_test
+       Ciclo_BeforeEach_AfterEach
+       Assertions_assertThrows
+       Estructura_AAA
+     Spring_Boot_Arranque
+       SpringBootApplication
+       SpringApplication_run
+       ComponentScan_IoC
+       Autoconfiguracion
+     Maven_Parent_Spring_Boot
+       spring_boot_starter_parent
+       Dependency_management
+       Sin_version_en_dependencias
+     Maven_Propiedades_Java
+       java_version
+       sourceEncoding
+       Propiedades_personalizadas
+     Starters_Spring_Boot
+       Por_capacidad_no_libreria
+       Transitivas_dependency_tree
+       Exclusions
+     Dependencias_Prueba_Scope_Test
+       starter_test
+       compile_vs_test_vs_runtime
+       src_main_vs_src_test
+     Plugin_Construccion_Boot
+       repackage_jar_ejecutable
+       spring_boot_run
+       build_image
+     Descriptor_Maven_pom
+       Coordenadas_parent_properties
+       Dependencies_build
+       Cierre_project
+     Validacion_Spring_Boot
+       Anotaciones_DTO_NotBlank_Email
+       Valid_y_BindingResult
+       RestControllerAdvice_400
+     Spring_Security_Filtros
+       Autenticacion_vs_autorizacion
+       SecurityFilterChain
+       SecurityContext_PasswordEncoder
+       C401_vs_403
+     Pruebas_Boot_MockMvc
+       WebMvcTest_capa_web
+       SpringBootTest_contexto
+       jsonPath_codigos_HTTP
+     Docker_Compose
+       services_image_ports_volumes
+       up_down_logs
+       env_y_secretos
+     Spotless_Formato
+       spotless_check_vs_apply
+       Formateador_importOrder
+       IDE_alineado
+     Imports_Profundidad
+       Alias_sin_coste_runtime
+       Colision_nombre_cualificado
+       Comodin_vs_explicito
+       Estaticos_tests_constantes
+    ```
 
 ---
 
@@ -306,6 +366,20 @@ mindmap
 45. [[45 - Genericos en Profundidad]]
 46. [[46 - Metodos de Consulta y Tell Don't Ask]]
 47. [[47 - List.copyOf() (inmutabilidad)]]
+48. [[48 - JUnit y pruebas de unidad]]
+49. [[49 - Spring Boot arranque de aplicacion]]
+50. [[50 - Herencia del parent de Spring Boot en Maven]]
+51. [[51 - Propiedades Maven y version de Java]]
+52. [[52 - Starters de Spring Boot en Maven]]
+53. [[53 - Dependencias de prueba y alcance test]]
+54. [[54 - Plugin de construccion de Spring Boot]]
+55. [[55 - Cierre del descriptor Maven]]
+56. [[56 - Validacion con Spring Boot]]
+57. [[57 - Spring Security autenticacion y cadena de filtros]]
+58. [[58 - Pruebas Spring Boot MockMvc y SpringBootTest]]
+59. [[59 - Docker Compose]]
+60. [[60 - Spotless y formato automatico]]
+61. [[61 - Imports en profundidad]]
 
 ### Referencia Rapida
 - [[99 - Glosario Rapido]] - Definiciones con enlaces
@@ -359,6 +433,14 @@ Al final de cada tema encontraras:
 | `#generics` | 45, 15, 41 |
 | `#tell-dont-ask` | 46, 22 |
 | `#inmutabilidad` | 47, 38, 37 |
+| `#testing` | 48, 53, 58 |
+| `#spring-boot` | 49, 50, 52, 53, 54, 56, 57, 58 |
+| `#maven` | 50, 51, 52, 53, 54, 55, 60 |
+| `#validacion` | 56 |
+| `#seguridad` | 57 |
+| `#docker` | 59 |
+| `#formato` | 60, 61 |
+| `#imports` | 61 |
 
 ---
 

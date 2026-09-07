@@ -220,6 +220,7 @@ public enum DiaSemana {
 - [[20 - Javadoc y Documentacion]] - Documentar con nombres claros
 - [[21 - Getters y Setters]] - Convencion JavaBeans
 - [[25 - Paquetes y Organizacion]] - Nombres de paquetes
+- [[60 - Spotless y formato automatico]] - Formato automatico del resto del estilo
 
 ---
 

@@ -765,6 +765,9 @@ int n = texto.matches("\\d+") ? Integer.parseInt(texto) : 0;
 - [[29 - Scanner en Profundidad]] - InputMismatchException y manejo de errores con archivos
 - [[30 - Principio fundamental de Java (y POO)]] - El papel de los errores en el diseno
 - [[39 - Tipos y Wrappers - La Guia Definitiva]] - Wrappers y null (NullPointerException)
+- [[48 - JUnit y pruebas de unidad]] - assertThrows para probar los throw
+- [[56 - Validacion con Spring Boot]] - Manejo global de errores de validacion
+- [[57 - Spring Security autenticacion y cadena de filtros]] - Excepciones de acceso denegado
 
 ---
 

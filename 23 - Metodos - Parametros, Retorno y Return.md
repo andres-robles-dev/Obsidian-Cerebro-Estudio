@@ -293,6 +293,7 @@ public class ProcesadorPago {
 - [[20 - Javadoc y Documentacion]] - Documentar parametros y retorno
 - [[21 - Getters y Setters]] - Getters (retorno) y Setters (void)
 - [[24 - ArrayList - Metodos Avanzados]] - Metodos con Stream y colecciones
+- [[48 - JUnit y pruebas de unidad]] - Cada metodo con contrato es candidato a prueba
 
 ---
 

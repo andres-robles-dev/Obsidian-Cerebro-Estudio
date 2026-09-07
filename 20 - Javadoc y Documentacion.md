@@ -282,6 +282,7 @@ mvn javadoc:javadoc
 - [[10 - Metodos de Instancia]] - Documentar metodos
 - [[21 - Getters y Setters]] - Documentar accesores
 - [[25 - Paquetes y Organizacion]] - Documentacion de paquetes
+- [[60 - Spotless y formato automatico]] - Formato del codigo que acompana a la documentacion
 
 ---
 

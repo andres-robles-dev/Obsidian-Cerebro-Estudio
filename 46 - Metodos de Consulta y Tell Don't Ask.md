@@ -886,6 +886,8 @@ Antes de entregar codigo, verifica:
 - [[35 - Getters booleanos]] - Boolean query methods
 - [[37 - Record (y Value Objects)]], - Queries en records inmutables
 - [[42 - Lambda en Profundidad]] - Composicion funcional
+- [[48 - JUnit y pruebas de unidad]] - Los metodos query son los mas faciles de probar
+- [[56 - Validacion con Spring Boot]] - El servicio recibe datos ya validados
 
 ---
 

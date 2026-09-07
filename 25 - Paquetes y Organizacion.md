@@ -228,6 +228,14 @@ public record Transferencia(String iban) implements MedioPago {}
 - [[19 - Separacion de Responsabilidades]] - Organizacion por responsabilidades
 - [[20 - Javadoc y Documentacion]] - Documentar paquetes con package-info.java
 - [[22 - Separacion de Responsabilidades]] - Arquitectura en capas
+- [[49 - Spring Boot arranque de aplicacion]] - El escaneo depende de la estructura de paquetes
+- [[50 - Herencia del parent de Spring Boot en Maven]] - El parent del pom
+- [[51 - Propiedades Maven y version de Java]] - Propiedades del pom
+- [[52 - Starters de Spring Boot en Maven]] - Dependencias del pom
+- [[53 - Dependencias de prueba y alcance test]] - Scopes y src/test
+- [[54 - Plugin de construccion de Spring Boot]] - Plugins del build
+- [[55 - Cierre del descriptor Maven]] - El pom completo
+- [[61 - Imports en profundidad]] - Los imports que conectan paquetes
 
 ---
 
