@@ -241,6 +241,7 @@ public class Tienda {
 - [[21 - Getters y Setters]] - Acceso controlado a atributos
 - [[25 - Paquetes y Organizacion]] - Donde vive la clase
 - [[61 - Imports en profundidad]] - Los imports al inicio del archivo
+- [[63 - Interfaces y Override (implementar contratos)]] - La clase que implementa contratos
 
 ---
 

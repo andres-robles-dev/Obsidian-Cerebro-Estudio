@@ -73,6 +73,7 @@ Esta asimetría es deliberada: los tests pueden ver la producción (para probarl
 - [[50 - Herencia del parent de Spring Boot en Maven]] - El parent que versiona el starter de test
 - [[52 - Starters de Spring Boot en Maven]] - El starter de test como caso especial
 - [[58 - Pruebas Spring Boot MockMvc y SpringBootTest]] - Que se prueba con estas dependencias
+- [[62 - Spring Security OAuth2 Resource Server y JWT]] - Tokens de test firmados en el classpath
 
 ---
 

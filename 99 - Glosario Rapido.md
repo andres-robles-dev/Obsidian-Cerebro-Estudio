@@ -30,9 +30,13 @@ Referencia alfabetica de terminos clave. Cada entrada tiene definicion y enlace 
 
 **Autenticacion** -- Verificar identidad (quien eres): login, token, certificado. Distinto de autorizacion. -> [[57 - Spring Security autenticacion y cadena de filtros]]
 
+**Authorization Server** -- Servidor que autentica y emite tokens (Keycloak, Auth0). Tu API es resource server, no esto. -> [[62 - Spring Security OAuth2 Resource Server y JWT]]
+
 **Autorizacion** -- Verificar permisos (que puedes hacer): roles, reglas por ruta. -> [[57 - Spring Security autenticacion y cadena de filtros]]
 
 **Autoconfiguracion (Spring Boot)** -- Spring configura automaticamente lo que detecta en el classpath. Convencion sobre configuracion. -> [[49 - Spring Boot arranque de aplicacion]]
+
+**Autowired** -- Anotacion que pide una dependencia al contenedor. Preferida en el constructor (o implicita si es unico). -> [[64 - Inyeccion de dependencias (Configuration, Bean, Autowired)]]
 
 ---
 
@@ -67,6 +71,10 @@ Referencia alfabetica de terminos clave. Cada entrada tiene definicion y enlace 
 **Contenedor IoC** -- ApplicationContext de Spring: crea, guarda y conecta los beans. Inyeccion de dependencias. -> [[49 - Spring Boot arranque de aplicacion]]
 
 **Coleccion** -- `List`, `Set`, `Map`, `Queue`. Estructuras de datos dinamicas.
+
+**Bean** -- Objeto gestionado por el contenedor IoC de Spring. Scope por defecto: singleton. -> [[64 - Inyeccion de dependencias (Configuration, Bean, Autowired)]]
+
+**Bearer Token** -- Esquema de cabecera Authorization: `Bearer <token>`. El JWT viaja asi en cada peticion. -> [[62 - Spring Security OAuth2 Resource Server y JWT]]
 
 **Constante** -- `static final` + inmutable. Convencion `UPPER_SNAKE_CASE`. -> [[04 - Variables y Literales]], [[18 - Convenciones de Nombrado]]
 
@@ -146,6 +154,10 @@ Referencia alfabetica de terminos clave. Cada entrada tiene definicion y enlace 
 
 **Interface** -- `interface` Contrato con metodos abstractos, `default`, `static`, `private`. -> [[01 - Clases y Estructura Basica]]
 
+**Interface** -- `interface` Contrato con metodos abstractos, `default`, `static`, `private`. -> [[01 - Clases y Estructura Basica]]
+
+**Interfaces funcionales** -- Interfaz con un solo metodo abstracto. Base de las lambdas. -> [[63 - Interfaces y Override (implementar contratos)]], [[42 - Lambda en Profundidad]]
+
 **Inyeccion de Dependencias (DI)** -- Recibir dependencias por constructor en vez de crear dentro. -> [[22 - Separacion de Responsabilidades]]
 
 ---
@@ -157,6 +169,8 @@ Referencia alfabetica de terminos clave. Cada entrada tiene definicion y enlace 
 **JVM (Java Virtual Machine)** -- Maquina virtual: carga clases, ejecuta bytecode, gestiona memoria. -> [[17 - Flujo de Ejecucion JVM]]
 
 **JUnit** -- Libreria estandar de pruebas unitarias en Java: `@Test`, assertions, `assertThrows`. -> [[48 - JUnit y pruebas de unidad]]
+
+**JWT (JSON Web Token)** -- Token firmado en tres partes: header.payload.signature. Payload legible (base64), firma garante de integridad. -> [[62 - Spring Security OAuth2 Resource Server y JWT]]
 
 ---
 
@@ -194,6 +208,10 @@ Referencia alfabetica de terminos clave. Cada entrada tiene definicion y enlace 
 
 **Modulo (Java 9+)** -- `module-info.java` Define exports/requires. -> [[25 - Paquetes y Organizacion]]
 
+**OAuth2** -- Framework de autorizacion: servidor de autorizacion emite tokens, resource server los valida. -> [[62 - Spring Security OAuth2 Resource Server y JWT]]
+
+**@Override** -- Anotacion de verificacion: el compilador comprueba que el metodo implementa o sobrescribe. -> [[63 - Interfaces y Override (implementar contratos)]]
+
 ---
 
 ## N
@@ -221,6 +239,8 @@ Referencia alfabetica de terminos clave. Cada entrada tiene definicion y enlace 
 **PascalCase / UpperCamelCase** -- `MiClase`, `FacturaCliente`. Estandar clases. -> [[18 - Convenciones de Nombrado]]
 
 **Polimorfismo** -- Mismo mensaje (`obj.metodo()`), comportamiento distinto segun tipo real.
+
+**Primary / Qualifier** -- Resuelven colisiones de beans del mismo tipo: default y eleccion concreta. -> [[64 - Inyeccion de dependencias (Configuration, Bean, Autowired)]]
 
 **Primitivo** -- `byte, short, int, long, float, double, boolean, char`. Valor directo. -> [[03 - Tipos Primitivos y Referencia]]
 
@@ -288,6 +308,8 @@ Referencia alfabetica de terminos clave. Cada entrada tiene definicion y enlace 
 
 **Varargs** -- `void m(String... args)` recibe 0..N argumentos como array. -> [[23 - Metodos - Parametros, Retorno y Return]]
 
+**Resource Server** -- API que protege recursos y valida tokens JWT en vez de hacer login. -> [[62 - Spring Security OAuth2 Resource Server y JWT]]
+
 **Void** -- Tipo de retorno "sin valor". Metodo solo produce efecto lateral. -> [[10 - Metodos de Instancia]]
 
 ---
@@ -331,6 +353,9 @@ Referencia alfabetica de terminos clave. Cada entrada tiene definicion y enlace 
 | Validacion, seguridad | [[56 - Validacion con Spring Boot]], [[57 - Spring Security autenticacion y cadena de filtros]] |
 | MockMvc, SpringBootTest | [[58 - Pruebas Spring Boot MockMvc y SpringBootTest]] |
 | Docker Compose, Spotless, imports | [[59 - Docker Compose]], [[60 - Spotless y formato automatico]], [[61 - Imports en profundidad]] |
+| OAuth2, JWT, resource server | [[62 - Spring Security OAuth2 Resource Server y JWT]] |
+| Interfaces, contratos, @Override | [[63 - Interfaces y Override (implementar contratos)]] |
+| @Configuration, @Bean, @Autowired | [[64 - Inyeccion de dependencias (Configuration, Bean, Autowired)]] |
 
 ---
 

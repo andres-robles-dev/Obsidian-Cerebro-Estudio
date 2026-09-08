@@ -1045,6 +1045,7 @@ Si usas Spring, no escribas Singletons manualmente. Deja que Spring gestione las
 - [[22 - Separacion de Responsabilidades]] - Inyeccion de dependencias como alternativa
 - [[25 - Paquetes y Organizacion]] - Donde colocar el Singleton en la estructura
 - [[26 - Private en Profundidad]] - Private en constructores (base del Singleton)
+- [[64 - Inyeccion de dependencias (Configuration, Bean, Autowired)]] - El scope singleton de Spring como alternativa moderna
 
 ---
 

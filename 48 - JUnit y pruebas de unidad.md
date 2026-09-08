@@ -217,6 +217,7 @@ La prueba debe comprobar **qué hace** el código (su contrato observable), no *
 - [[42 - Lambda en Profundidad]] - Las lambdas aparecen en assertThrows y en ArgumentMatcher
 - [[46 - Metodos de Consulta y Tell Don't Ask]] - Los métodos query son los más fáciles de probar
 - [[53 - Dependencias de prueba y alcance test]] - Como llega JUnit a tu proyecto con Maven
+- [[64 - Inyeccion de dependencias (Configuration, Bean, Autowired)]] - Probar con new los componentes inyectados
 
 ---
 

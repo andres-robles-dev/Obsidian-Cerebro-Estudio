@@ -513,6 +513,7 @@ Optional<Producto> producto = repo.buscar(id);         // Optional<T>
 - [[37 - Record (y Value Objects)]] - Records genericos Resultado<T> y Cajon<T extends Comparable<T>>
 - [[41 - Optional en Profundidad]] - Optional<T>: la clase generica del JDK como ejemplo real
 - [[42 - Lambda en Profundidad]] - Predicate<T>, Function<T,R>, Consumer<T> y Supplier<T>
+- [[63 - Interfaces y Override (implementar contratos)]] - Las interfaces funcionales son genericas
 - [[43 - Stream API en Profundidad]] - Operaciones con tipos genericos en los pipelines
 - [[99 - Glosario Rapido]] - Generics: tipos parametrizados List<T>, Map<K,V>
 - [[Plantillas de Codigo/29 - Clase Generica]] - Plantilla de clase generica con ejemplo

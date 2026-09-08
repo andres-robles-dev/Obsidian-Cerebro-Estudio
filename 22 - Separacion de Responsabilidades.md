@@ -303,6 +303,8 @@ public class PedidoServicioBien {
 - [[49 - Spring Boot arranque de aplicacion]] - Capas Service/Repository/Controller e inyeccion
 - [[56 - Validacion con Spring Boot]] - Validar en la entrada, logica en el servicio
 - [[57 - Spring Security autenticacion y cadena de filtros]] - Seguridad como capa transversal
+- [[63 - Interfaces y Override (implementar contratos)]] - Interfaces como base del DIP
+- [[64 - Inyeccion de dependencias (Configuration, Bean, Autowired)]] - La DI en profundidad con Spring
 
 ---
 

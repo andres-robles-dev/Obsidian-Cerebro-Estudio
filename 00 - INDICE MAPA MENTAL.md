@@ -302,6 +302,27 @@ mindmap
        Colision_nombre_cualificado
        Comodin_vs_explicito
        Estaticos_tests_constantes
+     OAuth2_Resource_Server_JWT
+       De_sesiones_a_tokens
+       JWT_header_payload_firma
+       Issuer_uri_y_JwtDecoder
+       Claims_y_AuthenticationPrincipal
+       Scopes_vs_roles
+       WithJwt_en_tests
+     Interfaces_y_Override
+       Contrato_de_comportamiento
+       implements_y_obligacion
+       Override_verificacion
+       Programar_contra_contratos
+       Default_methods
+       Interfaces_funcionales
+     Inyeccion_Dependencias_Config
+       Escaneo_vs_explicito
+       Configuration_y_Bean
+       Autowired_constructor
+       Primary_y_Qualifier
+       Perfiles_y_Condiciones
+       Ciclo_vida_bean
     ```
 
 ---
@@ -380,6 +401,9 @@ mindmap
 59. [[59 - Docker Compose]]
 60. [[60 - Spotless y formato automatico]]
 61. [[61 - Imports en profundidad]]
+62. [[62 - Spring Security OAuth2 Resource Server y JWT]]
+63. [[63 - Interfaces y Override (implementar contratos)]]
+64. [[64 - Inyeccion de dependencias (Configuration, Bean, Autowired)]]
 
 ### Referencia Rapida
 - [[99 - Glosario Rapido]] - Definiciones con enlaces
@@ -441,6 +465,13 @@ Al final de cada tema encontraras:
 | `#docker` | 59 |
 | `#formato` | 60, 61 |
 | `#imports` | 61 |
+| `#oauth2` | 62 |
+| `#jwt` | 62 |
+| `#interfaces` | 63, 37 |
+| `#override` | 63 |
+| `#contratos` | 63 |
+| `#ioc` | 64, 49 |
+| `#inyeccion-dependencias` | 64, 22 |
 
 ---
 

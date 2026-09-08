@@ -404,6 +404,7 @@ pedidos.forEach(Pedido::imprimirEnvio);
 - [[43 - Stream API en Profundidad]] - Las lambdas son el combustible de los streams
 - [[44 - Patron Catalogo Inmutable con Enum]] - Lambdas y streams en catalogos de busqueda
 - [[48 - JUnit y pruebas de unidad]] - Lambdas en assertThrows
+- [[63 - Interfaces y Override (implementar contratos)]] - La lambda como implements implicito
 
 ---
 

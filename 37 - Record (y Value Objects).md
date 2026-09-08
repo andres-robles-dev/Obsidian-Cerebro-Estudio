@@ -805,6 +805,7 @@ public class CacheEntry {
 - [[30 - Principio fundamental de Java (y POO)]] — objetos definidos por valor
 - [[34 - Clases Wrapper (envolventes)]] — inmutabilidad compartida con los Wrapper
 - [[36 - Switch expression]] — pattern matching exhaustivo con sealed records
+- [[63 - Interfaces y Override (implementar contratos)]] — records que implementan contratos
 - [[99 - Glosario Rapido]] — terminos VO, DTO, Entity
 
 ---

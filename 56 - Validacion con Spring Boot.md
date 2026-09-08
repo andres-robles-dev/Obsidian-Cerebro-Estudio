@@ -122,6 +122,7 @@ Y los **grupos de validación**: cuando el mismo DTO se usa en crear y en actual
 - [[46 - Metodos de Consulta y Tell Don't Ask]] - El servicio recibe datos validos y no pregunta
 - [[52 - Starters de Spring Boot en Maven]] - El starter de validacion
 - [[57 - Spring Security autenticacion y cadena de filtros]] - Validacion de datos vs autenticacion de personas
+- [[62 - Spring Security OAuth2 Resource Server y JWT]] - Los claims del token son datos que tambien se validan
 
 ---
 
