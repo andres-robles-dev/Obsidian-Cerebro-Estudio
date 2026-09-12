@@ -1,7 +1,7 @@
 ---
 tags: [java, spring-boot, spring-security, oauth2, jwt, resource-server, seguridad, apis]
 ---
-
+****
 # 62 - Spring Security OAuth2 Resource Server y JWT
 
 Un **Resource Server** es tu API: protege recursos (endpoints, datos) y confía en la autenticación a un servidor externo. Los clientes se identifican con un **token JWT** firmado que tu API valida en cada petición sin preguntar a nadie más. Es el modelo estándar para separar el "quién eres" del login en una API moderna.
@@ -136,6 +136,7 @@ El token caduca (`exp`) y el cliente debe pedir uno nuevo al servidor de autoriz
 - [[49 - Spring Boot arranque de aplicacion]] - Como el starter activa la validacion en el arranque
 - [[52 - Starters de Spring Boot en Maven]] - El starter de resource server
 - [[53 - Dependencias de prueba y alcance test]] - Tokens de test en el classpath de pruebas
+- [[65 - Keycloak (identidad y seguridad)]] - El servidor de autorizacion que emite esos tokens
 
 ---
 

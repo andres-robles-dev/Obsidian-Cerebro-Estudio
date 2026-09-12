@@ -587,6 +587,7 @@ public class FiltroBooleano {
 - [[23 - Metodos - Parametros, Retorno y Return]] - retornar boolean desde metodos
 - [[33 - enum en Profundidad]] - booleanos como campos de enum para estados
 - [[34 - Clases Wrapper (envolventes)]] - Boolean (wrapper) vs boolean (primitivo)
+- [[66 - Jackson y JSON en Java]] - isXxx() define el nombre del campo en el JSON
 
 ---
 

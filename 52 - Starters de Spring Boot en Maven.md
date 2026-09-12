@@ -97,6 +97,7 @@ Excluyes lo que sobra y declaras el sustituto. Úsalo con moderación: cada excl
 - [[50 - Herencia del parent de Spring Boot en Maven]] - El parent que fija las versiones de los starters
 - [[53 - Dependencias de prueba y alcance test]] - El starter de test y su alcance especial
 - [[56 - Validacion con Spring Boot]] - El starter de validacion en accion
+- [[66 - Jackson y JSON en Java]] - El Jackson que el starter-web trae consigo
 
 ---
 

@@ -96,6 +96,7 @@ Dos usos que van más allá de "levantar la base":
 - [[54 - Plugin de construccion de Spring Boot]] - build-image como alternativa para contenerizar la app
 - [[58 - Pruebas Spring Boot MockMvc y SpringBootTest]] - Bases reales para tests de integracion
 - [[60 - Spotless y formato automatico]] - Otra herramienta que se ejecuta igual en todas las maquinas
+- [[65 - Keycloak (identidad y seguridad)]] - Keycloak como servicio del compose de desarrollo
 
 ---
 

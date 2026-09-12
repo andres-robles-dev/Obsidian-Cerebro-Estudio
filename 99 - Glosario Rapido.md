@@ -92,6 +92,10 @@ Referencia alfabetica de terminos clave. Cada entrada tiene definicion y enlace 
 
 **DTO (Data Transfer Object)** -- Objeto simple (solo datos) para mover entre capas. -> [[22 - Separacion de Responsabilidades]]
 
+**Client (Keycloak)** -- Aplicacion registrada dentro de un realm: la ficha de identidad de tu app ante Keycloak. -> [[65 - Keycloak (identidad y seguridad)]]
+
+**Client Credentials** -- Flujo OAuth2 servicio-a-servicio: se autentica con client-id/secret y recibe token sin humano. -> [[65 - Keycloak (identidad y seguridad)]]
+
 **Docker Compose** -- Archivo YAML que levanta el entorno completo (base de datos, cache) con un comando. -> [[59 - Docker Compose]]
 
 ---
@@ -148,6 +152,8 @@ Referencia alfabetica de terminos clave. Cada entrada tiene definicion y enlace 
 
 **Import** -- Declaracion que trae una clase de otro paquete al archivo. Sin coste en runtime. -> [[61 - Imports en profundidad]]
 
+**JSON** -- Formato de texto para intercambio de datos: Jackson lo convierte a/de objetos Java. -> [[66 - Jackson y JSON en Java]]
+
 **Inmutabilidad** -- Objeto cuyo estado no cambia tras construccion. `record`, `String`, `LocalDate`. -> [[21 - Getters y Setters]], [[47 - List.copyOf() (inmutabilidad)]]
 
 **Instancia** -- Objeto concreto creado con `new`. Tiene identidad, estado, comportamiento. -> [[08 - Instanciacion y new]]
@@ -198,6 +204,8 @@ Referencia alfabetica de terminos clave. Cada entrada tiene definicion y enlace 
 
 **Metodo** -- Bloque nombrado con parametros, retorno, cuerpo. -> [[10 - Metodos de Instancia]], [[23 - Metodos - Parametros, Retorno y Return]]
 
+**Mapper (Keycloak)** -- Configuracion que decide que claims entran en el token (roles, nombre, scopes). -> [[65 - Keycloak (identidad y seguridad)]]
+
 **Metodo Estatico** -- `static`. Pertenece a clase. Sin `this`. -> [[13 - Static vs Instancia]]
 
 **Metodos de Consulta (Query Methods)** -- Metodos que devuelven informacion sobre el estado sin modificarlo ni efectos secundarios. Opuesto a command methods. -> [[46 - Metodos de Consulta y Tell Don't Ask]]
@@ -217,6 +225,8 @@ Referencia alfabetica de terminos clave. Cada entrada tiene definicion y enlace 
 ## N
 
 **Null** -- Referencia que apunta a nada. `NullPointerException` al usarla. -> [[09 - Multiples Objetos e Identidad]]
+
+**ObjectMapper** -- Clase nucleo de Jackson: convierte objetos a JSON (writeValueAsString) y JSON a objetos (readValue). -> [[66 - Jackson y JSON en Java]]
 
 ---
 
@@ -239,6 +249,8 @@ Referencia alfabetica de terminos clave. Cada entrada tiene definicion y enlace 
 **PascalCase / UpperCamelCase** -- `MiClase`, `FacturaCliente`. Estandar clases. -> [[18 - Convenciones de Nombrado]]
 
 **Polimorfismo** -- Mismo mensaje (`obj.metodo()`), comportamiento distinto segun tipo real.
+
+**Realm (Keycloak)** -- Espacio de identidad aislado: usuarios, roles y configuracion propios. -> [[65 - Keycloak (identidad y seguridad)]]
 
 **Primary / Qualifier** -- Resuelven colisiones de beans del mismo tipo: default y eleccion concreta. -> [[64 - Inyeccion de dependencias (Configuration, Bean, Autowired)]]
 
@@ -310,6 +322,8 @@ Referencia alfabetica de terminos clave. Cada entrada tiene definicion y enlace 
 
 **Resource Server** -- API que protege recursos y valida tokens JWT en vez de hacer login. -> [[62 - Spring Security OAuth2 Resource Server y JWT]]
 
+**Serializacion** -- Convertir un objeto a formato transferible (JSON con Jackson). Inversa: deserializacion. -> [[66 - Jackson y JSON en Java]]
+
 **Void** -- Tipo de retorno "sin valor". Metodo solo produce efecto lateral. -> [[10 - Metodos de Instancia]]
 
 ---
@@ -356,6 +370,8 @@ Referencia alfabetica de terminos clave. Cada entrada tiene definicion y enlace 
 | OAuth2, JWT, resource server | [[62 - Spring Security OAuth2 Resource Server y JWT]] |
 | Interfaces, contratos, @Override | [[63 - Interfaces y Override (implementar contratos)]] |
 | @Configuration, @Bean, @Autowired | [[64 - Inyeccion de dependencias (Configuration, Bean, Autowired)]] |
+| Keycloak, realm, client, mappers | [[65 - Keycloak (identidad y seguridad)]] |
+| Jackson, JSON, ObjectMapper | [[66 - Jackson y JSON en Java]] |
 
 ---
 

@@ -115,6 +115,7 @@ Cuando la seguridad rechaza, el código dice exactamente qué pasó: **401 Unaut
 - [[56 - Validacion con Spring Boot]] - Validar datos que entran vs autenticar personas que llaman
 - [[58 - Pruebas Spring Boot MockMvc y SpringBootTest]] - Probar endpoints protegidos con usuarios simulados
 - [[62 - Spring Security OAuth2 Resource Server y JWT]] - El caso moderno: validar tokens JWT sin sesiones
+- [[65 - Keycloak (identidad y seguridad)]] - Delegar el login a un servidor de autorizacion
 
 ---
 

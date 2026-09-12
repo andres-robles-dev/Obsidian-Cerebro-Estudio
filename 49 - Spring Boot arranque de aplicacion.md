@@ -119,6 +119,7 @@ Rara vez necesitas tocar el contexto directamente, pero conviene saber que es un
 - [[52 - Starters de Spring Boot en Maven]] - Los starters que activan la autoconfiguracion
 - [[58 - Pruebas Spring Boot MockMvc y SpringBootTest]] - Probar contra el contexto levantado
 - [[64 - Inyeccion de dependencias (Configuration, Bean, Autowired)]] - Como se registran y conectan los beans
+- [[66 - Jackson y JSON en Java]] - La autoconfiguracion conecta Jackson como conversor HTTP
 
 ---
 

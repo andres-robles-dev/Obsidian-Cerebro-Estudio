@@ -323,6 +323,20 @@ mindmap
        Primary_y_Qualifier
        Perfiles_y_Condiciones
        Ciclo_vida_bean
+     Keycloak_Identidad
+       Realm_y_Client
+       Flows_authorization_code
+       Mappers_y_roles_en_token
+       Realm_roles_vs_client_roles
+       issuer_uri_y_docker
+       Tokens_en_desarrollo
+     Jackson_JSON
+       ObjectMapper
+       Serializacion_automatica_Spring
+       JsonProperty_JsonIgnore
+       Records_y_Jackson
+       Fechas_java_time_ISO
+       Errores_deserializacion
     ```
 
 ---
@@ -404,6 +418,8 @@ mindmap
 62. [[62 - Spring Security OAuth2 Resource Server y JWT]]
 63. [[63 - Interfaces y Override (implementar contratos)]]
 64. [[64 - Inyeccion de dependencias (Configuration, Bean, Autowired)]]
+65. [[65 - Keycloak (identidad y seguridad)]]
+66. [[66 - Jackson y JSON en Java]]
 
 ### Referencia Rapida
 - [[99 - Glosario Rapido]] - Definiciones con enlaces
@@ -472,6 +488,11 @@ Al final de cada tema encontraras:
 | `#contratos` | 63 |
 | `#ioc` | 64, 49 |
 | `#inyeccion-dependencias` | 64, 22 |
+| `#keycloak` | 65 |
+| `#identidad` | 65 |
+| `#jackson` | 66 |
+| `#json` | 66 |
+| `#serializacion` | 66 |
 
 ---
 

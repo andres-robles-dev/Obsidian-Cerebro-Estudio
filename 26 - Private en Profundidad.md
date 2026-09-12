@@ -1405,6 +1405,7 @@ Los `private` no se testean directamente porque son detalles de implementacion. 
 - [[21 - Getters y Setters]] - Acceso controlado a atributos private
 - [[22 - Separacion de Responsabilidades]] - Inyeccion de dependencias y encapsulamiento
 - [[25 - Paquetes y Organizacion]] - Modulos y exportacion
+- [[66 - Jackson y JSON en Java]] - Jackson y la reflection sobre campos private
 
 ---
 

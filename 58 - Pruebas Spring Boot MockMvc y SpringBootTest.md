@@ -142,6 +142,7 @@ Si un bug se te escapa, pregunta en qué nivel debería haberse cazado y escribe
 - [[57 - Spring Security autenticacion y cadena de filtros]] - Lo que se prueba con peticiones sin permiso
 - [[62 - Spring Security OAuth2 Resource Server y JWT]] - Probar endpoints con @WithJwt
 - [[64 - Inyeccion de dependencias (Configuration, Bean, Autowired)]] - Que se levanta en el contexto
+- [[66 - Jackson y JSON en Java]] - El JSON que afirmas con jsonPath es trabajo de Jackson
 - [[59 - Docker Compose]] - Levantar bases reales para tests con Testcontainers
 
 ---

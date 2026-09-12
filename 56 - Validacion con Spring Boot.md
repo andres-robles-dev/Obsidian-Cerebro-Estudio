@@ -123,6 +123,7 @@ Y los **grupos de validación**: cuando el mismo DTO se usa en crear y en actual
 - [[52 - Starters de Spring Boot en Maven]] - El starter de validacion
 - [[57 - Spring Security autenticacion y cadena de filtros]] - Validacion de datos vs autenticacion de personas
 - [[62 - Spring Security OAuth2 Resource Server y JWT]] - Los claims del token son datos que tambien se validan
+- [[66 - Jackson y JSON en Java]] - El DTO que Jackson construye es el que se valida
 
 ---
 
